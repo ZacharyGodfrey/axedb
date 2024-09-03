@@ -1,0 +1,13 @@
+{
+  "name": "throw-db",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "scrape": "node ./scrape.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.0.0",
+    "puppeteer": "^19.7.2"
+  }
+}
