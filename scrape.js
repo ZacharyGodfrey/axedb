@@ -1,8 +1,46 @@
 import puppeteer from 'puppeteer';
 
 import { database } from 'lib/database.js';
-import { sequentially } from 'app/utils.js';
+import { sequentially, repeat } from 'app/utils.js';
 import { getMatches, getThrows, getStats } from 'app/core.js';
+
+const createAggregation = (db, name, level, throws) => {
+  const stats = getStats(throws);
+
+  db.run(`
+    INSERT INTO aggregations (
+      name,
+      level,
+      hatchetBullseyeHitPercent,
+      hatchetBullseyeScorePerAxe,
+      hatchetClutchHitPercent,
+      hatchetClutchScorePerAxe,
+      hatchetClutchFiveHitPercent,
+      hatchetClutchSevenHitPercent,
+      bigAxeBullseyeHitPercent,
+      bigAxeBullseyeScorePerAxe,
+      bigAxeClutchHitPercent,
+      bigAxeClutchScorePerAxe,
+      bigAxeClutchFiveHitPercent,
+      bigAxeClutchSevenHitPercent
+    ) VALUES (${repeat('?', 14).join(', ')})
+  `, [
+    name,
+    level,
+    stats.hatchet.bullseye.hitPercent,
+    stats.hatchet.bullseye.scorePerAxe,
+    stats.hatchet.clutch.hitPercent,
+    stats.hatchet.clutch.scorePerAxe,
+    stats.hatchet.clutch.fiveHitPercent,
+    stats.hatchet.clutch.sevenHitPercent,
+    stats.bigAxe.bullseye.hitPercent,
+    stats.bigAxe.bullseye.scorePerAxe,
+    stats.bigAxe.clutch.hitPercent,
+    stats.bigAxe.clutch.scorePerAxe,
+    stats.bigAxe.clutch.fiveHitPercent,
+    stats.bigAxe.clutch.sevenHitPercent,
+  ]);
+}
 
 // Start Up
 
@@ -59,15 +97,30 @@ await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   });
 });
 
-// Aggregate stats
+// Career stats
 
-const allThrows = db.rows(`
+createAggregation(db, 'Career', 'career', db.rows(`
   SELECT *
   FROM throws
   ORDER BY seasonId, week, matchId, round, throw
+`));
+
+// Season stats
+
+const seasonIds = db.rows(`
+  SELECT DISTINCT seasonId
+  FROM throws
+  ORDER BY seasonId ASC
 `);
 
-const careerStats = getStats(allThrows);
+seasonIds.forEach(({ seasonId }) => {
+  createAggregation(db, `Season ${seasonId}`, 'season', db.rows(`
+    SELECT *
+    FROM throws
+    WHERE seasonId = ?
+    ORDER BY seasonId, week, matchId, round, throw
+  `, [seasonId]));
+});
 
 // Tear Down
 

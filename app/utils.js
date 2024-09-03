@@ -9,3 +9,5 @@ export const sequentially = async (items, action) => {
     return prev.then(() => action(item, index));
   }, Promise.resolve());
 };
+
+export const repeat = (value, times) => Array.from({ length: times }).fill(value);
