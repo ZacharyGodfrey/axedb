@@ -71,6 +71,7 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
     const game = games.find(x => x.player === profileId);
 
     if (!game || game.forfeit === true) {
+      console.log('Profile game', JSON.stringify(game, null, 2));
       return;
     }
 
