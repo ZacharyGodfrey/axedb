@@ -61,7 +61,6 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
   const isForfeit = rawMatch.players.find(x => x.id === profileId)?.forfeit === true;
 
   if (isInvalidRoundCount || isForfeit) {
-    console.log(`Early exit: ${rawMatch.rounds.length} ${isForfeit}`);
     return result;
   }
 
@@ -71,12 +70,11 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
     const game = games.find(x => x.player === profileId);
 
     if (!game || game.forfeit === true) {
-      console.log('Profile game', JSON.stringify(game, null, 2));
       return;
     }
 
     const isBigAxe = name === 'Tie Break';
-    const { Axes: axes } = game;
+    const { Axes: axes = [] } = game;
 
     axes.forEach(({ order: throwNumber, score, clutchCalled: isClutch }) => {
       result.push({

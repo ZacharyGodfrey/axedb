@@ -1,45 +1,39 @@
 import puppeteer from 'puppeteer';
 
 import { database } from './lib/database.js';
-import { sequentially, repeat } from './app/utils.js';
+import { sequentially } from './app/utils.js';
 import { getMatches, getThrows, getStats } from './app/core.js';
 
 const createAggregation = (db, name, level, throws) => {
-  const stats = getStats(throws);
-
-  db.run(`
-    INSERT INTO aggregations (
-      name,
-      level,
-      hatchetBullseyeHitPercent,
-      hatchetBullseyeScorePerAxe,
-      hatchetClutchHitPercent,
-      hatchetClutchScorePerAxe,
-      hatchetClutchFiveHitPercent,
-      hatchetClutchSevenHitPercent,
-      bigAxeBullseyeHitPercent,
-      bigAxeBullseyeScorePerAxe,
-      bigAxeClutchHitPercent,
-      bigAxeClutchScorePerAxe,
-      bigAxeClutchFiveHitPercent,
-      bigAxeClutchSevenHitPercent
-    ) VALUES (${repeat('?', 14).join(', ')})
-  `, [
+  const { hatchet, bigAxe } = getStats(throws);
+  const params = {
     name,
     level,
-    stats.hatchet.bullseye.hitPercent,
-    stats.hatchet.bullseye.scorePerAxe,
-    stats.hatchet.clutch.hitPercent,
-    stats.hatchet.clutch.scorePerAxe,
-    stats.hatchet.clutch.fiveHitPercent,
-    stats.hatchet.clutch.sevenHitPercent,
-    stats.bigAxe.bullseye.hitPercent,
-    stats.bigAxe.bullseye.scorePerAxe,
-    stats.bigAxe.clutch.hitPercent,
-    stats.bigAxe.clutch.scorePerAxe,
-    stats.bigAxe.clutch.fiveHitPercent,
-    stats.bigAxe.clutch.sevenHitPercent,
-  ]);
+    hatchetBullseyeHitPercent: hatchet.bullseye.hitPercent,
+    hatchetBullseyeScorePerAxe: hatchet.bullseye.scorePerAxe,
+    hatchetClutchHitPercent: hatchet.clutch.hitPercent,
+    hatchetClutchScorePerAxe: hatchet.clutch.scorePerAxe,
+    hatchetClutchFiveHitPercent: hatchet.clutch.fiveHitPercent,
+    hatchetClutchSevenHitPercent: hatchet.clutch.sevenHitPercent,
+    bigAxeBullseyeHitPercent: bigAxe.bullseye.hitPercent,
+    bigAxeBullseyeScorePerAxe: bigAxe.bullseye.scorePerAxe,
+    bigAxeClutchHitPercent: bigAxe.clutch.hitPercent,
+    bigAxeClutchScorePerAxe: bigAxe.clutch.scorePerAxe,
+    bigAxeClutchFiveHitPercent: bigAxe.clutch.fiveHitPercent,
+    bigAxeClutchSevenHitPercent: bigAxe.clutch.sevenHitPercent,
+  };
+
+  const sql = `
+    INSERT INTO aggregations (${Object.keys(params).join(',\n')})
+    VALUES (${Object.keys(params).map(_ => '?').join(', ')})
+    ON CONFLICT (name, level)
+    DO UPDATE SET ${Object.keys(params).map(k => `${k} = ?`).join(',\n')}
+    WHERE name = ? AND level = ?
+  `;
+
+  console.log(sql);
+
+  // db.run(sql, [].concat(Object.values(params), Object.values(params), name, level));
 }
 
 // Start Up
@@ -78,7 +72,7 @@ allMatches.forEach(({ seasonId, week, matchId }) => {
 
 console.log('Fetching throw data...');
 
-const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0 LIMIT 1`);
+const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
 
 await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
@@ -86,8 +80,6 @@ await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   console.log(`Throws: ${matchId}`, JSON.stringify(throws.map(x => Object.values(x).join(' | ')), null, 2));
 
   throws.forEach((row) => {
-    console.log(`Throw: ${row.matchId} ${row.round} ${row.throw} (${row.type}) ${row.score}`);
-
     db.run(`
       INSERT INTO throws (seasonId, week, opponentId, matchId, round, throw, tool, target, score)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
