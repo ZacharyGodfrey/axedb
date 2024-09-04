@@ -14,8 +14,10 @@ This website is still being built. Please come back later. Thanks!
 
 (~
 
+|Season|Week|Match|Opponent|Round|Throw|Tool|Target|Score|
+|---|---|---|---|---|---|---|---|---|
 {{#throwData.throws}}
-{{seasonId}} | {{week}} | {{matchId}} | {{opponentId}} | {{round}} | {{throw}} | {{tool}} | {{target}} | {{score}}
+| {{seasonId}} | {{week}} | {{matchId}} | {{opponentId}} | {{round}} | {{throw}} | {{tool}} | {{target}} | {{score}} |
 {{/throwData.throws}}
 
 ~)
