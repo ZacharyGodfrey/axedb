@@ -6,14 +6,13 @@ on:
 jobs:
   data-scrape:
     runs-on: ubuntu-latest
+    container: node:latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 'latest'
-      - run: npm i && npm audit
-      - run: npm run scrape
       - run: |
+        npm i
+        npm audit
+        npm run scrape
         git config user.name "GitHub Actions Bot"
         git config user.email "<>"
         git pull
