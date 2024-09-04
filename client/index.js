@@ -9,9 +9,10 @@ const db = database(DB_FILE);
 const shell = readFile('client/assets/shell.html');
 
 const throwData = {
+  career: db.row(`SELECT * FROM aggregations WHERE level = 'career'`),
+  seasons: db.rows(`SELECT * FROM aggregations WHERE level = 'season'`),
   matches: db.rows(`SELECT * FROM matches`),
   throws: db.rows(`SELECT * FROM throws`),
-  aggregations: db.rows(`SELECT * FROM aggregations`)
 };
 
 const partials = {
