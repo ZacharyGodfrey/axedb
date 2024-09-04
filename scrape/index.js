@@ -91,6 +91,12 @@ await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   db.run(`UPDATE matches SET processed = 1 WHERE matchId = ?`, [matchId]);
 });
 
+// Reset aggregations
+
+console.log('Resetting aggregations...');
+
+db.run('DELETE FROM aggregations');
+
 // Career stats
 
 console.log('Aggregating career stats...');
@@ -125,11 +131,6 @@ seasonIds.forEach(({ seasonId }, index) => {
 // Tear Down
 
 console.log('Tearing down...');
-
-console.log(JSON.stringify(db.rows(`
-  SELECT * FROM throws
-  GROUP BY matchId
-`), null, 2));
 
 await browser.close();
 

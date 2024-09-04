@@ -164,21 +164,21 @@ export const getStats = (throws) => {
     }
   });
 
-  result.hatchet.bullseye.scorePerAxe = result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts);
-  result.hatchet.bullseye.hitPercent = result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts);
+  result.hatchet.bullseye.scorePerAxe = round(3, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
+  result.hatchet.bullseye.hitPercent = 100 * round(5, result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts));
 
-  result.hatchet.clutch.scorePerAxe = result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts);
-  result.hatchet.clutch.hitPercent = result.hatchet.clutch.hits / Math.max(1, result.hatchet.clutch.attempts);
-  result.hatchet.clutch.fiveHitPercent = result.hatchet.clutch.fives / Math.max(1, result.hatchet.clutch.attempts);
-  result.hatchet.clutch.sevenHitPercent = result.hatchet.clutch.sevens / Math.max(1, result.hatchet.clutch.attempts);
+  result.hatchet.clutch.scorePerAxe = round(3, result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.hitPercent = 100 * round(5, result.hatchet.clutch.hits / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.fiveHitPercent = 100 * round(5, result.hatchet.clutch.fives / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.sevenHitPercent = 100 * round(5, result.hatchet.clutch.sevens / Math.max(1, result.hatchet.clutch.attempts));
 
-  result.bigAxe.bullseye.scorePerAxe = result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts);
-  result.bigAxe.bullseye.hitPercent = result.bigAxe.bullseye.hits / Math.max(1, result.bigAxe.bullseye.attempts);
+  result.bigAxe.bullseye.scorePerAxe = round(3, result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts));
+  result.bigAxe.bullseye.hitPercent = 100 * round(5, result.bigAxe.bullseye.hits / Math.max(1, result.bigAxe.bullseye.attempts));
 
-  result.bigAxe.clutch.scorePerAxe = result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts);
-  result.bigAxe.clutch.hitPercent = result.bigAxe.clutch.hits / Math.max(1, result.bigAxe.clutch.attempts);
-  result.bigAxe.clutch.fiveHitPercent = result.bigAxe.clutch.fives / Math.max(1, result.bigAxe.clutch.attempts);
-  result.bigAxe.clutch.sevenHitPercent = result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts);
+  result.bigAxe.clutch.scorePerAxe = round(3, result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.hitPercent = 100 * round(5, result.bigAxe.clutch.hits / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.fiveHitPercent = 100 * round(5, result.bigAxe.clutch.fives / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.sevenHitPercent = 100 * round(5, result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts));
 
   return result;
 };
@@ -193,4 +193,10 @@ export const sequentially = async (items, action) => {
   return items.reduce((prev, item, index) => {
     return prev.then(() => action(item, index));
   }, Promise.resolve());
+};
+
+export const round = (places, value) => {
+  const factor = 10 ** places;
+
+  return Math.round(value * factor) / factor;
 };

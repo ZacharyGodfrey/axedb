@@ -14,6 +14,21 @@ This website is still being built. Please come back later. Thanks!
 
 (~
 
+### Career
+
+{{#throwData.career}}
+
+|Hatchet||Big Axe|
+|:-:|:-:|:-:|
+| {{hatchetBullseyeHitPercent}} | Bullseye % | {{bigAxeBullseyeHitPercent}} |
+| {{hatchetClutchHitPercent}} | Clutch % | {{bigAxeClutchHitPercent}} |
+
+{{/throwData.career}}
+
+~)
+
+(~
+
 ### Seasons
 
 {{#throwData.seasons}}
