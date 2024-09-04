@@ -65,13 +65,15 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
 
   const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
 
-  rawMatch.rounds.forEach(({ order: roundNumber, name, games, forfeit }) => {
-    if (forfeit === true) {
+  rawMatch.rounds.forEach(({ order: roundNumber, name, games }) => {
+    const game = games.find(x => x.player === profileId);
+
+    if (!game || game.forfeit === true) {
       return;
     }
 
     const isBigAxe = name === 'Tie Break';
-    const { Axes: axes } = games.find(x => x.player === profileId);
+    const { Axes: axes } = game;
 
     axes.forEach(({ order: throwNumber, score, clutchCalled: isClutch }) => {
       result.push({
