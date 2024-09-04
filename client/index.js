@@ -32,9 +32,10 @@ copyFolder('client/static', 'dist');
 
 pages.forEach(({ uri, meta, content: rawContent }) => {
   const fileName = `dist/${uri}.html`;
+  const data = { meta };
   const content = renderSections(
     renderMD(
-      renderMustache(rawContent, { meta }, partials)
+      renderMustache(rawContent, data, partials)
     )
   );
 
