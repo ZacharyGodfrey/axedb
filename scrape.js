@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer';
 
-import { database } from 'lib/database.js';
-import { sequentially, repeat } from 'app/utils.js';
-import { getMatches, getThrows, getStats } from 'app/core.js';
+import { database } from './lib/database.js';
+import { sequentially, repeat } from './app/utils.js';
+import { getMatches, getThrows, getStats } from './app/core.js';
 
 const createAggregation = (db, name, level, throws) => {
   const stats = getStats(throws);
@@ -95,6 +95,8 @@ await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
       row.score
     ]);
   });
+
+  db.run(`UPDATE matches SET processed = 1 WHERE matchId = ?`, [matchId]);
 });
 
 // Career stats
@@ -113,8 +115,8 @@ const seasonIds = db.rows(`
   ORDER BY seasonId ASC
 `);
 
-seasonIds.forEach(({ seasonId }) => {
-  createAggregation(db, `Season ${seasonId}`, 'season', db.rows(`
+seasonIds.forEach(({ seasonId }, index) => {
+  createAggregation(db, `Season #${index} (${seasonId})`, 'season', db.rows(`
     SELECT *
     FROM throws
     WHERE seasonId = ?
