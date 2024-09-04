@@ -48,7 +48,7 @@ console.log('Starting up...');
 
 const START = Date.now();
 const DB_FILE = 'database.db';
-const PROFILE_ID = '1207260';
+const PROFILE_ID = 1207260;
 const MATCH_TYPE = 'IATF Premier';
 
 const db = database(DB_FILE);
