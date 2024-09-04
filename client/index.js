@@ -9,6 +9,7 @@ const db = database(DB_FILE);
 const shell = readFile('client/assets/shell.html');
 
 const throwData = {
+  matches: db.rows(`SELECT * FROM matches`),
   throws: db.rows(`SELECT * FROM throws`),
   aggregations: db.rows(`SELECT * FROM aggregations`)
 };
@@ -30,9 +31,11 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => {
 emptyFolder('dist');
 copyFolder('client/static', 'dist');
 
+writeFile('dist/data.json', JSON.stringify(throwData, null, 4));
+
 pages.forEach(({ uri, meta, content: rawContent }) => {
   const fileName = `dist/${uri}.html`;
-  const data = { meta };
+  const data = { meta, throwData };
   const content = renderSections(
     renderMD(
       renderMustache(rawContent, data, partials)

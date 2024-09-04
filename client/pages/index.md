@@ -11,3 +11,11 @@ description: "IATF Premier axe throwing data for Zachary Godfrey (alias: REDACTE
 This website is still being built. Please come back later. Thanks!
 
 ~)
+
+(~
+
+{{#throwData.throws}}
+{{seasonId}} | {{week}} | {{matchId}} | {{opponentId}} | {{round}} | {{throw}} | {{tool}} | {{target}} | {{score}}
+{{/throwData.throws}}
+
+~)

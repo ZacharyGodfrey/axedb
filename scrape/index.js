@@ -64,7 +64,7 @@ allMatches.forEach(({ seasonId, week, matchId }) => {
 
 console.log('Fetching throw data...');
 
-const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0 LIMIT 1`);
+const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
 
 await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
@@ -114,7 +114,7 @@ const seasonIds = db.rows(`
 seasonIds.forEach(({ seasonId }, index) => {
   console.log(`Season ${seasonId}`);
 
-  createAggregation(db, `Season #${index} (${seasonId})`, 'season', db.rows(`
+  createAggregation(db, `Season #${index + 1} (${seasonId})`, 'season', db.rows(`
     SELECT *
     FROM throws
     WHERE seasonId = ?
