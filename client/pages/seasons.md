@@ -1,22 +1,26 @@
 ---
 type: "page"
-title: ""
-description: "IATF Premier axe throwing data for Zachary Godfrey (alias: REDACTED)"
+title: "Seasons"
+description: ""
 ---
 
 (~
 
-## Career
+## {{meta.title}}
 
-{{#throwData.career}}
+~)
+
+{{#throwData.seasons}}
+
+(~
+
+### {{name}}
 
 |Hatchet||Big Axe|
 |:-:|:-:|:-:|
 | {{hatchetBullseyeHitPercent}} | Bullseye % | {{bigAxeBullseyeHitPercent}} |
 | {{hatchetClutchHitPercent}} | Clutch % | {{bigAxeClutchHitPercent}} |
 
-{{/throwData.career}}
-
-See also: [Seasons](/seasons), [All Throws](/throws)
-
 ~)
+
+{{/throwData.seasons}}

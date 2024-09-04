@@ -47,18 +47,11 @@ console.log('Discovering matches...');
 
 const allMatches = await getMatches(page, PROFILE_ID, MATCH_TYPE);
 
-allMatches.forEach(({ seasonId, week, matchId }) => {
-  console.log(`Match: ${matchId}`);
+console.log(`Found ${allMatches.length} matches.`);
 
-  db.run(`
-    INSERT OR IGNORE INTO matches (seasonId, week, matchId)
-    VALUES (?, ?, ?)
-  `, [
-    seasonId,
-    week,
-    matchId
-  ]);
-});
+allMatches.forEach(x => db.insert('matches', x));
+
+console.log('Done.');
 
 // Fetch throw data
 
@@ -66,36 +59,28 @@ console.log('Fetching throw data...');
 
 const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
 
+console.log(`Processing ${newMatches.length} new matches...`);
+
 await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
 
-  console.log(`Throws: ${matchId}`, JSON.stringify(throws.map(x => Object.values(x).join(' | ')), null, 2));
+  console.log(`Match ${matchId}`);
+  console.table(throws);
 
-  throws.forEach((row) => {
-    db.run(`
-      INSERT INTO throws (seasonId, week, opponentId, matchId, round, throw, tool, target, score)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [
-      row.seasonId,
-      row.week,
-      row.opponentId,
-      row.matchId,
-      row.round,
-      row.throw,
-      row.tool,
-      row.target,
-      row.score
-    ]);
-  });
+  throws.forEach(x => db.insert('throws', x));
 
   db.run(`UPDATE matches SET processed = 1 WHERE matchId = ?`, [matchId]);
 });
+
+console.log('Done.');
 
 // Reset aggregations
 
 console.log('Resetting aggregations...');
 
 db.run('DELETE FROM aggregations');
+
+console.log('Done.');
 
 // Career stats
 
@@ -106,6 +91,8 @@ createAggregation(db, 'Career', 'career', db.rows(`
   FROM throws
   ORDER BY seasonId, week, matchId, round, throw
 `));
+
+console.log('Done.');
 
 // Season stats
 
@@ -118,7 +105,7 @@ const seasonIds = db.rows(`
 `);
 
 seasonIds.forEach(({ seasonId }, index) => {
-  console.log(`Season ${seasonId}`);
+  console.log(`Season: ${seasonId}`);
 
   createAggregation(db, `Season #${index + 1} (${seasonId})`, 'season', db.rows(`
     SELECT *
@@ -128,6 +115,8 @@ seasonIds.forEach(({ seasonId }, index) => {
   `, [seasonId]));
 });
 
+console.log('Done.');
+
 // Tear Down
 
 console.log('Tearing down...');
@@ -136,4 +125,5 @@ await browser.close();
 
 db.run('VACUUM');
 
-console.log(`Running Time: ${Date.now() - START}ms`);
+console.log('Done.');
+console.log(`Total Runtime: ${Date.now() - START}ms`);
