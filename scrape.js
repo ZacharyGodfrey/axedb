@@ -44,6 +44,8 @@ const createAggregation = (db, name, level, throws) => {
 
 // Start Up
 
+console.log('Starting up...');
+
 const START = Date.now();
 const DB_FILE = 'database.db';
 const PROFILE_ID = '1207260';
@@ -53,7 +55,9 @@ const db = database(DB_FILE);
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-// Discover new matches
+// Discover matches
+
+console.log('Discovering matches...');
 
 const allMatches = await getMatches(page, PROFILE_ID, MATCH_TYPE);
 
@@ -70,12 +74,16 @@ allMatches.forEach(({ seasonId, week, matchId }) => {
   ]);
 });
 
-// Record flat throw data
+// Fetch throw data
+
+console.log('Fetching throw data...');
 
 const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
 
 await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
+
+  console.log(`Throws: ${matchId}`, JSON.stringify(throws.map(x => Object.values(x).join(' | ')), null, 2));
 
   throws.forEach((row) => {
     console.log(`Throw: ${row.matchId} ${row.round} ${row.throw} (${row.type}) ${row.score}`);
@@ -101,6 +109,8 @@ await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
 
 // Career stats
 
+console.log('Aggregating career stats...');
+
 createAggregation(db, 'Career', 'career', db.rows(`
   SELECT *
   FROM throws
@@ -109,6 +119,8 @@ createAggregation(db, 'Career', 'career', db.rows(`
 
 // Season stats
 
+console.log('Aggregating season stats...');
+
 const seasonIds = db.rows(`
   SELECT DISTINCT seasonId
   FROM throws
@@ -116,6 +128,8 @@ const seasonIds = db.rows(`
 `);
 
 seasonIds.forEach(({ seasonId }, index) => {
+  console.log(`Season ${seasonId}`);
+
   createAggregation(db, `Season #${index} (${seasonId})`, 'season', db.rows(`
     SELECT *
     FROM throws
@@ -125,6 +139,8 @@ seasonIds.forEach(({ seasonId }, index) => {
 });
 
 // Tear Down
+
+console.log('Tearing down...');
 
 await browser.close();
 
