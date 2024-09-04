@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
-import { database } from './lib/database.js';
-import { sequentially, getMatches, getThrows, getStats } from './app/core.js';
+import { database } from './database.js';
+import { sequentially, getMatches, getThrows, getStats } from './core.js';
 
 const createAggregation = (db, name, level, throws) => {
   const { hatchet, bigAxe } = getStats(throws);

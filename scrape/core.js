@@ -1,5 +1,3 @@
-import { waitMilliseconds } from './utils.js';
-
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
     return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
@@ -183,4 +181,16 @@ export const getStats = (throws) => {
   result.bigAxe.clutch.sevenHitPercent = result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts);
 
   return result;
+};
+
+export const waitMilliseconds = (milliseconds) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+};
+
+export const sequentially = async (items, action) => {
+  return items.reduce((prev, item, index) => {
+    return prev.then(() => action(item, index));
+  }, Promise.resolve());
 };

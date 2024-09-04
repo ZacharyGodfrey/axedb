@@ -1,5 +1,23 @@
 import Database from 'better-sqlite3';
 
+const upsert = (db, table, create, conflict, update) => {
+  const createKeys = Object.keys(create).join(',\n');
+  const createValues = Object.keys(create).map(_ => '?').join(', ');
+  const conflictKeys = Object.keys(conflict).join(', ');
+  const updatePairs = Object.keys(update).map(k => `${k} = ?`).join(',\n');
+  const conflictPairs = Object.keys(conflict).map(k => `${k} = ?`).join(' AND ');
+
+  return db.prepare(`
+    INSERT INTO ${table} (${createKeys}) VALUES (${createValues})
+    ON CONFLICT (${conflictKeys}) DO UPDATE SET ${updatePairs}
+    WHERE ${conflictPairs}
+  `).run([
+    ...Object.values(create),
+    ...Object.values(update),
+    ...Object.values(conflict)
+  ]);
+};
+
 export const database = (fileName) => {
   const _db = new Database(fileName, {});
 
@@ -50,6 +68,7 @@ export const database = (fileName) => {
   return {
     run: (sql, params = []) => _db.prepare(sql).run(params),
     row: (sql, params = []) => _db.prepare(sql).get(params),
-    rows: (sql, params = []) => _db.prepare(sql).all(params)
+    rows: (sql, params = []) => _db.prepare(sql).all(params),
+    upsert: (table, create, conflict, update) => upsert(_db, table, create, conflict, update),
   };
 };
