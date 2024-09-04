@@ -1,12 +1,14 @@
 ---
 type: "page"
-title: "Seasons"
+title: "Season Stats"
 description: ""
 ---
 
 (~
 
 ## {{meta.title}}
+
+There are currently {{throwData.seasons.length}} recorded seasons.
 
 ~)
 

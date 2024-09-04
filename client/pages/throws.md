@@ -8,6 +8,8 @@ description: ""
 
 ## {{meta.title}}
 
+The following is a flat table of all {{throwData.throws.length}} recorded throws.
+
 ~)
 
 (~
