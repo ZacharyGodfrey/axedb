@@ -188,7 +188,13 @@ table, th, td {
 table {
   width: 100%;
   margin-block: 2rem;
+  background: var(--neutral);
   border: var(--line-thickness) solid var(--text);
+}
+
+thead {
+  color: var(--neutral);
+  background: var(--primary);
 }
 
 th, td {
