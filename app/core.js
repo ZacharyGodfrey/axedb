@@ -56,6 +56,9 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
   ]);
 
   const rawMatch = await apiResponse.json();
+
+  console.log('Raw Match:', JSON.stringify(rawMatch, null, 2));
+
   const isInvalidRoundCount = rawMatch.rounds.length > 4;
   const isForfeit = rawMatch.players.find(x => x.id === profileId)?.forfeit === true;
 

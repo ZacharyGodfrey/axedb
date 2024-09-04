@@ -78,7 +78,7 @@ allMatches.forEach(({ seasonId, week, matchId }) => {
 
 console.log('Fetching throw data...');
 
-const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
+const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0 LIMIT 1`);
 
 await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
   const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
