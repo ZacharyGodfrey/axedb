@@ -6,7 +6,7 @@ const START = Date.now();
 const DB_FILE = 'database.db';
 
 const db = database(DB_FILE);
-const shell = readFile('src/assets/shell.html');
+const shell = readFile('client/assets/shell.html');
 
 const throwData = {
   throws: db.rows(`SELECT * FROM throws`),
@@ -14,12 +14,12 @@ const throwData = {
 };
 
 const partials = {
-  favicon: readFile('src/assets/icon.png', 'base64'),
-  style: await minifyCSS(readFile('src/assets/style.css')),
+  favicon: readFile('client/assets/icon.png', 'base64'),
+  style: await minifyCSS(readFile('client/assets/style.css')),
   json: JSON.stringify(throwData)
 };
 
-const pages = listFiles('src/pages/**/*.md').map(filePath => {
+const pages = listFiles('client/pages/**/*.md').map(filePath => {
   const uri = filePath.split('pages/')[1].replace('.md', '');
   const fileContent = readFile(`./${filePath}`);
   const { meta, content } = parseMetadata(fileContent);
@@ -28,7 +28,7 @@ const pages = listFiles('src/pages/**/*.md').map(filePath => {
 });
 
 emptyFolder('dist');
-copyFolder('src/static', 'dist');
+copyFolder('client/static', 'dist');
 
 pages.forEach(({ uri, meta, content: rawContent }) => {
   const fileName = `dist/${uri}.html`;
