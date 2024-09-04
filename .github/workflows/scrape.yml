@@ -7,24 +7,17 @@ jobs:
   data-scrape:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      - name: Set Up NodeJS
-        uses: actions/setup-node@v4
-          with:
-            node-version: 'latest'
-      - name: Install Dependencies
-        run: |
-          npm i
-          npm audit
-      - name: Scrape Data
-        run: npm run scrape
-      - name: Commit File Changes
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git pull
-          git status
-          git add .
-          git commit -m "Data Scrape"
-          git push
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+      - run: npm i && npm audit
+      - run: npm run scrape
+      - run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git pull
+        git status
+        git add .
+        git commit -m "Data Scrape"
+        git push
