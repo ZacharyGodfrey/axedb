@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
-import { database } from './database.js';
-import { sequentially, getMatches, getThrows, getStats } from './core.js';
+import { database } from '../lib/database.js';
+import { sequentially, getMatches, getThrows, getStats } from './app.js';
 
 const createAggregation = (db, name, level, throws) => {
   const { hatchet, bigAxe } = getStats(throws);
@@ -125,6 +125,11 @@ seasonIds.forEach(({ seasonId }, index) => {
 // Tear Down
 
 console.log('Tearing down...');
+
+console.log(JSON.stringify(db.rows(`
+  SELECT * FROM throws
+  GROUP BY matchId
+`), null, 2));
 
 await browser.close();
 
