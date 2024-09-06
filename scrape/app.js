@@ -23,6 +23,24 @@ export const enums = {
   }
 };
 
+export const getProfileImage = async (profileId) => {
+  const url = `https://admin.axescores.com/pic/${profileId}`;
+  const response = await fetch(url);
+  const buffer = await response.arrayBuffer();
+  const base64 = Buffer.from(buffer).toString('base64');
+
+  return base64;
+};
+
+export const getPlayerData = async (page, profileId) => {
+  await page.goto(`https://axescores.com/player/${profileId}`);
+  await waitMilliseconds(1000);
+
+  const state = await reactPageState(page, '#root');
+
+  return state.player.playerData;
+};
+
 export const getMatches = async (page, profileId, type) => {
   const result = [];
 

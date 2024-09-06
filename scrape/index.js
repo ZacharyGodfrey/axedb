@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
 import { database } from '../lib/database.js';
-import { sequentially, getMatches, getThrows, getStats } from './app.js';
+import { sequentially, getProfileImage, getPlayerData, getMatches, getThrows, getStats } from './app.js';
 
 const createAggregation = (db, name, level, throws) => {
   const { hatchet, bigAxe } = getStats(throws);
@@ -40,6 +40,53 @@ const MATCH_TYPE = 'IATF Premier';
 const db = database(DB_FILE);
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
+
+// Seed profiles
+
+console.log('Seeding profiles...');
+
+db.insertOrIgnore('profiles', {
+  profileId: PROFILE_ID,
+  fetch: 1
+});
+
+console.log('Done.');
+
+// Fetch profile data
+
+console.log('Fetching profile data...');
+
+const profileIds = db.rows(`
+  SELECT profileId
+  FROM profiles
+  WHERE fetch = 1
+`);
+
+await sequentially(profileIds, async (profileId) => {
+  console.log(`Profile ${profileId}`);
+
+  const [image, playerData] = await Promise.all([
+    getProfileImage(profileId),
+    getPlayerData(profileId)
+  ]);
+
+  playerData.leagues.forEach((season) => {
+    const { id: seasonId, seasonWeeks, performanceName } = season;
+
+    if (performanceName !== MATCH_TYPE) {
+      return;
+    }
+
+    console.log(`Season ${seasonId}`);
+
+    db.insertOrIgnore('seasons', {
+      seasonId,
+      name: `${season.name} - ${season.shortName}`
+    });
+  });
+});
+
+console.log('Done.');
 
 // Discover matches
 
