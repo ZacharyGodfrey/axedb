@@ -41,29 +41,9 @@ export const getPlayerData = async (page, profileId) => {
   return state.player.playerData;
 };
 
-export const getMatches = async (page, profileId, type) => {
-  const result = [];
-
-  await page.goto(`https://axescores.com/player/${profileId}`);
-  await waitMilliseconds(1000);
-
-  const state = await reactPageState(page, '#root');
-  const seasons = state.player.playerData.leagues.filter(x => x.performanceName === type);
-
-  seasons.forEach(({ id: seasonId, seasonWeeks }) => {
-    seasonWeeks.forEach(({ week, matches }) => {
-      matches.forEach(({ id: matchId }) => {
-        result.push({ seasonId, week, matchId });
-      });
-    });
-  });
-
-  return result;
-};
-
-export const getThrows = async (page, profileId, seasonId, week, matchId) => {
-  const result = [];
-  const url = `https://axescores.com/player/1/${matchId}`;
+export const getMatchData = async (page, profileId, matchId) => {
+  const throws = [];
+  const url = `https://axescores.com/player/${profileId}/${matchId}`;
   const apiUrl = `https://api.axescores.com/match/${matchId}`;
 
   const [apiResponse] = await Promise.all([
@@ -77,7 +57,7 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
   const isForfeit = rawMatch.players.find(x => x.id === profileId)?.forfeit === true;
 
   if (isInvalidRoundCount || isForfeit) {
-    return result;
+    return throws;
   }
 
   const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
@@ -93,10 +73,8 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
     const { Axes: axes = [] } = game;
 
     axes.forEach(({ order: throwNumber, score, clutchCalled: isClutch }) => {
-      result.push({
-        seasonId,
-        week,
-        opponentId,
+      throws.push({
+        profileId,
         matchId,
         round: roundNumber,
         throw: throwNumber,
@@ -107,7 +85,7 @@ export const getThrows = async (page, profileId, seasonId, week, matchId) => {
     });
   });
 
-  return result;
+  return { opponentId, throws };
 };
 
 export const getStats = (throws) => {
@@ -205,12 +183,6 @@ export const waitMilliseconds = (milliseconds) => {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });
-};
-
-export const sequentially = async (items, action) => {
-  return items.reduce((prev, item, index) => {
-    return prev.then(() => action(item, index));
-  }, Promise.resolve());
 };
 
 export const round = (places, value) => {

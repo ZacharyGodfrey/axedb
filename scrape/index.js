@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
 import { database } from '../lib/database.js';
-import { sequentially, getProfileImage, getPlayerData, getMatches, getThrows, getStats } from './app.js';
+import { getProfileImage, getPlayerData, getMatchData, getStats } from './app.js';
 
 const createAggregation = (db, name, level, throws) => {
   const { hatchet, bigAxe } = getStats(throws);
@@ -56,13 +56,13 @@ console.log('Done.');
 
 console.log('Fetching profile data...');
 
-const profileIds = db.rows(`
+const profiles = db.rows(`
   SELECT profileId
   FROM profiles
   WHERE fetch = 1
 `);
 
-await sequentially(profileIds, async (profileId) => {
+for (const { profileId } of profiles) {
   console.log(`Profile ${profileId}`);
 
   const [image, playerData] = await Promise.all([
@@ -70,33 +70,47 @@ await sequentially(profileIds, async (profileId) => {
     getPlayerData(profileId)
   ]);
 
-  playerData.leagues.forEach((season) => {
+  db.run(`
+    UPDATE profiles
+    SET name = :name, image = :image
+    WHERE profileId = :profileId
+  `, { profileId, name: playerData.name, image });
+
+  for (const season of playerData.leagues) {
     const { id: seasonId, seasonWeeks, performanceName } = season;
 
     if (performanceName !== MATCH_TYPE) {
-      return;
+      continue;
     }
 
     console.log(`Season ${seasonId}`);
 
-    db.insertOrIgnore('seasons', {
-      seasonId,
-      name: `${season.name} - ${season.shortName}`
-    });
-  });
-});
+    const seasonName = `${season.name} ${season.shortName}`;
+    const seasonYear = parseInt(season.date.split('-')[0]);
 
-console.log('Done.');
+    db.run(`
+      INSERT INTO seasons (seasonId, name, year)
+      VALUES (:seasonId, :seasonName, :seasonYear)
+      ON CONFLICT (seasonId) DO UPDATE
+      SET name = :seasonName, year = :seasonYear
+    `, { seasonId, seasonName, seasonYear });
 
-// Discover matches
+    for (const { week, matches } of seasonWeeks) {
+      console.log(`Week ${week}`);
 
-console.log('Discovering matches...');
+      for (const { id: matchId } of matches) {
+        console.log(`Match ${matchId}`);
 
-const allMatches = await getMatches(page, PROFILE_ID, MATCH_TYPE);
-
-console.log(`Found ${allMatches.length} matches.`);
-
-allMatches.forEach(x => db.insert('matches', x));
+        db.run(`
+          INSERT INTO matches (profileId, seasonId, week, matchId)
+          VALUES (:profileId, :seasonId, :week, :matchId)
+          ON CONFLICT (profileId, matchId) DO UPDATE
+          SET week = :week
+        `, { profileId, seasonId, week, matchId });
+      }
+    }
+  }
+}
 
 console.log('Done.');
 
@@ -108,16 +122,21 @@ const newMatches = db.rows(`SELECT * FROM matches WHERE processed = 0`);
 
 console.log(`Processing ${newMatches.length} new matches...`);
 
-await sequentially(newMatches, async ({ seasonId, week, matchId }) => {
-  const throws = await getThrows(page, PROFILE_ID, seasonId, week, matchId);
-
+for (const { profileId, matchId } of newMatches) {
   console.log(`Match ${matchId}`);
+
+  const { opponentId, throws } = await getMatchData(page, profileId, matchId);
+
   console.table(throws);
 
-  throws.forEach(x => db.insert('throws', x));
+  throws.forEach((row) => db.insert('throws', row));
 
-  db.run(`UPDATE matches SET processed = 1 WHERE matchId = ?`, [matchId]);
-});
+  db.run(`
+    UPDATE matches
+    SET processed = 1, opponentId = :opponentId
+    WHERE matchId = :matchId
+  `, { profileId, opponentId });
+}
 
 console.log('Done.');
 
