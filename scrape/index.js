@@ -35,7 +35,7 @@ const profiles = db.main.rows(`
 
 console.log(`Processing ${profiles.length} profiles...`);
 
-await mainDataStep(page, profiles);
+await mainDataStep(db, page, profiles);
 
 console.log('Done.');
 
@@ -51,7 +51,7 @@ const newMatches = db.main.rows(`
 
 console.log(`Processing ${newMatches.length} new matches...`);
 
-await throwDataStep(page, newMatches);
+await throwDataStep(db, page, newMatches);
 
 console.log('Done.');
 
