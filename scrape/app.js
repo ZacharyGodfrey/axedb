@@ -13,6 +13,12 @@ const enums = {
   }
 };
 
+/*
+const reactPageState = () => {
+  const element = document.getElementById('root');
+  return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
+};
+*/
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
     return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
@@ -52,7 +58,7 @@ const fetchProfileImage = async (profileId) => {
 
 const fetchPlayerData = async (page, profileId) => {
   await page.goto(`https://axescores.com/player/${profileId}`);
-  await waitMilliseconds(1000);
+  await waitMilliseconds(2000);
 
   const state = await reactPageState(page, '#root');
 
