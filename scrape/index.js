@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
 import { database } from '../lib/database.js';
-import { seedProfiles, fetchMainData, fetchThrowData, fetchOpponents, buildStats } from './app.js';
+import { writeSeedProfiles, mainDataStep, throwDataStep, opponentsStep, statsStep } from './app.js';
 
 // Start Up
 
@@ -20,7 +20,7 @@ const page = await browser.newPage();
 
 console.log('Seeding profiles...');
 
-seedProfiles(db, [PROFILE_ID]);
+writeSeedProfiles(db, [PROFILE_ID]);
 
 console.log('Done.');
 
@@ -35,7 +35,7 @@ const profiles = db.main.rows(`
 
 console.log(`Processing ${profiles.length} profiles...`);
 
-await fetchMainData(page, profiles);
+await mainDataStep(page, profiles);
 
 console.log('Done.');
 
@@ -51,7 +51,7 @@ const newMatches = db.main.rows(`
 
 console.log(`Processing ${newMatches.length} new matches...`);
 
-await fetchThrowData(page, newMatches);
+await throwDataStep(page, newMatches);
 
 console.log('Done.');
 
@@ -59,15 +59,15 @@ console.log('Done.');
 
 console.log('Fetching opponent data...');
 
-await fetchOpponents(db, page);
+await opponentsStep(db, page);
 
 console.log('Done.');
 
-// Build profile stats
+// Build stats
 
 console.log('Building stats...');
 
-buildStats(db, profiles);
+statsStep(db, profiles);
 
 console.log('Done.');
 

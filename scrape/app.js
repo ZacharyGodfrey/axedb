@@ -1,5 +1,16 @@
 // Helpers
 
+const enums = {
+  tool: {
+    hatchet: 'hatchet',
+    bigAxe: 'big axe'
+  },
+  target: {
+    bullseye: 'bullseye',
+    clutch: 'clutch'
+  }
+};
+
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
     return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
@@ -26,20 +37,9 @@ const round = (places, value) => {
   return Math.round(value * factor) / factor;
 };
 
-const enums = {
-  tool: {
-    hatchet: 'hatchet',
-    bigAxe: 'big axe'
-  },
-  target: {
-    bullseye: 'bullseye',
-    clutch: 'clutch'
-  }
-};
-
 // Retrieve Data
 
-export const getProfileImage = async (profileId) => {
+const fetchProfileImage = async (profileId) => {
   const url = `https://admin.axescores.com/pic/${profileId}`;
   const response = await fetch(url);
   const buffer = await response.arrayBuffer();
@@ -48,7 +48,7 @@ export const getProfileImage = async (profileId) => {
   return base64;
 };
 
-export const getPlayerData = async (page, profileId) => {
+const fetchPlayerData = async (page, profileId) => {
   await page.goto(`https://axescores.com/player/${profileId}`);
   await waitMilliseconds(1000);
 
@@ -57,7 +57,7 @@ export const getPlayerData = async (page, profileId) => {
   return state.player.playerData;
 };
 
-export const getMatchData = async (page, profileId, matchId) => {
+const fetchThrowData = async (page, profileId, matchId) => {
   const throws = [];
   const url = `https://axescores.com/player/${profileId}/${matchId}`;
   const apiUrl = `https://api.axescores.com/match/${matchId}`;
@@ -107,7 +107,28 @@ export const getMatchData = async (page, profileId, matchId) => {
 
 // Process Data
 
-export const getStats = (throws) => {
+const buildStatGroups = (throws) => {
+  const groups = {};
+
+  for (const { profileId, seasonId, weekId, matchId, roundId, tool, target, score } of throws) {
+    const profilePath = `p${profileId}`;
+    const seasonPath =  `p${profileId}s${seasonId}`;
+    const weekPath =    `p${profileId}s${seasonId}w${weekId}`;
+    const matchPath =   `p${profileId}m${matchId}`;
+    const roundPath =   `p${profileId}m${matchId}r${roundId}`;
+    const data = { tool, target, score };
+
+    for (const entityPath of [profilePath, seasonPath, weekPath, matchPath, roundPath]) {
+      const { throws } = groups[entityPath] = groups[entityPath] ?? { entityPath, throws: [] };
+
+      throws.push(data);
+    }
+  }
+
+  return Object.values(groups);
+};
+
+const buildStats = (throws) => {
   const result = {
     hatchet: {
       bullseye: {
@@ -198,84 +219,10 @@ export const getStats = (throws) => {
   return result;
 };
 
-export const groupBy = (items, property) => {
-  const lookup = {};
-
-  for (const item of items) {
-    const key = item[property] ?? 'undefined';
-
-    lookup[key] = lookup[key] ?? [];
-    lookup[key].push(item);
-  }
-
-  return lookup;
-};
-
-export const buildHierarchy = (throws) => {
-  const profiles = {};
-
-  for (const { profileId, seasonId, weekId, matchId, roundId, throwId, tool, target, score } of throws) {
-    const throwData = { throwId, tool, target, score };
-
-    const { seasons } = profiles[profileId] = profiles[profileId] ?? { profileId, seasons: {}, throws: [] };
-    const { weeks } = seasons[seasonId] = seasons[seasonId] ?? { seasonId, weeks: {}, throws: [] };
-    const { matches } = weeks[weekId] = weeks[weekId] ?? { weekId, matches: {}, throws: [] };
-    const { rounds } = matches[matchId] = matches[matchId] ?? { matchId, rounds: {}, throws: [] };
-    const round = rounds[roundId] = rounds[roundId] ?? { roundId, throws: [] };
-
-    const profile = profiles[profileId];
-    profile.throws.push(throwData);
-
-    const season = profile.seasons[seasonId];
-    season.throws.push(throwData);
-
-    const week = season.weeks[weekId];
-    week.throws.push(throwData);
-
-    const match = week.matches[matchId];
-    match.throws.push(throwData);
-
-    const round = match.rounds[roundId];
-    round.throws.push(throwData);
-  }
-
-  return Object.values(profiles);
-};
-
-export const aggregationGroups = (throws) => {
-  const groups = {};
-
-  for (const { profileId, seasonId, weekId, matchId, roundId, tool, target, score } of throws) {
-    const profilePath = `p${profileId}`;
-    const seasonPath =  `p${profileId}s${seasonId}`;
-    const weekPath =    `p${profileId}s${seasonId}w${weekId}`;
-    const matchPath =   `p${profileId}m${matchId}`;
-    const roundPath =   `p${profileId}m${matchId}r${roundId}`;
-    const data = { tool, target, score };
-
-    for (const entityPath of [profilePath, seasonPath, weekPath, matchPath, roundPath]) {
-      const { throws } = groups[entityPath] = groups[entityPath] ?? { entityPath, throws: [] };
-
-      throws.push(data);
-    }
-  }
-
-  return Object.values(groups);
-};
-
 // Write Data
 
-export const seedProfiles = (db, profileIds) => {
-  for (const profileId of profileIds) {
-    db.main.run(`
-      INSERT INTO profiles (profileId, fetch)
-      VALUES (:profileId, 1)
-    `, { profileId });
-  }
-};
-
-export const createAggregation = (db, entityPath, throws) => {
-  const { hatchet, bigAxe } = getStats(throws);
+const writeStats = (db, entityPath, throws) => {
+  const { hatchet, bigAxe } = buildStats(throws);
   const stats = {
     hatchetBullseyeHitPercent: hatchet.bullseye.hitPercent,
     hatchetBullseyeScorePerAxe: hatchet.bullseye.scorePerAxe,
@@ -298,15 +245,24 @@ export const createAggregation = (db, entityPath, throws) => {
   db.stats.insertOrUpdate('stats', create, conflict, update);
 };
 
-// Workflow
+export const writeSeedProfiles = (db, profileIds) => {
+  for (const profileId of profileIds) {
+    db.main.run(`
+      INSERT INTO profiles (profileId, fetch)
+      VALUES (:profileId, 1)
+    `, { profileId });
+  }
+};
 
-export const fetchMainData = async (db, page, profiles) => {
+// Workflow Steps
+
+export const mainDataStep = async (db, page, profiles) => {
   for (const { profileId } of profiles) {
     console.log(`Profile ${profileId}`);
 
     const [image, { name, leagues }] = await Promise.all([
-      getProfileImage(profileId),
-      getPlayerData(page, profileId)
+      fetchProfileImage(profileId),
+      fetchPlayerData(page, profileId)
     ]);
 
     db.main.run(`
@@ -350,11 +306,11 @@ export const fetchMainData = async (db, page, profiles) => {
   }
 };
 
-export const fetchThrowData = async (db, page, newMatches) => {
+export const throwDataStep = async (db, page, newMatches) => {
   for (const { profileId, seasonId, weekId, matchId } of newMatches) {
     console.log(`Match ${matchId}`);
 
-    const throws = await getThrowData(page, profileId, matchId);
+    const throws = await fetchThrowData(page, profileId, matchId);
 
     console.table(throws);
 
@@ -370,7 +326,7 @@ export const fetchThrowData = async (db, page, newMatches) => {
   }
 };
 
-export const fetchOpponents = async (db, page) => {
+export const opponentsStep = async (db, page) => {
   const opponents = db.main.rows(`
     SELECT DISTINCT opponentId FROM matches
     WHERE profileId NOT IN (
@@ -381,8 +337,8 @@ export const fetchOpponents = async (db, page) => {
 
   for (const { profileId } of opponents) {
     const [image, { name }] = await Promise.all([
-      getProfileImage(profileId),
-      getPlayerData(page, profileId)
+      fetchProfileImage(profileId),
+      fetchPlayerData(page, profileId)
     ]);
 
     const create = { profileId, name, image };
@@ -393,7 +349,7 @@ export const fetchOpponents = async (db, page) => {
   }
 };
 
-export const buildStats = (db, profiles) => {
+export const statsStep = (db, profiles) => {
   for (const { profileId } of profiles) {
     console.log(`Profile ${profileId}`);
 
@@ -404,12 +360,12 @@ export const buildStats = (db, profiles) => {
 
     console.log(`Found ${allThrows.length} throws...`);
 
-    const groups = aggregationGroups(allThrows);
+    const groups = buildStatGroups(allThrows);
 
     for (const { entityPath, throws } of groups) {
       console.log(`Stats ${entityPath}`);
 
-      createAggregation(db, entityPath, throws);
+      writeStats(db, entityPath, throws);
     }
   }
 };
