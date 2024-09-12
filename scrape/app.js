@@ -290,18 +290,18 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
         SET name = :name, year = :year
       `, { seasonId, name, year });
 
-      for (const { week, matches } of seasonWeeks) {
-        console.log(`Week ${week}`);
+      for (const { week: weekId, matches } of seasonWeeks) {
+        console.log(`Week ${weekId}`);
 
         for (const { id: matchId } of matches) {
           console.log(`Match ${matchId}`);
 
           db.main.run(`
             INSERT INTO matches (profileId, seasonId, weekId, matchId)
-            VALUES (:profileId, :seasonId, :week, :matchId)
+            VALUES (:profileId, :seasonId, :weekId, :matchId)
             ON CONFLICT (profileId, matchId) DO UPDATE
-            SET week = :week
-          `, { profileId, seasonId, week, matchId });
+            SET weekId = :weekId
+          `, { profileId, seasonId, weekId, matchId });
         }
       }
     }
