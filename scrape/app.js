@@ -258,7 +258,7 @@ export const writeSeedProfiles = (db, profileIds) => {
 
 // Workflow Steps
 
-export const mainDataStep = async (db, page, profiles) => {
+export const mainDataStep = async (db, page, profiles, ruleset) => {
   for (const { profileId } of profiles) {
     console.log(`Profile ${profileId}`);
 
@@ -274,7 +274,7 @@ export const mainDataStep = async (db, page, profiles) => {
     `, { profileId, name, image });
 
     for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
-      if (performanceName !== RULESET) {
+      if (performanceName !== ruleset) {
         continue;
       }
 

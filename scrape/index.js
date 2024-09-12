@@ -35,7 +35,7 @@ const profiles = db.main.rows(`
 
 console.log(`Processing ${profiles.length} profiles...`);
 
-await mainDataStep(db, page, profiles);
+await mainDataStep(db, page, profiles, RULESET);
 
 console.log('Done.');
 
