@@ -1,3 +1,5 @@
+import { writeFile } from '../lib/file.js'
+
 // Helpers
 
 const enums = {
@@ -367,5 +369,18 @@ export const statsStep = (db, profiles) => {
 
       writeStats(db, entityPath, throws);
     }
+  }
+};
+
+export const jsonStep = (db) => {
+  const profiles = db.main.rows(`
+    SELECT profileId, name FROM profiles
+    WHERE fetch = 1
+  `);
+
+  for (const profile of profiles) {
+    const fileName = `data/profiles/${profile.profileId}.json`;
+
+    writeFile(fileName, JSON.stringify(profile, null, 4));
   }
 };

@@ -71,6 +71,14 @@ statsStep(db, profiles);
 
 console.log('Done.');
 
+// Write JSON
+
+console.log('Writing JSON files...');
+
+jsonStep(db);
+
+console.log('Done.');
+
 // Tear Down
 
 console.log('Tearing down...');
