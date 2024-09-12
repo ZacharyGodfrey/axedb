@@ -221,6 +221,35 @@ const buildStats = (throws) => {
   return result;
 };
 
+const jsonStats = (statsRow) => {
+  return {
+    hatchet: {
+      bullseye: {
+        hitPercent: statsRow.hatchetBullseyeHitPercent,
+        scorePerAxe: statsRow.hatchetBullseyeScorePerAxe
+      },
+      clutch: {
+        hitPercent: statsRow.hatchetClutchHitPercent,
+        scorePerAxe: statsRow.hatchetClutchScorePerAxe,
+        fiveHitPercent: statsRow.hatchetClutchFiveHitPercent,
+        sevenHitPercent: statsRow.hatchetClutchSevenHitPercent
+      }
+    },
+    bigAxe: {
+      bullseye: {
+        hitPercent: statsRow.bigAxeBullseyeHitPercent,
+        scorePerAxe: statsRow.bigAxeBullseyeScorePerAxe
+      },
+      clutch: {
+        hitPercent: statsRow.bigAxeClutchHitPercent,
+        scorePerAxe: statsRow.bigAxeClutchScorePerAxe,
+        fiveHitPercent: statsRow.bigAxeClutchFiveHitPercent,
+        sevenHitPercent: statsRow.bigAxeClutchSevenHitPercent
+      }
+    }
+  }
+}
+
 // Write Data
 
 const writeStats = (db, entityPath, throws) => {
@@ -382,12 +411,6 @@ export const jsonStep = (db) => {
   for (const profile of profiles) {
     const fileName = `data/profiles/${profile.profileId}.json`;
 
-    const careerStats = db.stats.row(`
-      SELECT *
-      FROM stats
-      WHERE entityPath = ?
-    `, [`p${profile.profileId}`]);
-
     const seasons = db.main.rows(`
       SELECT *
       FROM seasons
@@ -402,9 +425,20 @@ export const jsonStep = (db) => {
     const data = {
       profile: {
         ...profile,
-        stats: careerStats
+        stats: jsonStats(db.stats.row(`
+          SELECT *
+          FROM stats
+          WHERE entityPath = ?
+        `, [`p${profile.profileId}`]))
       },
-      seasons
+      seasons: seasons.map((season) => ({
+        ...season,
+        stats: jsonStats(db.stats.row(`
+          SELECT *
+          FROM stats
+          WHERE entityPath = ?
+        `, [`p${profile.profileId}s${season.seasonId}`]))
+      }));
     };
 
     writeFile(fileName, JSON.stringify(data, null, 4));
