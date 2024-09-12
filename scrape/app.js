@@ -313,6 +313,7 @@ export const throwDataStep = async (db, page, newMatches) => {
     console.log(`Match ${matchId}`);
 
     const throws = await fetchThrowData(page, profileId, matchId);
+    const { opponentId = 0 } = throws[0];
 
     console.table(throws);
 
