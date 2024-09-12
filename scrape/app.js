@@ -382,6 +382,31 @@ export const jsonStep = (db) => {
   for (const profile of profiles) {
     const fileName = `data/profiles/${profile.profileId}.json`;
 
-    writeFile(fileName, JSON.stringify(profile, null, 4));
+    const careerStats = db.stats.row(`
+      SELECT *
+      FROM stats
+      WHERE entityPath = ?
+    `, [`p${profile.profileId}`]);
+
+    const seasons = db.main.rows(`
+      SELECT *
+      FROM seasons
+      WHERE seasonId IN (
+        SELECT DISTINCT seasonId
+        FROM matches
+        WHERE profileId = :profileId
+      )
+      ORDER BY seasonId DESC
+    `, profile);
+
+    const data = {
+      profile: {
+        ...profile,
+        stats: careerStats
+      },
+      seasons
+    };
+
+    writeFile(fileName, JSON.stringify(data, null, 4));
   }
 };
