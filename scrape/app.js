@@ -13,12 +13,6 @@ const enums = {
   }
 };
 
-/*
-const reactPageState = () => {
-  const element = document.getElementById('root');
-  return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
-};
-*/
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
     return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();

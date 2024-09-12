@@ -1,7 +1,14 @@
 import puppeteer from 'puppeteer';
 
 import { database } from '../lib/database.js';
-import { writeSeedProfiles, mainDataStep, throwDataStep, opponentsStep, statsStep } from './app.js';
+import {
+  writeSeedProfiles,
+  mainDataStep,
+  throwDataStep,
+  opponentsStep,
+  statsStep,
+  jsonStep
+} from './app.js';
 
 // Start Up
 
