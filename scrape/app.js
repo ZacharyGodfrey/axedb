@@ -438,7 +438,7 @@ export const jsonStep = (db) => {
           FROM stats
           WHERE entityPath = ?
         `, [`p${profile.profileId}s${season.seasonId}`]))
-      }));
+      }))
     };
 
     writeFile(fileName, JSON.stringify(data, null, 4));
