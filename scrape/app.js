@@ -361,11 +361,13 @@ export const throwDataStep = async (db, page, newMatches) => {
 export const opponentsStep = async (db, page) => {
   const opponents = db.main.rows(`
     SELECT DISTINCT opponentId FROM matches
-    WHERE profileId NOT IN (
+    WHERE opponentId > 0 AND opponentId NOT IN (
       SELECT profileId FROM profiles
       WHERE fetch = 1
     )
   `);
+
+  console.log(`Found ${opponents.length} opponents...`);
 
   for (const { profileId } of opponents) {
     const [image, { name }] = await Promise.all([
