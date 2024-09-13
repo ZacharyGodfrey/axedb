@@ -3,11 +3,8 @@ import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/
 import { renderMD, renderSections, minifyCSS, parseMetadata, renderMustache } from './app.js';
 
 const START = Date.now();
-const DB_FILE = 'database.db';
 
-const db = database(DB_FILE);
 const shell = readFile('client/assets/shell.html');
-
 const partials = {
   favicon: readFile('client/assets/icon.png', 'base64'),
   style: await minifyCSS(readFile('client/assets/style.css'))
