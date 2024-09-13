@@ -16,8 +16,11 @@ console.log('Starting up...');
 
 const START = Date.now();
 const DATA_DIR = 'data';
-const PROFILE_ID = 1207260;
 const RULESET = 'IATF Premier';
+const SEED_PROFILES = [
+  1207260, // me "REDACTED"
+  1051409, // Micah "Hollowpoint"
+];
 
 const db = database(DATA_DIR);
 const browser = await puppeteer.launch();
@@ -27,7 +30,7 @@ const page = await browser.newPage();
 
 console.log('Seeding profiles...');
 
-writeSeedProfiles(db, [PROFILE_ID]);
+writeSeedProfiles(db, SEED_PROFILES);
 
 console.log('Done.');
 
@@ -70,19 +73,19 @@ statsStep(db, profiles);
 
 console.log('Done.');
 
-// Write JSON
-
-console.log('Writing JSON files...');
-
-jsonStep(db);
-
-console.log('Done.');
-
 // Fetch Opponents
 
 console.log('Fetching opponent data...');
 
 await opponentsStep(db, page);
+
+console.log('Done.');
+
+// Write JSON
+
+console.log('Writing JSON files...');
+
+jsonStep(db);
 
 console.log('Done.');
 

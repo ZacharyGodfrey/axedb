@@ -247,8 +247,8 @@ const jsonStats = (statsRow) => {
         sevenHitPercent: statsRow.bigAxeClutchSevenHitPercent
       }
     }
-  }
-}
+  };
+};
 
 // Write Data
 
@@ -279,8 +279,10 @@ const writeStats = (db, entityPath, throws) => {
 export const writeSeedProfiles = (db, profileIds) => {
   for (const profileId of profileIds) {
     db.main.run(`
-      INSERT OR IGNORE INTO profiles (profileId, fetch)
+      INSERT INTO profiles (profileId, fetch)
       VALUES (:profileId, 1)
+      ON CONFLICT (profileId) DO UPDATE
+      SET fetch = 1
     `, { profileId });
   }
 };
@@ -358,6 +360,27 @@ export const throwDataStep = async (db, page, newMatches) => {
   }
 };
 
+export const statsStep = (db, profiles) => {
+  for (const { profileId } of profiles) {
+    console.log(`Profile ${profileId}`);
+
+    const allThrows = db.throws.rows(`
+      SELECT * FROM throws
+      WHERE profileId = :profileId
+    `, { profileId });
+
+    console.log(`Found ${allThrows.length} throws...`);
+
+    const groups = buildStatGroups(allThrows);
+
+    for (const { entityPath, throws } of groups) {
+      console.log(`Stats ${entityPath}`);
+
+      writeStats(db, entityPath, throws);
+    }
+  }
+};
+
 export const opponentsStep = async (db, page) => {
   const opponents = db.main.rows(`
     SELECT DISTINCT opponentId FROM matches
@@ -392,31 +415,10 @@ export const opponentsStep = async (db, page) => {
   }
 };
 
-export const statsStep = (db, profiles) => {
-  for (const { profileId } of profiles) {
-    console.log(`Profile ${profileId}`);
-
-    const allThrows = db.throws.rows(`
-      SELECT * FROM throws
-      WHERE profileId = :profileId
-    `, { profileId });
-
-    console.log(`Found ${allThrows.length} throws...`);
-
-    const groups = buildStatGroups(allThrows);
-
-    for (const { entityPath, throws } of groups) {
-      console.log(`Stats ${entityPath}`);
-
-      writeStats(db, entityPath, throws);
-    }
-  }
-};
-
 export const jsonStep = (db) => {
   const profiles = db.main.rows(`
-    SELECT profileId, name FROM profiles
-    WHERE fetch = 1
+    SELECT *
+    FROM profiles
   `);
 
   for (const profile of profiles) {
@@ -434,14 +436,12 @@ export const jsonStep = (db) => {
     `, profile);
 
     const data = {
-      profile: {
-        ...profile,
-        stats: jsonStats(db.stats.row(`
-          SELECT *
-          FROM stats
-          WHERE entityPath = ?
-        `, [`p${profile.profileId}`]))
-      },
+      ...profile,
+      stats: profile.fetch === 0 ? null : jsonStats(db.stats.row(`
+        SELECT *
+        FROM stats
+        WHERE entityPath = ?
+      `, [`p${profile.profileId}`]))
       seasons: seasons.map((season) => ({
         ...season,
         stats: jsonStats(db.stats.row(`
