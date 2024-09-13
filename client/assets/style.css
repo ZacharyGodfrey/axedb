@@ -158,8 +158,6 @@ li:has(input[type="checkbox"]:disabled) {
 }
 
 img {
-  display: block;
-  margin-inline: auto;
   max-width: min(100%, 15rem);
   max-height: min(75vh, 15rem);
   max-height: min(75svh, 15rem);
@@ -210,6 +208,11 @@ thead tr:not(:has(th:not(:empty))) {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-img.corners {
+img.block {
+  display: block;
+  margin-inline: auto;
+  max-width: min(100%, 40rem);
+  max-height: min(75vh, 40rem);
+  max-height: min(75svh, 40rem);
   border-radius: var(--radius);
 }
