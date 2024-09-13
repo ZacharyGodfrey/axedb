@@ -62,14 +62,6 @@ await throwDataStep(db, page, newMatches);
 
 console.log('Done.');
 
-// Fetch Opponents
-
-console.log('Fetching opponent data...');
-
-await opponentsStep(db, page);
-
-console.log('Done.');
-
 // Build stats
 
 console.log('Building stats...');
@@ -83,6 +75,14 @@ console.log('Done.');
 console.log('Writing JSON files...');
 
 jsonStep(db);
+
+console.log('Done.');
+
+// Fetch Opponents
+
+console.log('Fetching opponent data...');
+
+await opponentsStep(db, page);
 
 console.log('Done.');
 

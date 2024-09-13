@@ -369,13 +369,17 @@ export const opponentsStep = async (db, page) => {
 
   console.log(`Found ${opponents.length} opponents...`);
 
-  for (const { profileId } of opponents) {
+  for (const { opponentId: profileId } of opponents) {
+    console.log(`Opponent ${profileId}`);
+
     const [image, playerData] = await Promise.all([
       fetchProfileImage(profileId),
       fetchPlayerData(page, profileId)
     ]);
 
     if (playerData === null) {
+      console.log(`Failed to get details for opponent ${profileId}`);
+
       continue;
     }
 
