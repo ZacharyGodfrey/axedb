@@ -18,8 +18,10 @@ This website provides an additional view of IATF Premier axe throwing data with 
 
 ### Profiles
 
+|||
+|:-:|:-:|
 {{#allProfiles}}
-- ![{{name}}]({{image}}) [{{name}}](/{{profileId}})
+| ![{{name}}](data:image/png;base64,{{image}}) | [{{name}}](/{{profileId}}) |
 {{/allProfiles}}
 
 ~)
