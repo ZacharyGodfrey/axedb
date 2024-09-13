@@ -3,17 +3,7 @@ title: "{{profile.name}}"
 description: "IATF Premier axe throwing data for {{profile.name}}"
 ---
 
-<section>
-  <div class="grid columns-fill-auto items-y-center">
-    <div>
-      <h2 id="{{profile.name}}">{{profile.name}}</h2>
-      <p>ID: {{profile.profileId}}</p>
-    </div>
-    <div>
-      <img src="data:image/png;base64,{{profile.image}}" alt="{{profile.name}}" class="profilePic">
-    </div>
-  </div>
-</section>
+{{>profileHeader}}
 
 (~
 

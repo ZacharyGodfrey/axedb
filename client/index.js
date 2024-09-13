@@ -26,7 +26,8 @@ const shell = readFile('client/assets/shell.html');
 
 const partials = {
   favicon: readFile('client/assets/icon.png', 'base64'),
-  style: await minifyCSS(readFile('client/assets/style.css'))
+  style: await minifyCSS(readFile('client/assets/style.css')),
+  profileHeader: readFile('client/partials/profile-header.html')
 };
 
 const pages = listFiles('client/pages/**/*.md').map(filePath => ({

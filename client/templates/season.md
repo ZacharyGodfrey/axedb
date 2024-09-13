@@ -1,33 +1,15 @@
 ---
-title: "Season"
-description: "Season stats"
+title: "{{season.name}} | {{profile.name}}"
+description: "{{season.name}} stats"
 ---
 
-<section>
-  <div class="grid columns-fill-auto items-y-center">
-    <div>
-      <h2 id="{{profile.name}}">{{profile.name}}</h2>
-      <p>ID: {{profile.profileId}}</p>
-    </div>
-    <div>
-      <img src="data:image/png;base64,{{profile.image}}" alt="{{profile.name}}" class="profilePic">
-    </div>
-  </div>
-
-  <h3>Season</h3>
-
-  <p>{{season.name}}</p>
-</section>
+{{>profileHeader}}
 
 (~
 
 ### Season Stats
 
-{{^season.stats}}
-
-No stats have been analyzed for this season yet.
-
-{{/season.stats}}
+{{season.year}} **{{season.name}}**
 
 {{#season.stats}}
 
