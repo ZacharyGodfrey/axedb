@@ -1,6 +1,6 @@
 ---
-title: "{{profile.name}}"
-description: "IATF Premier axe throwing data for {{profile.name}}"
+title: "Season"
+description: "Season stats"
 ---
 
 <section>
@@ -13,19 +13,23 @@ description: "IATF Premier axe throwing data for {{profile.name}}"
       <p>ID: {{profile.profileId}}</p>
     </div>
   </div>
+
+  <h3>Season</h3>
+
+  <p>{{season.name}}</p>
 </section>
 
 (~
 
-### Career Stats
+### Season Stats
 
-{{^profile.stats}}
+{{^season.stats}}
 
-No stats have been analyzed for this profile yet.
+No stats have been analyzed for this season yet.
 
-{{/profile.stats}}
+{{/season.stats}}
 
-{{#profile.stats}}
+{{#season.stats}}
 
 | Key | Value |
 |----:|:------|
@@ -34,28 +38,6 @@ No stats have been analyzed for this profile yet.
 | Big Axe Bullseye Score Per Axe | {{bigAxe.bullseye.scorePerAxe}} |
 | Big Axe Clutch Score Per Axe | {{bigAxe.clutch.scorePerAxe}} |
 
-{{/profile.stats}}
-
-~)
-
-(~
-
-### Seasons
-
-{{^profile.seasons.length}}
-
-No seasons have been collected for this profile yet.
-
-{{/profile.seasons.length}}
-
-{{#profile.seasons.length}}
-
-| Year | Name |
-|:----:|------|
-{{#profile.seasons}}
-| {{year}} | [{{name}}](s/{{seasonId}}) |
-{{/profile.seasons}}
-
-{{/profile.seasons.length}}
+{{/season.stats}}
 
 ~)

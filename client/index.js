@@ -35,7 +35,8 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => ({
 }));
 
 const templates = {
-  profile: readFile('client/templates/profile.md')
+  profile: readFile('client/templates/profile.md'),
+  season: readFile('client/templates/season.md')
 };
 
 const db = database('data');
@@ -57,7 +58,14 @@ for (const { uri, fileContent } of pages) {
 for (const filePath of listFiles('data/profiles/*.json')) {
   const profile = JSON.parse(readFile(filePath));
 
-  renderAndWritePage(`${profile.profileId}/index`, shell, partials, profile, templates.profile);
+  renderAndWritePage(`${profile.profileId}/index`, shell, partials, { profile }, templates.profile);
+
+  for (const season of profile.seasons) {
+    const data = { profile, season };
+    const uri = `${profile.profileId}/s/${}index`;
+
+    renderAndWritePage(uri, shell, partials, data, templates.season);
+  }
 }
 
 console.log(`Running Time: ${Date.now() - START}ms`);
