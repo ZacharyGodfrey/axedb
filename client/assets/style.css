@@ -233,3 +233,10 @@ img.block {
 .grid.columns-auto-fill { grid-template-columns: auto 1fr; }
 
 .grid.items-y-center { align-items: center; }
+
+/* Specific Styles */
+
+img.profilePic {
+  max-width: 200px;
+  max-height: 200px;
+}

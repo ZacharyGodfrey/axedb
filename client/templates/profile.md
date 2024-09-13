@@ -6,7 +6,7 @@ description: "IATF Premier axe throwing data for {{name}}"
 <section>
   <div class="grid columns-auto-fill items-y-center">
     <div>
-      <img src="data:image/png;base64,{{image}}" alt="{{name}}">
+      <img src="data:image/png;base64,{{image}}" alt="{{name}}" class="profilePic">
     </div>
     <div>
       <h2 id="{{name}}">{{name}}</h2>
