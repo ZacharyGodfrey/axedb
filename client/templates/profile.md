@@ -3,13 +3,17 @@ title: "{{name}}"
 description: "IATF Premier axe throwing data for {{name}}"
 ---
 
-(~
-
-## ![{{name}}](data:image/png;base64,{{image}}) {{name}}
-
-ID: {{profileId}}
-
-~)
+<section>
+  <div class="grid columns-auto-fill items-y-center">
+    <div>
+      <img src="data:image/png;base64,{{image}}" alt="{{name}}">
+    </div>
+    <div>
+      <h2 id="{{name}}">{{name}}</h2>
+      <p>ID: {{profileId}}</p>
+    </div>
+  </div>
+</section>
 
 (~
 

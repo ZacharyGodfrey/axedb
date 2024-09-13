@@ -216,3 +216,19 @@ img.block {
   max-height: min(75svh, 40rem);
   border-radius: var(--radius);
 }
+
+/* CSS Grid */
+
+.grid {
+  display: grid;
+  column-gap: var(--gutter);
+  row-gap: var(--gutter);
+  justify-items: stretch; /* cell content X */
+  align-items: start; /* cell content Y */
+  justify-content: stretch; /* column spacing X */
+  align-content: start; /* row spacing Y */
+}
+
+.grid.columns-auto-fill { grid-template-columns: auto 1fr; }
+
+.grid.items-y-center { align-items: center; }
