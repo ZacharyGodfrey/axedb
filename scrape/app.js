@@ -51,7 +51,7 @@ const fetchProfileImage = async (profileId) => {
 };
 
 const fetchPlayerData = async (page, profileId) => {
-  await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle0' });
+  await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle2' });
   await waitMilliseconds(1000);
 
   const state = await reactPageState(page, '#root');
