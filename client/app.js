@@ -5,6 +5,8 @@ import { gfmHeadingId } from 'marked-gfm-heading-id';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 
+import { writeFile } from '../lib/file.js';
+
 marked.use(gfmHeadingId({ prefix: '' }));
 
 const cssNano = postcss([cssnano]);
