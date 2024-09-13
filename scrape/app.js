@@ -202,21 +202,21 @@ const buildStats = (throws) => {
     }
   });
 
-  result.hatchet.bullseye.scorePerAxe = round(3, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
-  result.hatchet.bullseye.hitPercent = 100 * round(5, result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts));
+  result.hatchet.bullseye.scorePerAxe = round(2, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
+  result.hatchet.bullseye.hitPercent = round(2, 100 * result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts));
 
-  result.hatchet.clutch.scorePerAxe = round(3, result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.hitPercent = 100 * round(5, result.hatchet.clutch.hits / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.fiveHitPercent = 100 * round(5, result.hatchet.clutch.fives / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.sevenHitPercent = 100 * round(5, result.hatchet.clutch.sevens / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.scorePerAxe = round(2, result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.hitPercent = round(2, 100 * result.hatchet.clutch.hits / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.fiveHitPercent = round(2, 100 * result.hatchet.clutch.fives / Math.max(1, result.hatchet.clutch.attempts));
+  result.hatchet.clutch.sevenHitPercent = round(2, 100 * result.hatchet.clutch.sevens / Math.max(1, result.hatchet.clutch.attempts));
 
-  result.bigAxe.bullseye.scorePerAxe = round(3, result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts));
-  result.bigAxe.bullseye.hitPercent = 100 * round(5, result.bigAxe.bullseye.hits / Math.max(1, result.bigAxe.bullseye.attempts));
+  result.bigAxe.bullseye.scorePerAxe = round(2, result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts));
+  result.bigAxe.bullseye.hitPercent = round(2, 100 * result.bigAxe.bullseye.hits / Math.max(1, result.bigAxe.bullseye.attempts));
 
-  result.bigAxe.clutch.scorePerAxe = round(3, result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.hitPercent = 100 * round(5, result.bigAxe.clutch.hits / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.fiveHitPercent = 100 * round(5, result.bigAxe.clutch.fives / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.sevenHitPercent = 100 * round(5, result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.scorePerAxe = round(2, result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.hitPercent = round(2, 100 * result.bigAxe.clutch.hits / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.fiveHitPercent = round(2, 100 * result.bigAxe.clutch.fives / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.clutch.sevenHitPercent = round(2, 100 * result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts));
 
   return result;
 };
