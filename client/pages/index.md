@@ -1,30 +1,25 @@
 ---
 type: "page"
 title: ""
-description: "IATF Premier axe throwing data for Zachary Godfrey (alias: REDACTED)"
+description: "IATF Premier axe throwing data"
 ---
 
-[iatf-redacted]: https://axescores.com/player/1207260
+[axe-scores]: https://axescores.com
 
 (~
 
 ## Welcome!
 
-This website contains IATF Premier axe throwing data for Zachary Godfrey (alias: [REDACTED][iatf-redacted]).
+This website provides an additional view of IATF Premier axe throwing data with a specific focus on accuracy metrics. [AxeScores][axe-scores] is great for seeing wins and losses, but **ThrowDB** is aimed at helping throwers measure and improve their accuracy.
 
 ~)
 
 (~
 
-### Career Stats
+### Profiles
 
-{{#throwData.career}}
-
-|Hatchet||Big Axe|
-|:-:|:-:|:-:|
-| {{hatchetBullseyeHitPercent}} | Bullseye % | {{bigAxeBullseyeHitPercent}} |
-| {{hatchetClutchHitPercent}} | Clutch % | {{bigAxeClutchHitPercent}} |
-
-{{/throwData.career}}
+{{#allProfiles}}
+- ![{{name}}]({{image}}) [{{name}}](/{{profileId}})
+{{/allProfiles}}
 
 ~)

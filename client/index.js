@@ -4,6 +4,10 @@ import { renderMD, renderSections, minifyCSS, parseMetadata, renderMustache } fr
 
 const START = Date.now();
 
+const db = database('data');
+
+const allProfiles = db.main.rows(`SELECT * FROM profiles`);
+
 const shell = readFile('client/assets/shell.html');
 const partials = {
   favicon: readFile('client/assets/icon.png', 'base64'),
@@ -18,13 +22,16 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => {
   return { uri, meta, content };
 });
 
+const templates = {
+  profile: readFile('client/templates/profile.md')
+};
+
 emptyFolder('dist');
 copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
-pages.forEach(({ uri, meta, content: rawContent }) => {
+const renderAndWritePage = (uri, shell, partials, data, rawContent) => {
   const fileName = `dist/${uri}.html`;
-  const data = { meta };
   const content = renderSections(
     renderMD(
       renderMustache(rawContent, data, partials)
@@ -34,6 +41,16 @@ pages.forEach(({ uri, meta, content: rawContent }) => {
   console.log(`Writing File: ${fileName}`);
 
   writeFile(fileName, renderMustache(shell, data, { ...partials, content }));
-});
+};
+
+for (const { uri, meta, content: rawContent } of pages) {
+  const data = { meta, allProfiles };
+
+  renderAndWritePage(uri, shell, partials, data, rawContent);
+}
+
+for (const profile of allProfiles) {
+  //
+}
 
 console.log(`Running Time: ${Date.now() - START}ms`);
