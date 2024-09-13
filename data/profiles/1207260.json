@@ -3,72 +3,342 @@
         "profileId": 1207260,
         "name": "REDACTED",
         "stats": {
-            "entityId": 1,
-            "entityPath": "p1207260",
-            "hatchetBullseyeHitPercent": 82.67099999999999,
-            "hatchetBullseyeScorePerAxe": 4.633,
-            "hatchetClutchHitPercent": 21.479,
-            "hatchetClutchScorePerAxe": 1.504,
-            "hatchetClutchFiveHitPercent": 0,
-            "hatchetClutchSevenHitPercent": 21.479,
-            "bigAxeBullseyeHitPercent": 18.841,
-            "bigAxeBullseyeScorePerAxe": 2.551,
-            "bigAxeClutchHitPercent": 0,
-            "bigAxeClutchScorePerAxe": 0,
-            "bigAxeClutchFiveHitPercent": 0,
-            "bigAxeClutchSevenHitPercent": 0
+            "hatchet": {
+                "bullseye": {
+                    "hitPercent": 82.67099999999999,
+                    "scorePerAxe": 4.633
+                },
+                "clutch": {
+                    "hitPercent": 21.479,
+                    "scorePerAxe": 1.504,
+                    "fiveHitPercent": 0,
+                    "sevenHitPercent": 21.479
+                }
+            },
+            "bigAxe": {
+                "bullseye": {
+                    "hitPercent": 18.841,
+                    "scorePerAxe": 2.551
+                },
+                "clutch": {
+                    "hitPercent": 0,
+                    "scorePerAxe": 0,
+                    "fiveHitPercent": 0,
+                    "sevenHitPercent": 0
+                }
+            }
         }
     },
     "seasons": [
         {
             "seasonId": 326764,
             "name": "Axe Champs Tuesday Black Fall 2",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 89.05499999999999,
+                        "scorePerAxe": 4.781
+                    },
+                    "clutch": {
+                        "hitPercent": 22.222,
+                        "scorePerAxe": 1.556,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 22.222
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 25,
+                        "scorePerAxe": 3
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 314530,
             "name": "Axe Champs Tuesday Red Fall 2023",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 91.429,
+                        "scorePerAxe": 4.829
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 40,
+                        "scorePerAxe": 3.2
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 300856,
             "name": "Axe Champs Tuesday Blue Summer 2023",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 82.997,
+                        "scorePerAxe": 4.651
+                    },
+                    "clutch": {
+                        "hitPercent": 31.507,
+                        "scorePerAxe": 2.205,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 31.507
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 25,
+                        "scorePerAxe": 3.083
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 293831,
             "name": "Axe Champs Monday Blue Spring Turbo league",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 84.226,
+                        "scorePerAxe": 4.64
+                    },
+                    "clutch": {
+                        "hitPercent": 23.810000000000002,
+                        "scorePerAxe": 1.667,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 23.810000000000002
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 9.091000000000001,
+                        "scorePerAxe": 2.273
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 287376,
             "name": "Axe Champs Tuesday Orange Spring2 electric boogaloo",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 85.591,
+                        "scorePerAxe": 4.695
+                    },
+                    "clutch": {
+                        "hitPercent": 13.699,
+                        "scorePerAxe": 0.959,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 13.699
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 23.077,
+                        "scorePerAxe": 3.077
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 267739,
             "name": "Axe Champs Tuesday Purple 2023 Spring premier",
-            "year": 2023
+            "year": 2023,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 83.911,
+                        "scorePerAxe": 4.649
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 25,
+                        "scorePerAxe": 2
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 251574,
             "name": "Valhalla Fleming Island Saturday Yellow 2022 NYE Marathon League",
-            "year": 2022
+            "year": 2022,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 76.905,
+                        "scorePerAxe": 4.524
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 1
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 247230,
             "name": "Axe Champs Tuesday Purple 2022 Winter premier Tuesdays ",
-            "year": 2022
+            "year": 2022,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 89.048,
+                        "scorePerAxe": 4.781
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 3
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 234563,
             "name": "Axe Champs Tuesday Red Fall 2022",
-            "year": 2022
+            "year": 2022,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 78.66300000000001,
+                        "scorePerAxe": 4.519
+                    },
+                    "clutch": {
+                        "hitPercent": 18.75,
+                        "scorePerAxe": 1.313,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 18.75
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 33.333,
+                        "scorePerAxe": 2.667
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         },
         {
             "seasonId": 227217,
             "name": "Valhalla Fleming Island Wednesday Black 2022 Premier Raid 1 ",
-            "year": 2022
+            "year": 2022,
+            "stats": {
+                "hatchet": {
+                    "bullseye": {
+                        "hitPercent": 65.625,
+                        "scorePerAxe": 4.274
+                    },
+                    "clutch": {
+                        "hitPercent": 25,
+                        "scorePerAxe": 1.75,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 25
+                    }
+                },
+                "bigAxe": {
+                    "bullseye": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 1.5
+                    },
+                    "clutch": {
+                        "hitPercent": 0,
+                        "scorePerAxe": 0,
+                        "fiveHitPercent": 0,
+                        "sevenHitPercent": 0
+                    }
+                }
+            }
         }
     ]
 }
