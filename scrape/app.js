@@ -370,15 +370,16 @@ export const opponentsStep = async (db, page) => {
   console.log(`Found ${opponents.length} opponents...`);
 
   for (const { profileId } of opponents) {
-    const [image, { name }] = await Promise.all([
+    const [image, playerData] = await Promise.all([
       fetchProfileImage(profileId),
-      fetchPlayerData(page, profileId).catch(() => ({ name: null }))
+      fetchPlayerData(page, profileId)
     ]);
 
-    if (name === null) {
+    if (playerData === null) {
       continue;
     }
 
+    const { name } = playerData;
     const create = { profileId, name, image };
     const conflict = { profileId };
     const update = { name, image };
