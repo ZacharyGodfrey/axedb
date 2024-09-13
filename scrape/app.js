@@ -279,7 +279,7 @@ const writeStats = (db, entityPath, throws) => {
 export const writeSeedProfiles = (db, profileIds) => {
   for (const profileId of profileIds) {
     db.main.run(`
-      INSERT INTO profiles (profileId, fetch)
+      INSERT OR IGNORE INTO profiles (profileId, fetch)
       VALUES (:profileId, 1)
     `, { profileId });
   }
