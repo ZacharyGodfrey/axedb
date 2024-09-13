@@ -6,7 +6,11 @@ const START = Date.now();
 
 const db = database('data');
 
-const allProfiles = db.main.rows(`SELECT * FROM profiles`);
+const allProfiles = db.main.rows(`
+  SELECT *
+  FROM profiles
+  ORDER BY name ASC
+`);
 
 const shell = readFile('client/assets/shell.html');
 const partials = {
@@ -14,13 +18,10 @@ const partials = {
   style: await minifyCSS(readFile('client/assets/style.css'))
 };
 
-const pages = listFiles('client/pages/**/*.md').map(filePath => {
-  const uri = filePath.split('pages/')[1].replace('.md', '');
-  const fileContent = readFile(`./${filePath}`);
-  const { meta, content } = parseMetadata(fileContent);
-
-  return { uri, meta, content };
-});
+const pages = listFiles('client/pages/**/*.md').map(filePath => ({
+  uri: filePath.split('pages/')[1].replace('.md', ''),
+  fileContent: readFile(filePath)
+}));
 
 const templates = {
   profile: readFile('client/templates/profile.md')
@@ -30,27 +31,31 @@ emptyFolder('dist');
 copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
-const renderAndWritePage = (uri, shell, partials, data, rawContent) => {
+const pipe = (initial, transforms) => transforms.reduce((result, transform) => transform(result), initial);
+
+const renderAndWritePage = (uri, shell, partials, pageData, fileContent) => {
   const fileName = `dist/${uri}.html`;
-  const content = renderSections(
-    renderMD(
-      renderMustache(rawContent, data, partials)
-    )
-  );
+  const output = pipe(fileContent, [
+    (text) => renderMustache(text, pageData, partials),
+    (text) => parseMetadata(text),
+    ({ meta, content }) => ({ meta, content: renderMD(content) }),
+    ({ meta, content }) => ({ meta, content: renderSections(content) }),
+    ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
+  ]);
 
   console.log(`Writing File: ${fileName}`);
 
-  writeFile(fileName, renderMustache(shell, data, { ...partials, content }));
+  writeFile(fileName, output);
 };
 
-for (const { uri, meta, content: rawContent } of pages) {
-  const data = { meta, allProfiles };
+for (const { uri, fileContent } of pages) {
+  const data = { allProfiles };
 
-  renderAndWritePage(uri, shell, partials, data, rawContent);
+  renderAndWritePage(uri, shell, partials, data, fileContent);
 }
 
 for (const profile of allProfiles) {
-  //
+  renderAndWritePage(`${profile.profileId}/index`, shell, partials, profile, templates.profile);
 }
 
 console.log(`Running Time: ${Date.now() - START}ms`);

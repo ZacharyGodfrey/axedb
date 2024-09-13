@@ -1,5 +1,4 @@
 ---
-type: "page"
 title: ""
 description: "IATF Premier axe throwing data"
 ---
@@ -18,10 +17,8 @@ This website provides an additional view of IATF Premier axe throwing data with 
 
 ### Profiles
 
-|||
-|:-:|:-:|
 {{#allProfiles}}
-| ![{{name}}](data:image/png;base64,{{image}}) | [{{name}}](/{{profileId}}) |
+- [{{name}}](/{{profileId}})
 {{/allProfiles}}
 
 ~)
