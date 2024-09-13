@@ -7,7 +7,7 @@
   --text:       hsl(85 15% 30%);
   --background: hsl(85  5% 95%);
   --neutral:    white;
-  --content-width: 80rem;
+  --content-width: 60rem;
   --line-thickness: 2px;
   --radius: 0.5rem;
   --gutter: 1rem;
@@ -64,6 +64,9 @@ article {
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
   color: var(--text);
   background: var(--background);
   border-radius: var(--radius);
@@ -85,7 +88,7 @@ footer {
   padding: 4rem 1rem;
 }
 
-header > *, article, footer > * {
+header > *, section > *, footer > * {
   width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
