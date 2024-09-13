@@ -9,6 +9,10 @@ marked.use(gfmHeadingId({ prefix: '' }));
 
 const cssNano = postcss([cssnano]);
 
+export const pipe = (initial, transforms) => {
+  return transforms.reduce((result, transform) => transform(result), initial);
+};
+
 export const renderMustache = Mustache.render;
 
 export const renderMD = (fileContent) => {
@@ -39,4 +43,19 @@ export const parseMetadata = (fileContent) => {
   const { attributes: meta, body: content } = frontMatter(fileContent);
 
   return { meta, content };
+};
+
+export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) => {
+  const fileName = `dist/${uri}.html`;
+  const output = pipe(fileContent, [
+    (text) => renderMustache(text, pageData, partials),
+    (text) => parseMetadata(text),
+    ({ meta, content }) => ({ meta, content: renderMD(content) }),
+    ({ meta, content }) => ({ meta, content: renderSections(content) }),
+    ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
+  ]);
+
+  console.log(`Writing File: ${fileName}`);
+
+  writeFile(fileName, output);
 };

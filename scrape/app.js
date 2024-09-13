@@ -424,6 +424,12 @@ export const jsonStep = (db) => {
   for (const profile of profiles) {
     const fileName = `data/profiles/${profile.profileId}.json`;
 
+    const careerStats = profile.fetch === 0 ? null : jsonStats(db.stats.row(`
+      SELECT *
+      FROM stats
+      WHERE entityPath = ?
+    `, [`p${profile.profileId}`]));
+
     const seasons = db.main.rows(`
       SELECT *
       FROM seasons
@@ -437,11 +443,7 @@ export const jsonStep = (db) => {
 
     const data = {
       ...profile,
-      stats: profile.fetch === 0 ? null : jsonStats(db.stats.row(`
-        SELECT *
-        FROM stats
-        WHERE entityPath = ?
-      `, [`p${profile.profileId}`]))
+      stats: careerStats,
       seasons: seasons.map((season) => ({
         ...season,
         stats: jsonStats(db.stats.row(`
