@@ -7,7 +7,7 @@
   --text:       hsl(85 15% 30%);
   --background: hsl(85  5% 95%);
   --neutral:    white;
-  --content-width: 60rem;
+  --content-width: 80rem;
   --line-thickness: 2px;
   --radius: 0.5rem;
   --gutter: 1rem;
@@ -86,6 +86,7 @@ footer {
 }
 
 header > *, article, footer > * {
+  width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
 }
