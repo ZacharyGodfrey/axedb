@@ -1,31 +1,31 @@
 {
-    "profile": {
-        "profileId": 1207260,
-        "name": "REDACTED",
-        "stats": {
-            "hatchet": {
-                "bullseye": {
-                    "hitPercent": 82.67,
-                    "scorePerAxe": 4.63
-                },
-                "clutch": {
-                    "hitPercent": 21.48,
-                    "scorePerAxe": 1.5,
-                    "fiveHitPercent": 0,
-                    "sevenHitPercent": 21.48
-                }
+    "profileId": 1207260,
+    "name": "REDACTED",
+    "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAAwICAgICAwICAgMDAwMEBgQEBAQECAYGBQYJCAoKCQgJCQoMDwwKCw4LCQkNEQ0ODxAQERAKDBITEhATDxAQEP/bAEMBAwMDBAMECAQECBALCQsQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEP/AABEIAMgAyAMBIgACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k=",
+    "fetch": 1,
+    "stats": {
+        "hatchet": {
+            "bullseye": {
+                "hitPercent": 82.67,
+                "scorePerAxe": 4.63
             },
-            "bigAxe": {
-                "bullseye": {
-                    "hitPercent": 18.84,
-                    "scorePerAxe": 2.55
-                },
-                "clutch": {
-                    "hitPercent": 0,
-                    "scorePerAxe": 0,
-                    "fiveHitPercent": 0,
-                    "sevenHitPercent": 0
-                }
+            "clutch": {
+                "hitPercent": 21.48,
+                "scorePerAxe": 1.5,
+                "fiveHitPercent": 0,
+                "sevenHitPercent": 21.48
+            }
+        },
+        "bigAxe": {
+            "bullseye": {
+                "hitPercent": 18.84,
+                "scorePerAxe": 2.55
+            },
+            "clutch": {
+                "hitPercent": 0,
+                "scorePerAxe": 0,
+                "fiveHitPercent": 0,
+                "sevenHitPercent": 0
             }
         }
     },
