@@ -22,8 +22,6 @@ const START = Date.now();
 
 // Read Input
 
-const db = database('data');
-
 const shell = readFile('client/assets/shell.html');
 
 const partials = {
@@ -39,6 +37,10 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => ({
 const templates = {
   profile: readFile('client/templates/profile.md')
 };
+
+const db = database('data');
+
+const allProfiles = db.main.rows(`SELECT * FROM profiles ORDER BY name ASC`);
 
 // Write Output
 
