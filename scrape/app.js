@@ -74,7 +74,13 @@ const fetchThrowData = async (page, profileId, matchId) => {
   const isInvalidRoundCount = rawMatch.rounds.length > 4;
   const isForfeit = rawMatch.players.find(x => x.id === profileId)?.forfeit === true;
 
-  if (isInvalidRoundCount || isForfeit) {
+  if (rawMatch.rounds.length > 4) {
+    console.log(`Invalid round count: ${rawMatch.rounds.length}`);
+    return throws;
+  }
+
+  if (rawMatch.players.find(x => x.id === profileId)?.forfeit === true) {
+    console.log('Match is forfeit');
     return throws;
   }
 
@@ -344,6 +350,11 @@ export const throwDataStep = async (db, page, newMatches) => {
     console.log(`Match ${matchId}`);
 
     const throws = await fetchThrowData(page, profileId, matchId);
+
+    if (throws.length < 1) {
+      continue;
+    }
+
     const { opponentId = 0 } = throws[0];
 
     console.table(throws);
