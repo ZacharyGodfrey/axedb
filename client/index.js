@@ -8,17 +8,9 @@ const DB_FILE = 'database.db';
 const db = database(DB_FILE);
 const shell = readFile('client/assets/shell.html');
 
-const throwData = {
-  career: db.row(`SELECT * FROM aggregations WHERE level = 'career'`),
-  seasons: db.rows(`SELECT * FROM aggregations WHERE level = 'season'`),
-  matches: db.rows(`SELECT * FROM matches`),
-  throws: db.rows(`SELECT * FROM throws`),
-};
-
 const partials = {
   favicon: readFile('client/assets/icon.png', 'base64'),
-  style: await minifyCSS(readFile('client/assets/style.css')),
-  json: JSON.stringify(throwData)
+  style: await minifyCSS(readFile('client/assets/style.css'))
 };
 
 const pages = listFiles('client/pages/**/*.md').map(filePath => {
@@ -31,12 +23,11 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => {
 
 emptyFolder('dist');
 copyFolder('client/static', 'dist');
-
-writeFile('dist/data.json', JSON.stringify(throwData, null, 4));
+copyFolder('data/profiles', 'dist');
 
 pages.forEach(({ uri, meta, content: rawContent }) => {
   const fileName = `dist/${uri}.html`;
-  const data = { meta, throwData };
+  const data = { meta };
   const content = renderSections(
     renderMD(
       renderMustache(rawContent, data, partials)
