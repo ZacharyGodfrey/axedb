@@ -62,7 +62,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
 
   for (const season of profile.seasons) {
     const data = { profile, season };
-    const uri = `${profile.profileId}/s/${}index`;
+    const uri = `${profile.profileId}/s/${season.seasonId}index`;
 
     renderAndWritePage(uri, shell, partials, data, templates.season);
   }
