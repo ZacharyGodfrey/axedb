@@ -67,6 +67,7 @@ article {
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
+  overflow: hidden;
   color: var(--text);
   background: var(--background);
   border-radius: var(--radius);
