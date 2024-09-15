@@ -71,9 +71,6 @@ const fetchThrowData = async (page, profileId, matchId) => {
 
   const rawMatch = await apiResponse.json();
 
-  const isInvalidRoundCount = rawMatch.rounds.length > 4;
-  const isForfeit = rawMatch.players.find(x => x.id === profileId)?.forfeit === true;
-
   if (rawMatch.rounds.length > 4) {
     console.log(`Invalid round count: ${rawMatch.rounds.length}`);
     return throws;
@@ -308,7 +305,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
       UPDATE profiles
       SET name = :name, image = :image
       WHERE profileId = :profileId
-    `, { profileId, name, image });
+    `, { profileId, name: name.trim(), image });
 
     for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
       if (performanceName !== ruleset) {
@@ -317,7 +314,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
 
       console.log(`Season ${seasonId}`);
 
-      const name = `${season.name} ${season.shortName}`;
+      const name = `${season.name.trim()} ${season.shortName.trim()}`;
       const year = parseInt(season.date.split('-')[0]);
 
       db.main.run(`

@@ -1,18 +1,25 @@
+/* Custom Font */
+
+@font-face {
+  font-family: 'custom';
+  src: url(data:application/x-font-ttf;charset=utf-8;base64,{{>font}});
+}
+
 /* Pseudo Elements */
 
 :root {
   --primary:    hsl(85 15% 45%);
   --accent:     hsl( 0 45% 45%);
   --highlight:  hsl(55 75% 75%);
-  --text:       hsl(85 15% 30%);
+  --text:       hsl(85 10% 30%);
   --background: hsl(85  5% 95%);
   --neutral:    white;
-  --content-width: 60rem;
+  --content-width: 50rem;
   --line-thickness: 2px;
   --radius: 0.5rem;
   --gutter: 1rem;
   font-size: 18px;
-  font-family: monospace;
+  font-family: 'custom', monospace;
   color: var(--text);
   background: var(--primary);
 }
@@ -65,7 +72,7 @@ article {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 80rem;
+  max-width: calc(1.5 * var(--content-width));
   margin-inline: auto;
   overflow: hidden;
   color: var(--text);
@@ -101,7 +108,11 @@ h1, h2, h3, h4, p, ul, ol, img {
   margin-block: 1rem;
 }
 
-h1, h2, h3, h4, p, li, th, td {
+h1, h2, h3, h4 {
+  line-height: 1;
+}
+
+p, li, th, td {
   line-height: 1.5;
 }
 
@@ -113,7 +124,6 @@ h4 { font-size: 1.5rem; }
 a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-thickness: var(--line-thickness);
 }
 
 article a {

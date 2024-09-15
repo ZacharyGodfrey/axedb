@@ -1,22 +1,6 @@
 import { database } from '../lib/database.js';
-
-import {
-  readFile,
-  listFiles,
-  emptyFolder,
-  copyFolder,
-  writeFile
-} from '../lib/file.js';
-
-import {
-  pipe,
-  renderMD,
-  renderSections,
-  minifyCSS,
-  parseMetadata,
-  renderMustache,
-  renderAndWritePage
-} from './app.js';
+import { readFile, listFiles, emptyFolder, copyFolder } from '../lib/file.js';
+import { minifyCSS, renderAndWritePage } from './app.js';
 
 const START = Date.now();
 
@@ -26,6 +10,7 @@ const shell = readFile('client/assets/shell.html');
 
 const partials = {
   favicon: readFile('client/assets/icon.png', 'base64'),
+  font: readFile('client/assets/FiraCode-Variable.ttf', 'base64'),
   style: await minifyCSS(readFile('client/assets/style.css')),
   profileHeader: readFile('client/partials/profile-header.html')
 };
