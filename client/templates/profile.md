@@ -7,24 +7,28 @@ description: "IATF Premier axe throwing data for {{profile.name}}"
 
 (~
 
-### Career Stats
+### Stats
 
-{{^profile.stats}}
+{{^profile.seasons.length}}
 
 No stats have been analyzed for this profile yet.
 
-{{/profile.stats}}
+{{/profile.seasons.length}}
 
+{{#profile.seasons.length}}
+
+#### Score Per Axe
+
+|   | Hatchet Bullseye | Hatchet Clutch | Big Axe Bullseye | Big Axe Clutch |
+|:-:|:----------------:|:--------------:|:----------------:|:--------------:|
 {{#profile.stats}}
-
-| Key | Value |
-|----:|:------|
-| Hatchet Bullseye Score Per Axe | {{hatchet.bullseye.scorePerAxe}} |
-| Hatchet Clutch Score Per Axe | {{hatchet.clutch.scorePerAxe}} |
-| Big Axe Bullseye Score Per Axe | {{bigAxe.bullseye.scorePerAxe}} |
-| Big Axe Clutch Score Per Axe | {{bigAxe.clutch.scorePerAxe}} |
-
+| **Career** | {{hatchet.bullseye.scorePerAxe}} | {{hatchet.clutch.scorePerAxe}} | {{bigAxe.bullseye.scorePerAxe}} | {{bigAxe.clutch.scorePerAxe}} |
 {{/profile.stats}}
+{{#profile.seasons}}
+| [{{year}} {{name}}](s/{{seasonId}}) | {{hatchet.bullseye.scorePerAxe}} | {{hatchet.clutch.scorePerAxe}} | {{bigAxe.bullseye.scorePerAxe}} | {{bigAxe.clutch.scorePerAxe}} |
+{{/profile.seasons}}
+
+{{/profile.seasons.length}}
 
 ~)
 
