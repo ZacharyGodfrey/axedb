@@ -1,9 +1,13 @@
 <section>
   <div class="grid columns-fill-auto items-y-center">
     <div class="text-right">
-      <h2 id="{{profile.name}}">{{profile.name}}</h2>
+      <h2 id="{{profile.name}}">
+        <a href="/{{profile.profileId}}">{{profile.name}}</a>
+      </h2>
+
       <p>ID: {{profile.profileId}}</p>
     </div>
+
     <div>
       <img src="data:image/png;base64,{{profile.image}}" alt="{{profile.name}}" class="profilePic">
     </div>
