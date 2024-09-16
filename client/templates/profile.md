@@ -31,25 +31,3 @@ No stats have been analyzed for this profile yet.
 {{/profile.seasons.length}}
 
 ~)
-
-(~
-
-### Seasons
-
-{{^profile.seasons.length}}
-
-No seasons have been collected for this profile yet.
-
-{{/profile.seasons.length}}
-
-{{#profile.seasons.length}}
-
-| Year | Name |
-|:----:|------|
-{{#profile.seasons}}
-| {{year}} | [{{name}}](s/{{seasonId}}) |
-{{/profile.seasons}}
-
-{{/profile.seasons.length}}
-
-~)
