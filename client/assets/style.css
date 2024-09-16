@@ -182,11 +182,13 @@ li:has(input[type="checkbox"]:disabled) {
 }
 
 img {
-  max-width: min(100%, 15rem);
-  max-height: min(75vh, 15rem);
-  max-height: min(75svh, 15rem);
+  display: block;
+  margin-inline: auto;
+  max-width: min(100%, 40rem);
+  max-height: min(75vh, 40rem);
+  max-height: min(75svh, 40rem);
+  border-radius: var(--radius);
   user-select: none;
-  border-radius: 50%;
 }
 
 p:has(img:only-child) {
@@ -231,15 +233,6 @@ thead tr:not(:has(th:not(:empty))) {
 
 .text-center { text-align: center; }
 .text-right { text-align: right; }
-
-img.block {
-  display: block;
-  margin-inline: auto;
-  max-width: min(100%, 40rem);
-  max-height: min(75vh, 40rem);
-  max-height: min(75svh, 40rem);
-  border-radius: var(--radius);
-}
 
 /* CSS Grid */
 
@@ -293,4 +286,5 @@ img.block {
 img.profilePic {
   max-width: 200px;
   max-height: 200px;
+  border-radius: 50%;
 }
