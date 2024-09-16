@@ -20,7 +20,7 @@ No stats have been analyzed for this profile yet.
 #### Score Per Axe
 
 |   | Hatchet Bullseye | Hatchet Clutch | Big Axe Bullseye | Big Axe Clutch |
-|:-:|:----------------:|:--------------:|:----------------:|:--------------:|
+|--:|:----------------:|:--------------:|:----------------:|:--------------:|
 {{#profile.stats}}
 | **Career** | {{hatchet.bullseye.scorePerAxe}} | {{hatchet.clutch.scorePerAxe}} | {{bigAxe.bullseye.scorePerAxe}} | {{bigAxe.clutch.scorePerAxe}} |
 {{/profile.stats}}

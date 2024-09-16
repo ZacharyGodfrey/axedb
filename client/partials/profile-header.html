@@ -1,13 +1,13 @@
 <section>
-  <div class="grid columns-fill-auto items-y-center">
-    <div class="text-right">
+  <div class="grid stack auto-fill items-y-center"></div>
+    <div>
+      <img src="data:image/png;base64,{{profile.image}}" alt="{{profile.name}}" class="profilePic">
+    </div>
+    <div>
       <h2 id="{{profile.name}}">
         <a href="/{{profile.profileId}}">{{profile.name}}</a>
       </h2>
       <p>ID: {{profile.profileId}}</p>
-    </div>
-    <div>
-      <img src="data:image/png;base64,{{profile.image}}" alt="{{profile.name}}" class="profilePic">
     </div>
   </div>
 </section>
