@@ -25,7 +25,7 @@ No stats have been analyzed for this profile yet.
 | **Career** | {{hatchet.bullseye.scorePerAxe}} | {{hatchet.clutch.scorePerAxe}} | {{bigAxe.bullseye.scorePerAxe}} | {{bigAxe.clutch.scorePerAxe}} |
 {{/profile.stats}}
 {{#profile.seasons}}
-| [{{year}} {{name}}](s/{{seasonId}}) | {{hatchet.bullseye.scorePerAxe}} | {{hatchet.clutch.scorePerAxe}} | {{bigAxe.bullseye.scorePerAxe}} | {{bigAxe.clutch.scorePerAxe}} |
+| [{{year}} {{name}}](s/{{seasonId}}) | {{stats.hatchet.bullseye.scorePerAxe}} | {{stats.hatchet.clutch.scorePerAxe}} | {{stats.bigAxe.bullseye.scorePerAxe}} | {{stats.bigAxe.clutch.scorePerAxe}} |
 {{/profile.seasons}}
 
 {{/profile.seasons.length}}
