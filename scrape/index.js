@@ -1,13 +1,13 @@
 import puppeteer from 'puppeteer';
 
+import SEED_PROFILES from '../lib/profile-list.js';
 import { database } from '../lib/database.js';
 import {
-  writeSeedProfiles,
-  mainDataStep,
-  throwDataStep,
-  opponentsStep,
-  statsStep,
-  jsonStep
+  seedProfiles,
+  recordProfileData,
+  recordThrowData,
+  recordOpponentData,
+  recordJsonData
 } from './app.js';
 
 // Start Up
@@ -15,14 +15,9 @@ import {
 console.log('Starting up...');
 
 const START = Date.now();
-const DATA_DIR = 'data';
 const RULESET = 'IATF Premier';
-const SEED_PROFILES = [
-  1207260, // me "REDACTED"
-  1051409, // Micah "Hollowpoint"
-];
 
-const db = database(DATA_DIR);
+const db = database('data');
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
@@ -30,30 +25,30 @@ const page = await browser.newPage();
 
 console.log('Seeding profiles...');
 
-writeSeedProfiles(db, SEED_PROFILES);
+seedProfiles(db, SEED_PROFILES);
 
 console.log('Done.');
 
-// Fetch main data
+// Record profile data
 
-console.log('Fetching main data...');
+console.log('Recording profile data...');
 
-const profiles = db.main.rows(`
+const profiles = db.rows(`
   SELECT profileId FROM profiles
   WHERE fetch = 1
 `);
 
 console.log(`Processing ${profiles.length} profiles...`);
 
-await mainDataStep(db, page, profiles, RULESET);
+await recordProfileData(db, page, profiles, RULESET);
 
 console.log('Done.');
 
-// Fetch throw data
+// Record throw data
 
-console.log('Fetching throw data...');
+console.log('Recording throw data...');
 
-const newMatches = db.main.rows(`
+const newMatches = db.rows(`
   SELECT profileId, seasonId, weekId, matchId
   FROM matches
   WHERE processed = 0
@@ -61,23 +56,15 @@ const newMatches = db.main.rows(`
 
 console.log(`Processing ${newMatches.length} new matches...`);
 
-await throwDataStep(db, page, newMatches);
+await recordThrowData(db, page, newMatches);
 
 console.log('Done.');
 
-// Build stats
+// Record Opponents
 
-console.log('Building stats...');
+console.log('Recording opponent data...');
 
-statsStep(db, profiles);
-
-console.log('Done.');
-
-// Fetch Opponents
-
-console.log('Fetching opponent data...');
-
-await opponentsStep(db, page);
+await recordOpponentData(db, page);
 
 console.log('Done.');
 
@@ -85,7 +72,7 @@ console.log('Done.');
 
 console.log('Writing JSON files...');
 
-jsonStep(db);
+recordJsonData(db);
 
 console.log('Done.');
 

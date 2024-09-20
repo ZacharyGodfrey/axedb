@@ -112,30 +112,19 @@ const fetchThrowData = async (page, profileId, matchId) => {
 
 // Process Data
 
-const buildStatGroups = (throws) => {
-  const groups = {};
-
-  for (const { profileId, seasonId, weekId, matchId, roundId, tool, target, score } of throws) {
-    const profilePath = `p${profileId}`;
-    const seasonPath =  `p${profileId}s${seasonId}`;
-    const weekPath =    `p${profileId}s${seasonId}w${weekId}`;
-    const matchPath =   `p${profileId}m${matchId}`;
-    const roundPath =   `p${profileId}m${matchId}r${roundId}`;
-    const data = { tool, target, score };
-
-    for (const entityPath of [profilePath, seasonPath, weekPath, matchPath, roundPath]) {
-      const { throws } = groups[entityPath] = groups[entityPath] ?? { entityPath, throws: [] };
-
-      throws.push(data);
-    }
-  }
-
-  return Object.values(groups);
-};
-
 const buildStats = (throws) => {
   const result = {
+    overall: {
+      attempts: 0,
+      totalScore: 0,
+      scorePerAxe: 0
+    },
     hatchet: {
+      overall: {
+        attempts: 0,
+        totalScore: 0,
+        scorePerAxe: 0
+      },
       bullseye: {
         attempts: 0,
         totalScore: 0,
@@ -156,6 +145,11 @@ const buildStats = (throws) => {
       }
     },
     bigAxe: {
+      overall: {
+        attempts: 0,
+        totalScore: 0,
+        scorePerAxe: 0
+      },
       bullseye: {
         attempts: 0,
         totalScore: 0,
@@ -177,8 +171,14 @@ const buildStats = (throws) => {
     }
   };
 
-  throws.forEach(({ tool, target, score }) => {
+  for (const { tool, target, score } of throws) {
+    result.overall.attempts += 1;
+    result.overall.totalScore += score;
+
     if (tool === enums.tool.hatchet) {
+      result.hatchet.overall.attempts += 1;
+      result.hatchet.overall.totalScore += score;
+
       if (target === enums.target.bullseye) {
         result.hatchet.bullseye.attempts += 1;
         result.hatchet.bullseye.totalScore += score;
@@ -191,6 +191,9 @@ const buildStats = (throws) => {
         result.hatchet.clutch.sevens += score === 7 ? 1 : 0;
       }
     } else if (tool === enums.tool.bigAxe) {
+      result.bigAxe.overall.attempts += 1;
+      result.bigAxe.overall.totalScore += score;
+
       if (target === enums.target.bullseye) {
         result.bigAxe.bullseye.attempts += 1;
         result.bigAxe.bullseye.totalScore += score;
@@ -203,7 +206,11 @@ const buildStats = (throws) => {
         result.bigAxe.clutch.sevens += score === 7 ? 1 : 0;
       }
     }
-  });
+  }
+
+  result.overall.scorePerAxe = round(2, result.overall.totalScore / Math.max(1, result.overall.attempts));
+  result.hatchet.overall.scorePerAxe = round(2, result.hatchet.overall.totalScore / Math.max(1, result.hatchet.overall.attempts));
+  result.bigAxe.overall.scorePerAxe = round(2, result.bigAxe.overall.totalScore / Math.max(1, result.bigAxe.overall.attempts));
 
   result.hatchet.bullseye.scorePerAxe = round(2, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
   result.hatchet.bullseye.hitPercent = round(2, 100 * result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts));
@@ -224,64 +231,11 @@ const buildStats = (throws) => {
   return result;
 };
 
-const jsonStats = (statsRow) => {
-  return {
-    hatchet: {
-      bullseye: {
-        hitPercent: statsRow.hatchetBullseyeHitPercent,
-        scorePerAxe: statsRow.hatchetBullseyeScorePerAxe
-      },
-      clutch: {
-        hitPercent: statsRow.hatchetClutchHitPercent,
-        scorePerAxe: statsRow.hatchetClutchScorePerAxe,
-        fiveHitPercent: statsRow.hatchetClutchFiveHitPercent,
-        sevenHitPercent: statsRow.hatchetClutchSevenHitPercent
-      }
-    },
-    bigAxe: {
-      bullseye: {
-        hitPercent: statsRow.bigAxeBullseyeHitPercent,
-        scorePerAxe: statsRow.bigAxeBullseyeScorePerAxe
-      },
-      clutch: {
-        hitPercent: statsRow.bigAxeClutchHitPercent,
-        scorePerAxe: statsRow.bigAxeClutchScorePerAxe,
-        fiveHitPercent: statsRow.bigAxeClutchFiveHitPercent,
-        sevenHitPercent: statsRow.bigAxeClutchSevenHitPercent
-      }
-    }
-  };
-};
+// Workflow Steps
 
-// Write Data
-
-const writeStats = (db, entityPath, throws) => {
-  const { hatchet, bigAxe } = buildStats(throws);
-  const stats = {
-    hatchetBullseyeHitPercent: hatchet.bullseye.hitPercent,
-    hatchetBullseyeScorePerAxe: hatchet.bullseye.scorePerAxe,
-    hatchetClutchHitPercent: hatchet.clutch.hitPercent,
-    hatchetClutchScorePerAxe: hatchet.clutch.scorePerAxe,
-    hatchetClutchFiveHitPercent: hatchet.clutch.fiveHitPercent,
-    hatchetClutchSevenHitPercent: hatchet.clutch.sevenHitPercent,
-    bigAxeBullseyeHitPercent: bigAxe.bullseye.hitPercent,
-    bigAxeBullseyeScorePerAxe: bigAxe.bullseye.scorePerAxe,
-    bigAxeClutchHitPercent: bigAxe.clutch.hitPercent,
-    bigAxeClutchScorePerAxe: bigAxe.clutch.scorePerAxe,
-    bigAxeClutchFiveHitPercent: bigAxe.clutch.fiveHitPercent,
-    bigAxeClutchSevenHitPercent: bigAxe.clutch.sevenHitPercent,
-  };
-
-  const create = { entityPath, ...stats };
-  const conflict = { entityPath };
-  const update = stats;
-
-  db.stats.insertOrUpdate('stats', create, conflict, update);
-};
-
-export const writeSeedProfiles = (db, profileIds) => {
+export const seedProfiles = (db, profileIds) => {
   for (const profileId of profileIds) {
-    db.main.run(`
+    db.run(`
       INSERT INTO profiles (profileId, fetch)
       VALUES (:profileId, 1)
       ON CONFLICT (profileId) DO UPDATE
@@ -290,9 +244,7 @@ export const writeSeedProfiles = (db, profileIds) => {
   }
 };
 
-// Workflow Steps
-
-export const mainDataStep = async (db, page, profiles, ruleset) => {
+export const recordProfileData = async (db, page, profiles, ruleset) => {
   for (const { profileId } of profiles) {
     console.log(`Profile ${profileId}`);
 
@@ -301,7 +253,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
       fetchPlayerData(page, profileId)
     ]);
 
-    db.main.run(`
+    db.run(`
       UPDATE profiles
       SET name = :name, image = :image
       WHERE profileId = :profileId
@@ -317,7 +269,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
       const name = `${season.name.trim()} ${season.shortName.trim()}`;
       const year = parseInt(season.date.split('-')[0]);
 
-      db.main.run(`
+      db.run(`
         INSERT INTO seasons (seasonId, name, year)
         VALUES (:seasonId, :name, :year)
         ON CONFLICT (seasonId) DO UPDATE
@@ -330,7 +282,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
         for (const { id: matchId } of matches) {
           console.log(`Match ${matchId}`);
 
-          db.main.run(`
+          db.run(`
             INSERT INTO matches (profileId, seasonId, weekId, matchId)
             VALUES (:profileId, :seasonId, :weekId, :matchId)
             ON CONFLICT (profileId, matchId) DO UPDATE
@@ -342,7 +294,7 @@ export const mainDataStep = async (db, page, profiles, ruleset) => {
   }
 };
 
-export const throwDataStep = async (db, page, newMatches) => {
+export const recordThrowData = async (db, page, newMatches) => {
   for (const { profileId, seasonId, weekId, matchId } of newMatches) {
     console.log(`Match ${matchId}`);
 
@@ -352,15 +304,15 @@ export const throwDataStep = async (db, page, newMatches) => {
       continue;
     }
 
-    const { opponentId = 0 } = throws[0];
+    const { opponentId } = throws[0];
 
     console.table(throws);
 
     for (const row of throws) {
-      db.throws.insert('throws', { ...row, seasonId, weekId });
+      db.insert('throws', { ...row, seasonId, weekId });
     }
 
-    db.main.run(`
+    db.run(`
       UPDATE matches
       SET processed = 1, opponentId = :opponentId
       WHERE profileId = :profileId AND matchId = :matchId
@@ -368,29 +320,8 @@ export const throwDataStep = async (db, page, newMatches) => {
   }
 };
 
-export const statsStep = (db, profiles) => {
-  for (const { profileId } of profiles) {
-    console.log(`Profile ${profileId}`);
-
-    const allThrows = db.throws.rows(`
-      SELECT * FROM throws
-      WHERE profileId = :profileId
-    `, { profileId });
-
-    console.log(`Found ${allThrows.length} throws...`);
-
-    const groups = buildStatGroups(allThrows);
-
-    for (const { entityPath, throws } of groups) {
-      console.log(`Stats ${entityPath}`);
-
-      writeStats(db, entityPath, throws);
-    }
-  }
-};
-
-export const opponentsStep = async (db, page) => {
-  const opponents = db.main.rows(`
+export const recordOpponentData = async (db, page) => {
+  const opponents = db.rows(`
     SELECT DISTINCT opponentId FROM matches
     WHERE opponentId > 0 AND opponentId NOT IN (
       SELECT profileId FROM profiles
@@ -419,26 +350,27 @@ export const opponentsStep = async (db, page) => {
     const conflict = { profileId };
     const update = { name, image };
 
-    db.main.insertOrUpdate('profiles', create, conflict, update);
+    db.insertOrUpdate('profiles', create, conflict, update);
   }
 };
 
-export const jsonStep = (db) => {
-  const profiles = db.main.rows(`
+export const recordJsonData = (db) => {
+  const profiles = db.rows(`
     SELECT *
     FROM profiles
   `);
 
-  for (const profile of profiles) {
-    const fileName = `data/profiles/${profile.profileId}.json`;
+  for (const { profileId, fetch, ...profile } of profiles) {
+    const fileName = `data/profiles/${profileId}.json`;
 
-    const careerStats = profile.fetch === 0 ? null : jsonStats(db.stats.row(`
-      SELECT *
-      FROM stats
-      WHERE entityPath = ?
-    `, [`p${profile.profileId}`]));
+    const careerStats = fetch === 0 ? null : buildStats(db.rows(`
+      SELECT tool, target, score
+      FROM throws
+      WHERE profileId = :profileId
+      ORDER BY seasonId, weekId, matchId, roundId, throwId
+    `, { profileId }));
 
-    const seasons = db.main.rows(`
+    const seasons = db.rows(`
       SELECT *
       FROM seasons
       WHERE seasonId IN (
@@ -447,18 +379,20 @@ export const jsonStep = (db) => {
         WHERE profileId = :profileId
       )
       ORDER BY seasonId DESC
-    `, profile);
+    `, { profileId });
 
     const data = {
+      profileId,
       ...profile,
       stats: careerStats,
       seasons: seasons.map((season) => ({
         ...season,
-        stats: jsonStats(db.stats.row(`
-          SELECT *
-          FROM stats
-          WHERE entityPath = ?
-        `, [`p${profile.profileId}s${season.seasonId}`]))
+        stats: buildStats(db.rows(`
+          SELECT tool, target, score
+          FROM throws
+          WHERE profileId = :profileId AND seasonId = :seasonId
+          ORDER BY seasonId, weekId, matchId, roundId, throwId
+        `, { profileId, seasonId: season.seasonId }))
       }))
     };
 
