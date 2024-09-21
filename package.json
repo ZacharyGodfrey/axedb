@@ -4,7 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "scrape": "node ./scrape/index.js",
+    "scrape": "node ./scrape/steps/all.js",
+    "scrape:profiles": "node ./scrape/steps/profiles.js",
+    "scrape:throws": "node ./scrape/steps/throws.js",
+    "scrape:opponents": "node ./scrape/steps/opponents.js",
+    "scrape:data": "node ./scrape/steps/data.js",
     "build": "node ./client/index.js",
     "serve": "npm run build && http-server dist -p 8080 -c-1 -e html",
     "watch": "nodemon --watch client --watch data --ext html,css,js,md,json,db --exec \"npm run build\"",

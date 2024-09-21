@@ -48,7 +48,7 @@ export const parseMetadata = (fileContent) => {
 };
 
 export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) => {
-  const fileName = `dist/${uri}.html`;
+  const fileName = `dist/${uri}`;
   const output = pipe(fileContent, [
     (text) => renderMustache(text, pageData, partials),
     (text) => parseMetadata(text),

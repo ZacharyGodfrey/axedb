@@ -16,7 +16,7 @@ const partials = {
 };
 
 const pages = listFiles('client/pages/**/*.md').map(filePath => ({
-  uri: filePath.split('pages/')[1].replace('.md', ''),
+  uri: filePath.split('pages/')[1].replace('.md', '.html'),
   fileContent: readFile(filePath)
 }));
 
@@ -27,7 +27,7 @@ const templates = {
 
 const db = database('data');
 
-const allProfiles = db.main.rows(`SELECT * FROM profiles ORDER BY name ASC`);
+const allProfiles = db.rows(`SELECT * FROM profiles ORDER BY name ASC`);
 
 // Write Output
 
@@ -43,12 +43,15 @@ for (const { uri, fileContent } of pages) {
 
 for (const filePath of listFiles('data/profiles/*.json')) {
   const profile = JSON.parse(readFile(filePath));
+  const { profileId } = profile;
+  const uri = `${profileId}/index.html`;
 
-  renderAndWritePage(`${profile.profileId}/index`, shell, partials, { profile }, templates.profile);
+  renderAndWritePage(uri, shell, partials, { profile }, templates.profile);
 
-  for (const season of profile.seasons) {
+  for (const { seasonId } of profile.seasons) {
+    const season = JSON.parse(readFile(`data/profiles/${profileId}/seasons/${seasonId}.json`));
     const data = { profile, season };
-    const uri = `${profile.profileId}/s/${season.seasonId}/index`;
+    const uri = `${profileId}/s/${seasonId}/index.html`;
 
     renderAndWritePage(uri, shell, partials, data, templates.season);
   }
