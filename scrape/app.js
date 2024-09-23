@@ -478,12 +478,8 @@ export const recordJsonData = (db) => {
             match.rounds.push(round);
           }
 
-          writeFile(`data/profiles/${profileId}/matches/${matchId}.json`, JSON.stringify(match, null, 2));
-
           week.matches.push(match);
         }
-
-        delete week.matches;
 
         season.weeks.push(week);
       }

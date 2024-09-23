@@ -9,7 +9,7 @@
     "scrape:throws": "node ./scrape/steps/throws.js",
     "scrape:opponents": "node ./scrape/steps/opponents.js",
     "scrape:data": "node ./scrape/steps/data.js",
-    "build": "node ./client/index.js",
+    "build": "npm run scrape:data && node ./client/index.js",
     "serve": "npm run build && http-server dist -p 8080 -c-1 -e html",
     "watch": "nodemon --watch client --watch data --ext html,css,js,md,json,db --exec \"npm run build\"",
     "local": "npm run serve & npm run watch && kill $(jobs -p)"
