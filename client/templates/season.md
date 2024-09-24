@@ -23,3 +23,13 @@ description: "{{season.name}} stats"
 {{/season.stats}}
 
 ~)
+
+(~
+
+### Weeks
+
+{{#season.weeks}}
+- [Week {{weekId}}](/{{profile.profileId}}/s/{{season.seasonId}}/w/{{weekId}})
+{{/season.weeks}}
+
+~)
