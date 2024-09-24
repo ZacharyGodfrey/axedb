@@ -1,17 +1,19 @@
 ---
-title: "{{season.name}} | {{profile.name}}"
-description: "{{season.name}} stats"
+title: "Week {{week.weekId}} | {{season.name}} | {{profile.name}}"
+description: "Stats for {{profile.name}} in Week {{week.weekId}} of {{season.name}}"
 ---
 
 {{>profileHeader}}
 
 (~
 
-[Career](/{{profile.profileId}}) > {{season.year}} > **{{season.name}}**
+
+
+### Week Stats
+
+{{season.year}} **{{season.name}}**
 
 {{#season.stats}}
-
-### Season Stats
 
 | Key | Value |
 |----:|:------|
