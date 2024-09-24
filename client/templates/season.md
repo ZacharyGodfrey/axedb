@@ -7,22 +7,33 @@ description: "Season stats for {{profile.name}} in {{season.name}}"
 
 {{>profileHeader}}
 
+{{#season}}
+
 (~
+
+Year: **{{year}}**
+
+Season: **{{name}}**
+
+~)
 
 ### Season Stats
 
-{{season.year}} &bull; **{{season.name}}**
+(~
 
-{{#season.stats}}
+{{#stats}}
 
-| Key | Value |
-|----:|:------|
-| Hatchet Bullseye Score Per Axe | {{hatchet.bullseye.scorePerAxe}} |
-| Hatchet Clutch Score Per Axe | {{hatchet.clutch.scorePerAxe}} |
-| Big Axe Bullseye Score Per Axe | {{bigAxe.bullseye.scorePerAxe}} |
-| Big Axe Clutch Score Per Axe | {{bigAxe.clutch.scorePerAxe}} |
+#### Score Per Axe
 
-{{/season.stats}}
+|                      |                                        |
+|:---------------------|:--------------------------------------:|
+| **Overall**          | {{stats.overall.scorePerAxe}}          |
+| **Hatchet Bullseye** | {{stats.hatchet.bullseye.scorePerAxe}} |
+| **Hatchet Clutch**   | {{stats.hatchet.clutch.scorePerAxe}}   |
+| **Big Axe Bullseye** | {{stats.bigAxe.bullseye.scorePerAxe}}  |
+| **Big Axe Clutch**   | {{stats.bigAxe.clutch.scorePerAxe}}    |
+
+{{/stats}}
 
 ~)
 
@@ -30,8 +41,10 @@ description: "Season stats for {{profile.name}} in {{season.name}}"
 
 ### Weeks
 
-{{#season.weeks}}
-- [Week {{weekId}}](/{{profile.profileId}}/s/{{season.seasonId}}/w/{{weekId}})
-{{/season.weeks}}
+{{#weeks}}
+- [Week {{weekId}}](/{{profile.profileId}}/s/{{seasonId}}/w/{{weekId}})
+{{/weeks}}
 
 ~)
+
+{{/season}}
