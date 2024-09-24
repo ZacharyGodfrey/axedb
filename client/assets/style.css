@@ -50,7 +50,7 @@ body {
   display: grid;
   gap: var(--gutter);
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   justify-items: center;
   align-items: start;
   padding: var(--gutter);

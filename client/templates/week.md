@@ -3,9 +3,11 @@ title: "Week {{week.weekId}} | {{season.name}} | {{profile.name}}"
 description: "Stats for {{profile.name}} in Week {{week.weekId}} of {{season.name}}"
 ---
 
-[season]: /{{profile.profileId}}/s/{{season.seasonId}}
+{{>siteHeader}}
 
 {{>profileHeader}}
+
+[season]: /{{profile.profileId}}/s/{{season.seasonId}}
 
 (~
 

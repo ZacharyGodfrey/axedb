@@ -3,6 +3,8 @@ title: "{{profile.name}}"
 description: "Career stats for {{profile.name}}"
 ---
 
+{{>siteHeader}}
+
 {{>profileHeader}}
 
 (~

@@ -3,6 +3,8 @@ title: "{{season.name}} | {{profile.name}}"
 description: "Season stats for {{profile.name}} in {{season.name}}"
 ---
 
+{{>siteHeader}}
+
 {{>profileHeader}}
 
 (~
