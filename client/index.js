@@ -28,6 +28,7 @@ const templates = {
 
 const db = database('data');
 const { throwCount } = db.row(`SELECT COUNT(*) AS throwCount FROM throws`);
+const { seasonCount } = db.row(`SELECT COUNT(*) AS seasonCount FROM seasons`);
 const profiles = db.rows(`
   SELECT p.*, i.image
   FROM profiles p

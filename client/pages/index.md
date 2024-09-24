@@ -5,7 +5,13 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 (~
 
-We have analyzed {{throwCount}} throws from {{profiles.length}} competitors.
+Accuracy stats for **IATF Premier** axe throwing
+
+So far, we have analyzed:
+
+- {{throwCount}} throws from
+- {{profiles.length}} competitors across
+- {{seasonCount}} seasons
 
 ~)
 
