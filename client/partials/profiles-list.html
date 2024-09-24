@@ -2,11 +2,13 @@
   <div class="grid stack auto-fill items-y-center">
     {{#profiles}}
     <div>
-      <img alt="{{name}}" src="data:image/png;base64,{{image}}">
+      <a href="/{{profileId}}">
+        <img alt="{{name}}" src="data:image/png;base64,{{image}}">
+      </a>
     </div>
     <div>
       <p>
-        <strong>{{name}}</strong>
+        <a href="/{{profileId}}">{{name}}</a>
       </p>
     </div>
     {{/profiles}}
