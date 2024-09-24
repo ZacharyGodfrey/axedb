@@ -19,7 +19,7 @@
   --gutter: 1rem;
   font-size: 18px;
   font-family: 'custom', monospace;
-  color: var(--text);
+  color: white;
   background: var(--primary);
 }
 
@@ -46,49 +46,13 @@ html, body {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-}
-
-header, footer {
-  color: white;
-  background: var(--primary);
-}
-
-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
   padding: var(--gutter);
 }
 
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--gutter);
-}
-
-article {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-section {
-  padding: 4rem 1rem;
-}
-
-section:nth-child(even) {
-  background: white;
-}
-
-section:last-child {
-  flex: 1;
-}
-
-footer {
-  padding: 4rem 1rem;
-}
-
-header > *, main > *, footer > * {
+header, main, footer {
   width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
