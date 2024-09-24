@@ -24,13 +24,13 @@ export const renderMD = (fileContent) => {
 export const renderSections = (fileContent) => {
   const open = '<p>(~</p>', close = '<p>~)</p>';
 
-  if (!fileContent.includes(open)) {
-    return `
-      <section>
-        ${fileContent}
-      </section>
-    `;
-  }
+  // if (!fileContent.includes(open)) {
+  //   return `
+  //     <section>
+  //       ${fileContent}
+  //     </section>
+  //   `;
+  // }
 
   return fileContent
     .replaceAll(open, '<section>')
