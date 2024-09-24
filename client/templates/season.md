@@ -1,6 +1,6 @@
 ---
 title: "{{season.name}} | {{profile.name}}"
-description: "{{season.name}} stats"
+description: "Season stats for {{profile.name}} in {{season.name}}"
 ---
 
 {{>profileHeader}}

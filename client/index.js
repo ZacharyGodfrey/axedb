@@ -2,10 +2,9 @@ import { database } from '../lib/database.js';
 import { readFile, listFiles, emptyFolder, copyFolder } from '../lib/file.js';
 import { minifyCSS, renderAndWritePage } from './app.js';
 
-const START = Date.now();
-
 // Read Input
 
+const start = Date.now();
 const shell = readFile('client/assets/shell.html');
 
 const partials = {
@@ -21,14 +20,20 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => ({
 }));
 
 const templates = {
-  profile: readFile('client/templates/profile.md'),
+  career: readFile('client/templates/career.md'),
   season: readFile('client/templates/season.md'),
   week: readFile('client/templates/week.md')
 };
 
 const db = database('data');
 
-const allProfiles = db.rows(`SELECT * FROM profiles ORDER BY name ASC`);
+const profiles = db.rows(`
+  SELECT p.*, i.image
+  FROM profiles p
+  JOIN images i ON i.profileId = p.profileId
+  WHERE p.fetch = 1
+  ORDER BY p.name ASC
+`);
 
 // Write Output
 
@@ -37,7 +42,7 @@ copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
 for (const { uri, fileContent } of pages) {
-  const data = { allProfiles };
+  const data = { profiles };
 
   renderAndWritePage(uri, shell, partials, data, fileContent);
 }
@@ -47,7 +52,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
 
-  renderAndWritePage(uri, shell, partials, { profile }, templates.profile);
+  renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
   for (const { seasonId } of profile.seasons) {
     const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
@@ -65,4 +70,4 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   }
 }
 
-console.log(`Running Time: ${Date.now() - START}ms`);
+console.log(`Running Time: ${Date.now() - start}ms`);

@@ -1,6 +1,6 @@
 ---
 title: "{{profile.name}}"
-description: "IATF Premier axe throwing data for {{profile.name}}"
+description: "Career stats for {{profile.name}}"
 ---
 
 {{>profileHeader}}
