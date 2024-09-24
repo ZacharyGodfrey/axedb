@@ -47,6 +47,7 @@ html, body {
 
 body {
   display: grid;
+  gap: var(--gutter);
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   padding: var(--gutter);
@@ -56,6 +57,12 @@ header, main, footer {
   width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
+}
+
+main {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: 1fr;
 }
 
 /* Text Elements */
