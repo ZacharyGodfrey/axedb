@@ -8,19 +8,21 @@
 /* Pseudo Elements */
 
 :root {
-  --primary:    hsl(85 15% 45%);
-  --accent:     hsl( 0 45% 45%);
-  --highlight:  hsl(55 75% 75%);
-  --text:       hsl(85  5% 30%);
-  --background: hsl(55  5% 95%);
+  --primary:   hsl(85 15% 45%);
+  --accent:    hsl( 0 45% 45%);
+  --highlight: hsl(55 75% 75%);
+  --light:     hsl(55  5% 98%);
+  --dark:      hsl(85  5% 30%);
+  --text: var(--light);
+  --background: var(--primary);
   --content-width: 50rem;
   --line-thickness: 2px;
   --radius: 0.5rem;
   --gutter: 1rem;
   font-size: 18px;
   font-family: 'custom', monospace;
-  color: white;
-  background: var(--primary);
+  color: var(--text);
+  background: var(--background);
 }
 
 * {
@@ -33,7 +35,7 @@
 :last-child  {   margin-block-end: 0 !important; }
 
 ::selection {
-  color: var(--text);
+  color: var(--dark);
   background: var(--highlight);
 }
 
@@ -121,23 +123,14 @@ em {
 p > code {
   display: inline-block;
   padding: 0.25rem;
-  color: white;
-  background: var(--primary);
+  color: var(--background);
+  background: var(--text);
   border-radius: var(--radius);
 }
 
-pre, blockquote {
+blockquote {
   margin-block: 2rem;
   padding: var(--gutter);
-}
-
-pre {
-  font-size: 1rem;
-  border-top: var(--line-thickness) solid var(--text);
-  border-bottom: var(--line-thickness) solid var(--text);
-}
-
-blockquote {
   border-left: var(--line-thickness) solid var(--text);
   border-right: var(--line-thickness) solid var(--text);
 }
@@ -188,12 +181,12 @@ table, th, td {
 table {
   width: 100%;
   margin-block: 2rem;
-  background: white;
+  background: var(--light);
   border: var(--line-thickness) solid var(--text);
 }
 
 thead {
-  color: white;
+  color: var(--light);
   background: var(--primary);
 }
 
@@ -214,9 +207,11 @@ thead tr:not(:has(th:not(:empty))) {
 /* Card */
 
 .card {
+  --text: var(--dark);
+  --background: var(--light);
   padding: var(--gutter);
   color: var(--text);
-  background: white;
+  background: var(--background);
   border-radius: var(--radius);
   overflow: hidden;
 }
