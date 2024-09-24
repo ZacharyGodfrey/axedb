@@ -24,13 +24,13 @@ No stats have been analyzed for this profile yet.
 
 #### Score Per Axe
 
-|   |   |
-|:--|:-:|
-| Overall          | {{stats.overall.scorePerAxe}} |
-| Hatchet Bullseye | {{stats.hatchet.bullseye.scorePerAxe}} |
-| Hatchet Clutch   | {{stats.hatchet.clutch.scorePerAxe}} |
-| Big Axe Bullseye | {{stats.bigAxe.bullseye.scorePerAxe}} |
-| Big Axe Clutch   | {{stats.bigAxe.clutch.scorePerAxe}} |
+|                      |                                        |
+|:---------------------|:--------------------------------------:|
+| **Overall**          | {{stats.overall.scorePerAxe}}          |
+| **Hatchet Bullseye** | {{stats.hatchet.bullseye.scorePerAxe}} |
+| **Hatchet Clutch**   | {{stats.hatchet.clutch.scorePerAxe}}   |
+| **Big Axe Bullseye** | {{stats.bigAxe.bullseye.scorePerAxe}}  |
+| **Big Axe Clutch**   | {{stats.bigAxe.clutch.scorePerAxe}}    |
 
 ~)
 

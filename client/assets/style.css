@@ -185,7 +185,8 @@ table {
   border: var(--line-thickness) solid var(--text);
 }
 
-thead {
+thead, th, td:has(strong:only-child) {
+  font-weight: bold;
   color: var(--light);
   background: var(--primary);
 }
