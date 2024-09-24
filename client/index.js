@@ -27,7 +27,7 @@ const templates = {
 };
 
 const db = database('data');
-
+const { throwCount } = db.row(`SELECT COUNT(*) AS throwCount FROM throws`);
 const profiles = db.rows(`
   SELECT p.*, i.image
   FROM profiles p
@@ -43,7 +43,7 @@ copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
 for (const { uri, fileContent } of pages) {
-  const data = { profiles };
+  const data = { profiles, throwCount };
 
   renderAndWritePage(uri, shell, partials, data, fileContent);
 }
