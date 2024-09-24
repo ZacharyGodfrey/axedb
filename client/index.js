@@ -49,14 +49,14 @@ for (const filePath of listFiles('data/profiles/*.json')) {
 
   renderAndWritePage(uri, shell, partials, { profile }, templates.profile);
 
-  for (const { seasonId, weeks } of profile.seasons) {
-    const season = JSON.parse(readFile(`data/profiles/${profileId}/seasons/${seasonId}.json`));
+  for (const { seasonId } of profile.seasons) {
+    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
     const data = { profile, season };
     const uri = `${profileId}/s/${seasonId}/index.html`;
 
     renderAndWritePage(uri, shell, partials, data, templates.season);
 
-    for (const week of weeks) {
+    for (const week of season.weeks) {
       const data = { profile, season, week };
       const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
 

@@ -510,7 +510,7 @@ export const recordJsonData = (db) => {
         season.weeks.push(week);
       }
 
-      writeFile(`data/profiles/${profileId}/seasons/${seasonId}.json`, JSON.stringify(season, null, 2));
+      writeFile(`data/profiles/${profileId}/s/${seasonId}.json`, JSON.stringify(season, null, 2));
 
       delete season.weeks;
 
