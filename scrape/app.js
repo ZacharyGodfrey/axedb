@@ -129,19 +129,22 @@ const buildStats = (throws) => {
         attempts: 0,
         totalScore: 0,
         scorePerAxe: 0,
-        hits: 0,
-        hitPercent: 0,
+        breakdown: {
+          0: 0,
+          1: 0,
+          3: 0,
+          5: 0
+        }
       },
       clutch: {
         attempts: 0,
         totalScore: 0,
         scorePerAxe: 0,
-        hits: 0,
-        hitPercent: 0,
-        fives: 0,
-        fiveHitPercent: 0,
-        sevens: 0,
-        sevenHitPercent: 0,
+        breakdown: {
+          0: 0,
+          5: 0,
+          7: 0
+        }
       }
     },
     bigAxe: {
@@ -154,19 +157,22 @@ const buildStats = (throws) => {
         attempts: 0,
         totalScore: 0,
         scorePerAxe: 0,
-        hits: 0,
-        hitPercent: 0,
+        breakdown: {
+          0: 0,
+          1: 0,
+          3: 0,
+          5: 0
+        }
       },
       clutch: {
         attempts: 0,
         totalScore: 0,
         scorePerAxe: 0,
-        hits: 0,
-        hitPercent: 0,
-        fives: 0,
-        fiveHitPercent: 0,
-        sevens: 0,
-        sevenHitPercent: 0,
+        breakdown: {
+          0: 0,
+          5: 0,
+          7: 0
+        }
       }
     }
   };
@@ -182,13 +188,11 @@ const buildStats = (throws) => {
       if (target === enums.target.bullseye) {
         result.hatchet.bullseye.attempts += 1;
         result.hatchet.bullseye.totalScore += score;
-        result.hatchet.bullseye.hits += score === 5 ? 1 : 0;
+        result.hatchet.bullseye.breakdown[score] += 1;
       } else if (target === enums.target.clutch) {
         result.hatchet.clutch.attempts += 1;
         result.hatchet.clutch.totalScore += score;
-        result.hatchet.clutch.hits += score > 0 ? 1 : 0;
-        result.hatchet.clutch.fives += score === 5 ? 1 : 0;
-        result.hatchet.clutch.sevens += score === 7 ? 1 : 0;
+        result.hatchet.clutch.breakdown[score] += 1;
       }
     } else if (tool === enums.tool.bigAxe) {
       result.bigAxe.overall.attempts += 1;
@@ -197,13 +201,11 @@ const buildStats = (throws) => {
       if (target === enums.target.bullseye) {
         result.bigAxe.bullseye.attempts += 1;
         result.bigAxe.bullseye.totalScore += score;
-        result.bigAxe.bullseye.hits += score === 5 ? 1 : 0;
+        result.bigAxe.bullseye.breakdown[score] += 1;
       } else if (target === enums.target.clutch) {
         result.bigAxe.clutch.attempts += 1;
         result.bigAxe.clutch.totalScore += score;
-        result.bigAxe.clutch.hits += score > 0 ? 1 : 0;
-        result.bigAxe.clutch.fives += score === 5 ? 1 : 0;
-        result.bigAxe.clutch.sevens += score === 7 ? 1 : 0;
+        result.bigAxe.clutch.breakdown[score] += 1;
       }
     }
   }
@@ -213,20 +215,12 @@ const buildStats = (throws) => {
   result.bigAxe.overall.scorePerAxe = round(2, result.bigAxe.overall.totalScore / Math.max(1, result.bigAxe.overall.attempts));
 
   result.hatchet.bullseye.scorePerAxe = round(2, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
-  result.hatchet.bullseye.hitPercent = round(2, 100 * result.hatchet.bullseye.hits / Math.max(1, result.hatchet.bullseye.attempts));
 
   result.hatchet.clutch.scorePerAxe = round(2, result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.hitPercent = round(2, 100 * result.hatchet.clutch.hits / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.fiveHitPercent = round(2, 100 * result.hatchet.clutch.fives / Math.max(1, result.hatchet.clutch.attempts));
-  result.hatchet.clutch.sevenHitPercent = round(2, 100 * result.hatchet.clutch.sevens / Math.max(1, result.hatchet.clutch.attempts));
 
   result.bigAxe.bullseye.scorePerAxe = round(2, result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts));
-  result.bigAxe.bullseye.hitPercent = round(2, 100 * result.bigAxe.bullseye.hits / Math.max(1, result.bigAxe.bullseye.attempts));
 
   result.bigAxe.clutch.scorePerAxe = round(2, result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.hitPercent = round(2, 100 * result.bigAxe.clutch.hits / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.fiveHitPercent = round(2, 100 * result.bigAxe.clutch.fives / Math.max(1, result.bigAxe.clutch.attempts));
-  result.bigAxe.clutch.sevenHitPercent = round(2, 100 * result.bigAxe.clutch.sevens / Math.max(1, result.bigAxe.clutch.attempts));
 
   return result;
 };
@@ -246,83 +240,91 @@ export const seedProfiles = (db, profileIds) => {
 
 export const recordProfileData = async (db, page, profiles, ruleset) => {
   for (const { profileId } of profiles) {
-    console.log(`Profile ${profileId}`);
+    try {
+      console.log(`Profile ${profileId}`);
 
-    const [image, { name, leagues }] = await Promise.all([
-      fetchProfileImage(profileId),
-      fetchPlayerData(page, profileId)
-    ]);
-
-    db.run(`
-      UPDATE profiles
-      SET name = :name, image = :image
-      WHERE profileId = :profileId
-    `, { profileId, name: name.trim(), image });
-
-    for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
-      if (performanceName !== ruleset) {
-        continue;
-      }
-
-      console.log(`Season ${seasonId}`);
-
-      const name = `${season.name.trim()} ${season.shortName.trim()}`;
-      const year = parseInt(season.date.split('-')[0]);
+      const playerData = await fetchPlayerData(page, profileId);
+      const { name, leagues } = playerData;
 
       db.run(`
-        INSERT INTO seasons (seasonId, name, year)
-        VALUES (:seasonId, :name, :year)
-        ON CONFLICT (seasonId) DO UPDATE
-        SET name = :name, year = :year
-      `, { seasonId, name, year });
+        UPDATE profiles
+        SET name = :name
+        WHERE profileId = :profileId
+      `, { profileId, name });
 
-      for (const { week: weekId, matches } of seasonWeeks) {
-        console.log(`Week ${weekId}`);
+      for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
+        if (performanceName !== ruleset) {
+          continue;
+        }
 
-        for (const { id: matchId } of matches) {
-          console.log(`Match ${matchId}`);
+        console.log(`Season ${seasonId}`);
 
-          db.run(`
-            INSERT INTO matches (profileId, seasonId, weekId, matchId)
-            VALUES (:profileId, :seasonId, :weekId, :matchId)
-            ON CONFLICT (profileId, matchId) DO UPDATE
-            SET weekId = :weekId
-          `, { profileId, seasonId, weekId, matchId });
+        const name = `${season.name.trim()} ${season.shortName.trim()}`;
+        const year = parseInt(season.date.split('-')[0]);
 
-          db.run(`
-            UPDATE throws
-            SET weekId = :weekId
-            WHERE profileId = :profileId AND matchId = :matchId
-          `, { profileId, matchId, weekId });
+        db.run(`
+          INSERT INTO seasons (seasonId, name, year)
+          VALUES (:seasonId, :name, :year)
+          ON CONFLICT (seasonId) DO UPDATE
+          SET name = :name, year = :year
+        `, { seasonId, name, year });
+
+        for (const { week: weekId, matches } of seasonWeeks) {
+          console.log(`Week ${weekId}`);
+
+          for (const { id: matchId } of matches) {
+            console.log(`Match ${matchId}`);
+
+            db.run(`
+              INSERT INTO matches (profileId, seasonId, weekId, matchId)
+              VALUES (:profileId, :seasonId, :weekId, :matchId)
+              ON CONFLICT (profileId, matchId) DO UPDATE
+              SET weekId = :weekId
+            `, { profileId, seasonId, weekId, matchId });
+
+            db.run(`
+              UPDATE throws
+              SET weekId = :weekId
+              WHERE profileId = :profileId AND matchId = :matchId
+            `, { profileId, matchId, weekId });
+          }
         }
       }
+    } catch (error) {
+      console.log(`Failed to get data for profile ${profileId}`);
+      console.error(error);
     }
   }
 };
 
 export const recordThrowData = async (db, page, newMatches) => {
   for (const { profileId, seasonId, weekId, matchId } of newMatches) {
-    console.log(`Match ${matchId}`);
+    try {
+      console.log(`Match ${matchId}`);
 
-    const throws = await fetchThrowData(page, profileId, matchId);
+      const throws = await fetchThrowData(page, profileId, matchId);
 
-    if (throws.length < 1) {
-      continue;
+      if (throws.length < 1) {
+        continue;
+      }
+
+      const { opponentId } = throws[0];
+
+      console.table(throws);
+
+      for (const row of throws) {
+        db.insert('throws', { ...row, seasonId, weekId });
+      }
+
+      db.run(`
+        UPDATE matches
+        SET processed = 1, opponentId = :opponentId
+        WHERE profileId = :profileId AND matchId = :matchId
+      `, { profileId, opponentId, matchId });
+    } catch (error) {
+      console.log(`Failed to get throw data for match ${matchId}`);
+      console.error(error);
     }
-
-    const { opponentId } = throws[0];
-
-    console.table(throws);
-
-    for (const row of throws) {
-      db.insert('throws', { ...row, seasonId, weekId });
-    }
-
-    db.run(`
-      UPDATE matches
-      SET processed = 1, opponentId = :opponentId
-      WHERE profileId = :profileId AND matchId = :matchId
-    `, { profileId, opponentId, matchId });
   }
 };
 
@@ -338,41 +340,65 @@ export const recordOpponentData = async (db, page) => {
   console.log(`Found ${opponents.length} opponents...`);
 
   for (const { opponentId: profileId } of opponents) {
-    console.log(`Opponent ${profileId}`);
+    try {
+      console.log(`Opponent ${profileId}`);
 
-    const [image, playerData] = await Promise.all([
-      fetchProfileImage(profileId),
-      fetchPlayerData(page, profileId)
-    ]);
+      const playerData = await fetchPlayerData(page, profileId);
+      const { name } = playerData;
 
-    if (playerData === null) {
-      console.log(`Failed to get details for opponent ${profileId}`);
-
-      continue;
+      db.run(`
+        INSERT INTO profiles (profileId, name)
+        VALUES (:profileId, :name)
+        ON CONFLICT (profileId) DO UPDATE
+        SET name = :name
+      `, { profileId, name });
+    } catch (error) {
+      console.log(`Failed to get opponent data for profile ${profileId}`);
+      console.error(error);
     }
+  }
+};
 
-    const { name } = playerData;
-    const create = { profileId, name, image };
-    const conflict = { profileId };
-    const update = { name, image };
+export const recordImageData = async (db) => {
+  const profiles = db.rows(`
+    SELECT profileId
+    FROM profiles
+  `);
 
-    db.insertOrUpdate('profiles', create, conflict, update);
+  for (const { profileId } of profiles) {
+    try {
+      console.log(`Profile ${profileId}`);
+
+      const image = await fetchProfileImage(profileId);
+
+      db.run(`
+        INSERT INTO images (profileId, image)
+        VALUES (:profileId, :image)
+        ON CONFLICT (profileId) DO UPDATE
+        SET image = :image
+      `, { profileId, image });
+    } catch (error) {
+      console.log(`Failed to get image data for ${profileId}`);
+      console.error(error);
+    }
   }
 };
 
 export const recordJsonData = (db) => {
   const profiles = db.rows(`
-    SELECT profileId, name
-    FROM profiles
-    WHERE fetch = 1
+    SELECT p.profileId, p.name, i.image
+    FROM profiles p
+    JOIN images i ON i.profileId = p.profileId
+    WHERE p.fetch = 1
   `);
 
-  for (const { profileId, name } of profiles) {
+  for (const { profileId, name, image } of profiles) {
     const career = {
       profileId,
       name,
       stats: null,
-      seasons: []
+      seasons: [],
+      image
     };
 
     career.stats = buildStats(db.rows(`

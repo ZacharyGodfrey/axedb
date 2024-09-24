@@ -7,6 +7,7 @@ import {
   recordProfileData,
   recordThrowData,
   recordOpponentData,
+  recordImageData,
   recordJsonData
 } from '../app.js';
 
@@ -66,11 +67,33 @@ await recordOpponentData(db, page);
 
 console.log('Done.');
 
+// Record Images
+
+console.log('Recording image data...');
+
+await recordImageData(db);
+
+console.log('Done.');
+
 // Write JSON
 
 console.log('Writing JSON files...');
 
 recordJsonData(db);
+
+console.log('Done.');
+
+// Database Report
+
+console.log('Database Report:');
+
+console.log(JSON.stringify({
+    images: db.row(`SELECT COUNT(*) AS count FROM images`).count,
+    profiles: db.row(`SELECT COUNT(*) AS count FROM profiles`).count,
+    seasons: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
+    matches: db.row(`SELECT COUNT(*) AS count FROM matches`).count,
+    throws: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
+}, null, 2));
 
 console.log('Done.');
 
@@ -81,6 +104,7 @@ console.log('Tearing down...');
 await browser.close();
 
 db.shrink();
+db.close();
 
 console.log('Done.');
 console.log(`Total Runtime: ${Date.now() - start}ms`);

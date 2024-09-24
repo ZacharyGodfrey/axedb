@@ -1,7 +1,5 @@
-import puppeteer from 'puppeteer';
-
 import { database } from '../../lib/database.js';
-import { recordOpponentData } from '../app.js';
+import { recordImageData } from '../app.js';
 
 // Start Up
 
@@ -9,22 +7,18 @@ console.log('Starting up...');
 
 const start = Date.now();
 const db = database('data');
-const browser = await puppeteer.launch();
-const page = await browser.newPage();
 
-// Record Opponents
+// Record Images
 
-console.log('Recording opponent data...');
+console.log('Recording image data...');
 
-await recordOpponentData(db, page);
+await recordImageData(db);
 
 console.log('Done.');
 
 // Tear Down
 
 console.log('Tearing down...');
-
-await browser.close();
 
 db.shrink();
 db.close();

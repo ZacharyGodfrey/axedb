@@ -43,6 +43,7 @@ console.log('Tearing down...');
 await browser.close();
 
 db.shrink();
+db.close();
 
 console.log('Done.');
 console.log(`Total Runtime: ${Date.now() - start}ms`);
