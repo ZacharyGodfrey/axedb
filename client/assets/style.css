@@ -80,12 +80,10 @@ p, li, th, td {
   line-height: 1.5;
 }
 
-h1 { font-size: 1.5rem; font-weight: normal; }
+h1 { font-size: 2rem; font-weight: normal; }
 h2 { font-size: 2.5rem; }
 h3 { font-size: 2rem; }
 h4 { font-size: 1.5rem; }
-
-h1.huge { font-size: 4rem; font-weight: bold; }
 
 a {
   color: inherit;

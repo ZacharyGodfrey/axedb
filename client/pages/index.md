@@ -4,11 +4,11 @@ description: "Accuracy stats for IATF Premier axe throwing"
 ---
 
 <div class="card">
-  <h1 class="huge text-center">ThrowDB</h1>
-  <p>{{throwCount}} throws analyzed from {{profiles.length}} throwers.</p>
+  <p>We have analyzed {{throwCount}} throws from {{profiles.length}} competitors.</p>
 </div>
 
+<h3>Competitors</h3>
+
 <div class="card">
-  <h3>Profiles</h3>
   {{>profilesList}}
 </div>
