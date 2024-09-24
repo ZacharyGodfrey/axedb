@@ -184,10 +184,10 @@ li:has(input[type="checkbox"]:disabled) {
 img {
   display: block;
   margin-inline: auto;
-  max-width: min(100%, 40rem);
-  max-height: min(75vh, 40rem);
-  max-height: min(75svh, 40rem);
-  border-radius: var(--radius);
+  max-width: min(100%, 200px);
+  max-height: min(75vh, 200px);
+  max-height: min(75svh, 200px);
+  border-radius: 50%;
   user-select: none;
 }
 
@@ -279,12 +279,4 @@ thead tr:not(:has(th:not(:empty))) {
   .screen-sm {
     display: none !important;
   }
-}
-
-/* Specific Styles */
-
-img.profilePic {
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 50%;
 }
