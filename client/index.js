@@ -44,7 +44,7 @@ copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
 for (const { uri, fileContent } of pages) {
-  const data = { profiles, throwCount };
+  const data = { profiles, throwCount, seasonCount };
 
   renderAndWritePage(uri, shell, partials, data, fileContent);
 }
