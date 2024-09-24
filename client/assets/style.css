@@ -55,7 +55,7 @@ body {
   padding: var(--gutter);
 }
 
-header, main, footer {
+body > * {
   width: 100%;
   max-width: var(--content-width);
 }
