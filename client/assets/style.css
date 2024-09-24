@@ -175,12 +175,17 @@ li:has(input[type="checkbox"]:disabled) {
 
 img {
   display: inline-block;
-  /* margin-inline: auto; */
   max-width: min(100%, 200px);
   max-height: min(75vh, 200px);
   max-height: min(75svh, 200px);
   border-radius: 50%;
   user-select: none;
+}
+
+img.size100 {
+  max-width: min(100%, 100px);
+  max-height: min(75vh, 100px);
+  max-height: min(75svh, 100px);
 }
 
 p:has(img:only-child) {
