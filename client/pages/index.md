@@ -1,6 +1,6 @@
 ---
 title: ""
-description: "IATF Premier axe throwing data"
+description: "Accuracy stats for IATF Premier axe throwing"
 ---
 
 [axe-scores]: https://axescores.com
@@ -17,8 +17,6 @@ This website provides an additional view of IATF Premier axe throwing data with 
 
 ### Profiles
 
-{{#profiles}}
-- ![{{name}}](data:image/png;base64,{{image}}) [{{name}}](/{{profileId}})
-{{/profiles}}
+{{>profilesList}}
 
 ~)

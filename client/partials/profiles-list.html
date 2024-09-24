@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="grid stack auto-fill items-y-center">
+    {{#profiles}}
+    <div>
+      <img alt="{{name}}" src="data:image/png;base64,{{image}}">
+    </div>
+
+    <div>
+      <p>
+        <strong>{{name}}</strong>
+      </p>
+    </div>
+    {{/profiles}}
+  </div>
+</div>
