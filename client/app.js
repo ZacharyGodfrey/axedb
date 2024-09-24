@@ -21,20 +21,12 @@ export const renderMD = (fileContent) => {
   return marked.parse(fileContent, { gfm: true });
 };
 
-export const renderSections = (fileContent) => {
+export const renderCards = (fileContent) => {
   const open = '<p>(~</p>', close = '<p>~)</p>';
 
-  // if (!fileContent.includes(open)) {
-  //   return `
-  //     <section>
-  //       ${fileContent}
-  //     </section>
-  //   `;
-  // }
-
   return fileContent
-    .replaceAll(open, '<section>')
-    .replaceAll(close, '</section>');
+    .replaceAll(open, '<div class="card">')
+    .replaceAll(close, '</div>');
 };
 
 export const minifyCSS = async (fileContent) => {
@@ -53,7 +45,7 @@ export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) 
     (text) => renderMustache(text, pageData, partials),
     (text) => parseMetadata(text),
     ({ meta, content }) => ({ meta, content: renderMD(content) }),
-    ({ meta, content }) => ({ meta, content: renderSections(content) }),
+    ({ meta, content }) => ({ meta, content: renderCards(content) }),
     ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
   ]);
 
