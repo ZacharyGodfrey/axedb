@@ -7,30 +7,25 @@ description: "Career stats for {{profile.name}}"
 
 {{>profileHeader}}
 
-{{^profile.seasons.length}}
-
-No stats have been analyzed for this profile yet.
-
-{{/profile.seasons.length}}
-
-
-{{#profile.seasons.length}}
-
 {{#profile}}
 
 ### Career Stats
 
 (~
 
+{{#stats}}
+
 #### Score Per Axe
 
-|                      |                                        |
-|:---------------------|:--------------------------------------:|
-| **Overall**          | {{stats.overall.scorePerAxe}}          |
-| **Hatchet Bullseye** | {{stats.hatchet.bullseye.scorePerAxe}} |
-| **Hatchet Clutch**   | {{stats.hatchet.clutch.scorePerAxe}}   |
-| **Big Axe Bullseye** | {{stats.bigAxe.bullseye.scorePerAxe}}  |
-| **Big Axe Clutch**   | {{stats.bigAxe.clutch.scorePerAxe}}    |
+|                      |                                  |
+|:---------------------|:--------------------------------:|
+| **Overall**          | {{overall.scorePerAxe}}          |
+| **Hatchet Bullseye** | {{hatchet.bullseye.scorePerAxe}} |
+| **Hatchet Clutch**   | {{hatchet.clutch.scorePerAxe}}   |
+| **Big Axe Bullseye** | {{bigAxe.bullseye.scorePerAxe}}  |
+| **Big Axe Clutch**   | {{bigAxe.clutch.scorePerAxe}}    |
+
+{{/stats}}
 
 ~)
 
@@ -39,11 +34,9 @@ No stats have been analyzed for this profile yet.
 (~
 
 {{#seasons}}
-- [{{year}} {{name}}](s/{{seasonId}})
+- [{{year}} &bull; {{name}}](s/{{seasonId}})
 {{/seasons}}
 
 ~)
 
 {{/profile}}
-
-{{/profile.seasons.length}}

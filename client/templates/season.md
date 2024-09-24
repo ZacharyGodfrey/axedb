@@ -25,21 +25,21 @@ Season: **{{name}}**
 
 #### Score Per Axe
 
-|                      |                                        |
-|:---------------------|:--------------------------------------:|
-| **Overall**          | {{stats.overall.scorePerAxe}}          |
-| **Hatchet Bullseye** | {{stats.hatchet.bullseye.scorePerAxe}} |
-| **Hatchet Clutch**   | {{stats.hatchet.clutch.scorePerAxe}}   |
-| **Big Axe Bullseye** | {{stats.bigAxe.bullseye.scorePerAxe}}  |
-| **Big Axe Clutch**   | {{stats.bigAxe.clutch.scorePerAxe}}    |
+|                      |                                  |
+|:---------------------|:--------------------------------:|
+| **Overall**          | {{overall.scorePerAxe}}          |
+| **Hatchet Bullseye** | {{hatchet.bullseye.scorePerAxe}} |
+| **Hatchet Clutch**   | {{hatchet.clutch.scorePerAxe}}   |
+| **Big Axe Bullseye** | {{bigAxe.bullseye.scorePerAxe}}  |
+| **Big Axe Clutch**   | {{bigAxe.clutch.scorePerAxe}}    |
 
 {{/stats}}
 
 ~)
 
-(~
-
 ### Weeks
+
+(~
 
 {{#weeks}}
 - [Week {{weekId}}](/{{profile.profileId}}/s/{{seasonId}}/w/{{weekId}})
