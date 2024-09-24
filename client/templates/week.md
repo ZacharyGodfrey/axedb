@@ -3,17 +3,17 @@ title: "Week {{week.weekId}} | {{season.name}} | {{profile.name}}"
 description: "Stats for {{profile.name}} in Week {{week.weekId}} of {{season.name}}"
 ---
 
+[season]: /{{profile.profileId}}/s/{{season.seasonId}}
+
 {{>profileHeader}}
 
 (~
 
+### Week {{week.weekId}} Stats
 
+{{season.year}} &bull; **[{{season.name}}][season]**
 
-### Week Stats
-
-{{season.year}} **{{season.name}}**
-
-{{#season.stats}}
+{{#week.stats}}
 
 | Key | Value |
 |----:|:------|
@@ -22,6 +22,6 @@ description: "Stats for {{profile.name}} in Week {{week.weekId}} of {{season.nam
 | Big Axe Bullseye Score Per Axe | {{bigAxe.bullseye.scorePerAxe}} |
 | Big Axe Clutch Score Per Axe | {{bigAxe.clutch.scorePerAxe}} |
 
-{{/season.stats}}
+{{/week.stats}}
 
 ~)

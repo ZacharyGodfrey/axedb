@@ -7,11 +7,11 @@ description: "{{season.name}} stats"
 
 (~
 
-[Career](/{{profile.profileId}}) > {{season.year}} > **{{season.name}}**
+### Season Stats
+
+{{season.year}} &bull; **{{season.name}}**
 
 {{#season.stats}}
-
-### Season Stats
 
 | Key | Value |
 |----:|:------|
