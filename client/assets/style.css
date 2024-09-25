@@ -269,6 +269,7 @@ thead tr:not(:has(th:not(:empty))) {
 
   .grid.stack {
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 }
 

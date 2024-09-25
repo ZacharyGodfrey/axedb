@@ -24,10 +24,25 @@ section)
 
 ## Competitors
 
+{{#profiles}}
+
 (card
 
-{{>profilesList}}
+<div class="grid stack auto-fill items-y-center">
+  <div>
+    <a href="/{{profileId}}">
+      <img alt="{{name}}" src="data:image/png;base64,{{image}}" class="size100">
+    </a>
+  </div>
+  <div>
+    <p>
+      <a href="/{{profileId}}">{{name}}</a>
+    </p>
+  </div>
+</div>
 
 card)
+
+{{/profiles}}
 
 section)
