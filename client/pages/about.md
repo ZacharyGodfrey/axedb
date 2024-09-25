@@ -11,7 +11,7 @@ description: ""
 
 (card
 
-Hey, I'm Zach, the creator of AxeDB. In the IATF, I throw under the alias [REDACTED](/1207260).
+Hey, I'm Zach, the creator of **AxeDB**. In the IATF, I throw under the alias [REDACTED](/1207260).
 
 I built this website for those competitors like me who are focused on the continual refinement of their accuracy.
 
@@ -29,7 +29,7 @@ section)
 
 (card
 
-AxeDB has analyzed **{{throwCount}}** throws from **{{profiles.length}}** competitors across **{{matchCount}}** matches so far.
+**AxeDB** has analyzed **{{throwCount}}** throws from **{{profiles.length}}** competitors across **{{matchCount}}** matches so far.
 
 card)
 
