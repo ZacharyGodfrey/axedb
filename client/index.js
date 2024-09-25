@@ -1,5 +1,6 @@
 import { database } from '../lib/database.js';
 import { readFile, listFiles, emptyFolder, copyFolder } from '../lib/file.js';
+import { sort } from '../lib/miscellaneous.js';
 import { minifyCSS, renderAndWritePage } from './app.js';
 
 // Read Input
@@ -84,6 +85,8 @@ for (const filePath of listFiles('data/profiles/*.json')) {
     }
   }
 }
+
+globalData.profiles.sort(sort.byDescending(x => x.stats.overall.scorePerAxe));
 
 for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
   const uri = filePath.split('pages/')[1].replace('.md', '.html');
