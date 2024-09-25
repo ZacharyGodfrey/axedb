@@ -22,3 +22,15 @@ I hope that what I've built here will be useful to the IATF community.
 card)
 
 section)
+
+(section
+
+## Global Stats
+
+(card
+
+AxeDB has analyzed **{{throwCount}}** throws from **{{profiles.length}}** competitors across **{{matchCount}}** matches so far.
+
+card)
+
+section)

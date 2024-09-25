@@ -10,18 +10,6 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 (section
 
-## Global Stats
-
-(card
-
-We have analyzed **{{throwCount}}** throws from **{{profiles.length}}** competitors across **{{matchCount}}** matches.
-
-card)
-
-section)
-
-(section
-
 ## Competitors
 
 {{#profiles}}
