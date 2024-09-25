@@ -109,14 +109,14 @@ section)
 
 ## Rounds
 
-(card
-
 {{#match.rounds}}
+
+(card
 
 Coming soon...
 
-{{/match.rounds}}
-
 card)
+
+{{/match.rounds}}
 
 section)
