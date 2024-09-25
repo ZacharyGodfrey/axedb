@@ -87,6 +87,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
 }
 
 globalData.profiles.sort(sort.byDescending(x => x.stats.overall.scorePerAxe));
+globalData.profiles.forEach((x, i) => x.rank = i + 1);
 
 for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
   const uri = filePath.split('pages/')[1].replace('.md', '.html');
