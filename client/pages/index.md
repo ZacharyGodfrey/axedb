@@ -28,7 +28,7 @@ description: "Accuracy stats for IATF Premier axe throwing"
     </h3>
   </div>
   <div>
-    <p>#{{rank}} &bull; {{stats.overall.scorePerAxe}} SPA</p>
+    <p>#<strong>{{rank}}</strong> &bull; <strong>{{stats.overall.scorePerAxe}}</strong> SPA</p>
   </div>
 </div>
 
