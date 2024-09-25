@@ -72,7 +72,7 @@ card)
 
 ### Hatchet Breakdown
 
-<div class="grid stack fill-fill items-y-stretch">
+<div class="grid stack fill-2 items-y-stretch">
   <div class="card">
     <h4>Bullseye</h4>
     <table>
@@ -131,7 +131,7 @@ card)
 
 ### Big Axe  Breakdown
 
-<div class="grid stack fill-fill items-y-stretch">
+<div class="grid stack fill-2 items-y-stretch">
   <div class="card">
     <h4>Bullseye</h4>
     <table>

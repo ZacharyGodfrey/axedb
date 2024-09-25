@@ -261,11 +261,12 @@ thead tr:not(:has(th:not(:empty))) {
 .grid.items-x-stretch { justify-items: stretch; }
 .grid.items-y-stretch { align-items: stretch; }
 
-.grid.fill-fill { grid-template-columns: repeat(2, 1fr); }
+.grid.fill-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.auto-2 { grid-template-columns: repeat(2, auto); }
 .grid.fill-auto { grid-template-columns: 1fr auto; }
 .grid.auto-fill { grid-template-columns: auto 1fr; }
-.grid.auto-auto { grid-template-columns: repeat(2, auto); }
 
+.grid.fill-3 { grid-template-columns: repeat(3, 1fr); }
 .grid.auto-fill-auto { grid-template-columns: auto 1fr auto; }
 
 /* Small Screens */
