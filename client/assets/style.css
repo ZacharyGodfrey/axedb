@@ -203,8 +203,8 @@ table {
 }
 
 thead, th {
-  color: var(--light);
-  background: var(--primary);
+  color: var(--dark);
+  background: var(--medium);
 }
 
 th, td {
