@@ -33,9 +33,66 @@ section)
 
 card)
 
-(card
-
 ### Hatchet
+
+<div class="grid stack col2">
+  <div class="card">
+    <h4>Bullseye</h4>
+    <table>
+      <thead>
+        <tr>
+          <td>Score</td>
+          <td>Count</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>{{hatchet.bullseye.breakdown.5}}</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>{{hatchet.bullseye.breakdown.3}}</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>{{hatchet.bullseye.breakdown.1}}</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>{{hatchet.bullseye.breakdown.0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Clutch</h4>
+    <table>
+      <thead>
+        <tr>
+          <td>Score</td>
+          <td>Count</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>7</td>
+          <td>{{hatchet.clutch.breakdown.7}}</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>{{hatchet.clutch.breakdown.5}}</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>{{hatchet.clutch.breakdown.0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+(card
 
 #### Bullseye Breakdown
 

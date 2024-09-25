@@ -258,6 +258,7 @@ thead tr:not(:has(th:not(:empty))) {
 .grid.items-x-stretch { justify-items: stretch; }
 .grid.items-y-stretch { align-items: stretch; }
 
+.grid.col2 { grid-template-columns: repeat(2, 1fr); }
 .grid.fill-auto { grid-template-columns: 1fr auto; }
 .grid.auto-fill { grid-template-columns: auto 1fr; }
 
