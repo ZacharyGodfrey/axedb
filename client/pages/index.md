@@ -16,7 +16,7 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 (card
 
-<div class="grid stack auto-fill items-y-center">
+<div class="grid stack auto-fill-auto items-y-center">
   <div>
     <a href="/{{profileId}}">
       <img alt="{{name}}" src="data:image/png;base64,{{image}}" class="size100">
@@ -26,6 +26,8 @@ description: "Accuracy stats for IATF Premier axe throwing"
     <h3>
       <a href="/{{profileId}}">{{name}}</a>
     </h3>
+  </div>
+  <div>
     <p>
       <span>Score Per Axe:</span>
       <strong>{{stats.overall.scorePerAxe}}</strong>
