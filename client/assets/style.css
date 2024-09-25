@@ -72,8 +72,8 @@ header, section, footer {
 }
 
 header {
-  --text: var(--dark);
-  --background: var(--light);
+  --text: var(--light);
+  --background: var(--dark);
   padding: 0.5rem var(--gapX);
 }
 
