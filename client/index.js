@@ -1,5 +1,5 @@
 import { database } from '../lib/database.js';
-import { readFile, listFiles, emptyFolder, copyFolder } from '../lib/file.js';
+import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 import { minifyCSS, renderAndWritePage } from './app.js';
 
@@ -32,11 +32,10 @@ const globalData = {
   matchCount: db.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches)`).count,
   throwCount: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
   profiles: db.rows(`
-    SELECT p.*, i.image
-    FROM profiles p
-    JOIN images i ON i.profileId = p.profileId
-    WHERE p.fetch = 1
-    ORDER BY p.name ASC
+    SELECT *
+    FROM profiles
+    WHERE fetch = 1
+    ORDER BY name ASC
   `)
 };
 
@@ -60,6 +59,16 @@ for (const filePath of listFiles('data/profiles/*.json')) {
 
   if (index >= 0) {
     globalData.profiles[index].stats = profile.stats;
+  }
+
+  const imageRow = db.row(`
+    SELECT image
+    FROM images
+    WHERE profileId = :profileId
+  `, { profileId });
+
+  if (imageRow) {
+    writeFile(`dist/${profileId}.png`, imageRow.image, 'base64');
   }
 
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
@@ -96,4 +105,5 @@ for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
   renderAndWritePage(uri, shell, partials, globalData, readFile(filePath));
 }
 
+console.log('Done.');
 console.log(`Running Time: ${Date.now() - start}ms`);

@@ -386,19 +386,17 @@ export const recordImageData = async (db) => {
 
 export const recordJsonData = (db) => {
   const profiles = db.rows(`
-    SELECT p.profileId, p.name, i.image
-    FROM profiles p
-    JOIN images i ON i.profileId = p.profileId
-    WHERE p.fetch = 1
+    SELECT profileId, name
+    FROM profiles
+    WHERE fetch = 1
   `);
 
-  for (const { profileId, name, image } of profiles) {
+  for (const { profileId, name } of profiles) {
     const career = {
       profileId,
       name,
       stats: null,
-      seasons: [],
-      image
+      seasons: []
     };
 
     career.stats = buildStats(db.rows(`

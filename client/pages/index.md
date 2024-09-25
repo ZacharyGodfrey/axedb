@@ -19,7 +19,7 @@ description: "Accuracy stats for IATF Premier axe throwing"
 <div class="grid stack auto-fill-auto items-y-center">
   <div>
     <a href="/{{profileId}}">
-      <img alt="{{name}}" src="data:image/png;base64,{{image}}" class="size100">
+      <img alt="{{name}}" src="/{{profileId}}.png" class="size100">
     </a>
   </div>
   <div>

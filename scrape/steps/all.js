@@ -7,8 +7,7 @@ import {
   recordProfileData,
   recordThrowData,
   recordOpponentData,
-  recordImageData,
-  recordJsonData
+  recordImageData
 } from '../app.js';
 
 // Start Up
@@ -72,14 +71,6 @@ console.log('Done.');
 console.log('Recording image data...');
 
 await recordImageData(db);
-
-console.log('Done.');
-
-// Write JSON
-
-console.log('Writing JSON files...');
-
-recordJsonData(db);
 
 console.log('Done.');
 
