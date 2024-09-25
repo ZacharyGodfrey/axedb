@@ -35,7 +35,7 @@ card)
 
 ### Hatchet
 
-<div class="grid stack col2">
+<div class="grid stack fill-fill items-y-stretch">
   <div class="card">
     <h4>Bullseye</h4>
     <table>
