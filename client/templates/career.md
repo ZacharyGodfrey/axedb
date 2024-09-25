@@ -17,7 +17,7 @@ section)
 
 ## Career Stats
 
-<div class="grid stack fill-2">
+<div class="grid fill-2">
   <div class="card text-center">
     <h3>{{hatchet.bullseye.scorePerAxe}}</h3>
     <hr>
@@ -43,37 +43,6 @@ section)
     <p>Score Per Axe</p>
   </div>
 </div>
-
-(card
-
-### Score Per Axe
-
-<table>
-  <tbody>
-    <tr>
-      <th align="left">Overall</th>
-      <td align="center">{{overall.scorePerAxe}}</td>
-    </tr>
-    <tr>
-      <th align="left">Hatchet Bullseye</th>
-      <td align="center">{{hatchet.bullseye.scorePerAxe}}</td>
-    </tr>
-    <tr>
-      <th align="left">Hatchet Clutch</th>
-      <td align="center">{{hatchet.clutch.scorePerAxe}}</td>
-    </tr>
-    <tr>
-      <th align="left">Big Axe Bullseye</th>
-      <td align="center">{{bigAxe.bullseye.scorePerAxe}}</td>
-    </tr>
-    <tr>
-      <th align="left">Big Axe Clutch</th>
-      <td align="center">{{bigAxe.clutch.scorePerAxe}}</td>
-    </tr>
-  </tbody>
-</table>
-
-card)
 
 ### Hatchet Breakdown
 
