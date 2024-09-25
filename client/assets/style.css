@@ -9,16 +9,19 @@
 
 :root {
   --primary:   hsl(85 15% 45%);
+  --alternate: hsl(85 15% 40%);
   --accent:    hsl( 0 45% 45%);
   --highlight: hsl(55 75% 75%);
   --light:     hsl(55  5% 98%);
+  --medium:    hsl(55  5% 90%);
   --dark:      hsl(85  5% 30%);
   --text: var(--light);
   --background: var(--primary);
   --content-width: 50rem;
   --line-thickness: 2px;
   --radius: 0.5rem;
-  --gutter: 1rem;
+  --gapX: 1rem;
+  --gapY: 2rem;
   font-size: 18px;
   font-family: 'custom', monospace;
   color: var(--text);
@@ -49,35 +52,53 @@ html, body {
 }
 
 body {
-  display: grid;
-  gap: var(--gutter);
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
-  justify-items: center;
-  align-items: start;
-  padding: var(--gutter);
-}
-
-body > * {
-  margin-block: 0 !important;
-  width: 100%;
-  max-width: var(--content-width);
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-  display: grid;
-  gap: calc(2 * var(--gutter));
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
 }
 
-main > * {
-  margin-block: 0 !important;
+main, main > :last-child {
+  flex: 1;
 }
 
-/* Text Elements */
+header, section, footer {
+  color: var(--text);
+  background: var(--background);
+}
 
-h1, h2, h3, h4, p, ul, ol, img {
-  margin-block: var(--gutter);
+header {
+  --text: var(--dark);
+  --background: var(--light);
+  padding: var(--gapY) var(--gapX);
+}
+
+section {
+  padding: var(--gapY) var(--gapX);
+}
+
+section:nth-child(odd) {
+  --background: var(--alternate);
+}
+
+header > *, section > *, footer > * {
+  max-width: var(--content-width);
+  margin-inline: auto
+}
+
+footer {
+  --text: var(--light);
+  --background: var(--dark);
+  padding: var(--gapY) var(--gapX);
+}
+
+/* Base Elements */
+
+h1, h2, h3, h4, p, ul, ol, img, table, blockquote {
+  margin-block: var(--gapY);
 }
 
 h1, h2, h3, h4 {
@@ -129,8 +150,7 @@ p > code {
 }
 
 blockquote {
-  margin-block: 2rem;
-  padding: var(--gutter);
+  padding: var(--gapX);
   border-left: var(--line-thickness) solid var(--text);
   border-right: var(--line-thickness) solid var(--text);
 }
@@ -161,12 +181,8 @@ img.size100 {
   max-height: min(75svh, 100px);
 }
 
-p:has(img:only-child) {
-  margin-block: 2rem;
-}
-
 hr {
-  margin: 4rem auto;
+  margin: var(--gapY) auto;
   width: 100%;
   height: var(--line-thickness);
   border: none;
@@ -180,7 +196,6 @@ table, th, td {
 
 table {
   width: 100%;
-  margin-block: 2rem;
   background: var(--light);
   border: var(--line-thickness) solid var(--text);
 }
@@ -209,7 +224,8 @@ thead tr:not(:has(th:not(:empty))) {
 .card {
   --text: var(--dark);
   --background: var(--light);
-  padding: var(--gutter);
+  margin-block: var(--gapY);
+  padding: var(--gapX);
   color: var(--text);
   background: var(--background);
   border-radius: var(--radius);
@@ -220,8 +236,8 @@ thead tr:not(:has(th:not(:empty))) {
 
 .grid {
   display: grid;
-  column-gap: var(--gutter);
-  row-gap: var(--gutter);
+  column-gap: var(--gapX);
+  row-gap: var(--gapY);
   justify-items: stretch; /* cell content X */
   align-items: start; /* cell content Y */
   justify-content: stretch; /* column spacing X */

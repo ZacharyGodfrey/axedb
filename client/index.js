@@ -29,6 +29,7 @@ const templates = {
 
 const db = database('data');
 const { throwCount } = db.row(`SELECT COUNT(*) AS throwCount FROM throws`);
+const { matchCount } = db.row(`SELECT COUNT(*) AS matchCount FROM (SELECT DISTINCT matchId FROM matches)`);
 const { seasonCount } = db.row(`SELECT COUNT(*) AS seasonCount FROM seasons`);
 const profiles = db.rows(`
   SELECT p.*, i.image
@@ -45,7 +46,7 @@ copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
 for (const { uri, fileContent } of pages) {
-  const data = { profiles, throwCount, seasonCount };
+  const data = { profiles, throwCount, matchCount, seasonCount };
 
   renderAndWritePage(uri, shell, partials, data, fileContent);
 }
