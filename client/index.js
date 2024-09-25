@@ -24,7 +24,8 @@ const pages = listFiles('client/pages/**/*.md').map(filePath => ({
 const templates = {
   career: readFile('client/templates/career.md'),
   season: readFile('client/templates/season.md'),
-  week: readFile('client/templates/week.md')
+  week: readFile('client/templates/week.md'),
+  match: readFile('client/templates/match.md'),
 };
 
 const db = database('data');
@@ -70,6 +71,13 @@ for (const filePath of listFiles('data/profiles/*.json')) {
       const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
 
       renderAndWritePage(uri, shell, partials, data, templates.week);
+
+      for (const match of week.matches) {
+        const data = { profile, season, week, match };
+        const uri = `${profileId}/m/${match.matchId}/index.html`;
+
+        renderAndWritePage(uri, shell, partials, data, templates.match);
+      }
     }
   }
 }

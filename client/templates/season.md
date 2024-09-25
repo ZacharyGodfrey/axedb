@@ -110,7 +110,9 @@ section)
 (card
 
 {{#season.weeks}}
-- [Week {{weekId}}](/{{profile.profileId}}/s/{{season.seasonId}}/w/{{weekId}})
+
+=> [Week {{weekId}}](/{{profile.profileId}}/s/{{season.seasonId}}/w/{{weekId}})
+
 {{/season.weeks}}
 
 card)

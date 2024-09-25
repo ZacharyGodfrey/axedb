@@ -101,3 +101,19 @@ card)
 {{/week.stats}}
 
 section)
+
+(section
+
+## Matches
+
+(card
+
+{{#week.matches}}
+
+=> [{{matchId}}](/{{profile.profileId}}/m/{{matchId}})
+
+{{/week.matches}}
+
+card)
+
+section)
