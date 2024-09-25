@@ -17,7 +17,7 @@ section)
 
 ## Career Stats
 
-<div class="grid fill-2">
+<div class="grid fill-2 items-y-stretch">
   <div class="card text-center">
     <h3>{{hatchet.bullseye.scorePerAxe}}</h3>
     <hr>
