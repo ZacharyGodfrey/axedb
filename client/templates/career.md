@@ -17,23 +17,23 @@ section)
 
 ## Career Stats
 
-<div class="grid stack fill-3">
-  <div class="card">
+<div class="grid stack fill-2">
+  <div class="card text-center">
     <h3>{{hatchet.bullseye.scorePerAxe}}</h3>
     <p>Hatchet Bullseye</p>
     <p>Score Per Axe</p>
   </div>
-  <div class="card">
+  <div class="card text-center">
     <h3>{{hatchet.clutch.scorePerAxe}}</h3>
     <p>Hatchet Clutch</p>
     <p>Score Per Axe</p>
   </div>
-  <div class="card">
+  <div class="card text-center">
     <h3>{{bigAxe.bullseye.scorePerAxe}}</h3>
     <p>Big Axe Bullseye</p>
     <p>Score Per Axe</p>
   </div>
-  <div class="card">
+  <div class="card text-center">
     <h3>{{bigAxe.clutch.scorePerAxe}}</h3>
     <p>Big Axe Clutch</p>
     <p>Score Per Axe</p>
