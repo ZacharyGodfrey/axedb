@@ -41,8 +41,8 @@ card)
     <table>
       <thead>
         <tr>
-          <td>Score</td>
-          <td>Count</td>
+          <th>Score</th>
+          <th>Count</th>
         </tr>
       </thead>
       <tbody>
@@ -70,8 +70,8 @@ card)
     <table>
       <thead>
         <tr>
-          <td>Score</td>
-          <td>Count</td>
+          <th>Score</th>
+          <th>Count</th>
         </tr>
       </thead>
       <tbody>
