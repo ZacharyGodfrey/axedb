@@ -22,7 +22,7 @@ const templates = listFiles('client/templates/**/*.{md,html}').reduce((result, f
   result[name] = readFile(filePath);
 
   return result;
-});
+}, {});
 
 const db = database('data');
 
