@@ -168,10 +168,11 @@ li:has(input[type="checkbox"]:disabled) {
 }
 
 img {
-  display: inline-block;
+  display: block;
   max-width: min(100%, 200px);
   max-height: min(75vh, 200px);
   max-height: min(75svh, 200px);
+  margin-inline: auto;
   border-radius: 50%;
   user-select: none;
 }
@@ -227,6 +228,7 @@ thead tr:not(:has(th:not(:empty))) {
   --background: var(--light);
   margin-block: var(--gapY);
   padding: var(--gapX);
+  width: 100%;
   color: var(--text);
   background: var(--background);
   border-radius: var(--radius);
