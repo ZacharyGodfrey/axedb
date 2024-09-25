@@ -73,11 +73,11 @@ header, section, footer {
 header {
   --text: var(--dark);
   --background: var(--light);
-  padding: var(--gapY) var(--gapX);
+  padding: 0.5rem var(--gapX);
 }
 
 section {
-  padding: var(--gapY) var(--gapX);
+  padding: 4rem var(--gapX);
 }
 
 section:nth-child(odd) {
@@ -92,7 +92,7 @@ header > *, section > *, footer > * {
 footer {
   --text: var(--light);
   --background: var(--dark);
-  padding: var(--gapY) var(--gapX);
+  padding: 4rem var(--gapX) 2rem var(--gapX);
 }
 
 /* Base Elements */
