@@ -2,7 +2,7 @@ name: Data Scrape
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * 4"
+    - cron: "0 3 * * 4"
 jobs:
   data-scrape:
     runs-on: ubuntu-latest
