@@ -11,13 +11,11 @@ description: ""
 
 (card
 
-Hey, I'm Zach, the creator of **AxeDB**. In the IATF, I throw under the alias [REDACTED](/1207260).
+IATF axe throwing has four distinct disciplines which arise from the combination of two different tools (Hatchet and Big Axe) and two different targets (Bullseye and Clutch). A well-rounded and highly-skilled competitor will achieve a high degree of accuracy in each of these four disciplines.
 
-I built this website for those competitors like me who are focused on the continual refinement of their accuracy.
+Accuracy could be measured with a number of different metrics, but **AxeDB** focuses primarily on Score Per Axe. The more accurate a throw is, the higher its score will be; and the more consistently accurate a competitor is, the higher their average Score Per Axe will be.
 
-[AxeScores](https://axescores.com) is a great website, and they are still the source of truth for all IATF throwing data, but they seem primarily concerned with showing wins and losses while I care more about tracking my accuracy over time.
-
-I hope that what I've built here will be useful to the IATF community.
+**AxeDB** calculates each competitor's Score Per Axe at the round, match, week, season, and career levels for each of the four disciplines as well as an overall Score Per Axe that collapses their entire performance into a single number for comparison with other competitors.
 
 card)
 
