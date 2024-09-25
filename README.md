@@ -1,6 +1,6 @@
 # AxeDB
 
-Accuracy stats for **IATF Premier** axe throwing
+IATF Premier Accuracy Stats
 
 ---
 
