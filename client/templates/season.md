@@ -3,6 +3,8 @@ title: "{{season.name}} &bull; {{profile.name}}"
 description: "Season stats for {{profile.name}} in {{season.name}}"
 ---
 
+{{#season}}
+
 {{>siteHeader}}
 
 (section
@@ -13,9 +15,19 @@ section)
 
 (section
 
-{{#season}}
+{{#stats}}
 
-## Season Info
+## Season Stats
+
+{{>stats}}
+
+{{/stats}}
+
+section)
+
+(section
+
+## Season Details
 
 (card
 
@@ -27,34 +39,18 @@ section)
 
 card)
 
-{{/season}}
-
-section)
-
-(section
-
-{{#season.stats}}
-
-## Season Stats
-
-{{>stats}}
-
-{{/season.stats}}
-
-section)
-
-(section
-
 ## Weeks
 
 (card
 
-{{#season.weeks}}
+{{#weeks}}
 
-=> [Week {{weekId}}](/{{profile.profileId}}/s/{{season.seasonId}}/w/{{weekId}})
+=> [Week {{weekId}}](/{{profile.profileId}}/s/{{seasonId}}/w/{{weekId}})
 
-{{/season.weeks}}
+{{/weeks}}
 
 card)
 
 section)
+
+{{/season}}
