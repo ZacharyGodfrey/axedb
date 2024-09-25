@@ -278,10 +278,6 @@ thead tr:not(:has(th:not(:empty))) {
     grid-template-columns: 1fr;
     justify-items: center;
   }
-
-  .grid.stack > * {
-    width: 100%;
-  }
 }
 
 /* Large Screens */
