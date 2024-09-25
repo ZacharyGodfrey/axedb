@@ -1,40 +1,35 @@
-# ThrowDB
+# AxeDB
 
-A custom scrape of my own IATF axe throwing data
+Accuracy stats for **IATF Premier** axe throwing
 
 ---
 
-The purpose of this project is to scrape my AxeScores data to build a custom dashboard where I can see my accuracy progression over time.
+The purpose of this project is to provide an alternative view of AxeScores data with a focus on accuracy metrics.
 
-I will only be scraping Premier throwing data, as it's the only ruleset used for major tournaments.
-
-Once scraped and mapped, the data will be aggregated and used to build a static web page with any visualizations I want to view.
+I will be scraping only the Premier data, as it's the ruleset used for IATC and other major tournaments.
 
 **Key Stats**
 
+- Overall
+  - Score Per Axe
 - Hatchet
+  - Overall
+    - Score Per Axe
   - Bullseye
-    - Hit Percentage
-    - Average Score Per Axe
+    - Score Per Axe
   - Clutch
-    - Overall Hit Percentage
-    - Five Hit Percentage
-    - Seven Hit Percentage
-    - Average Score Per Axe
+    - Score Per Axe
 - Big Axe
+  - Overall
+    - Score Per Axe
   - Bullseye
-    - Hit Percentage
-    - Average Score Per Axe
+    - Score Per Axe
   - Clutch
-    - Overall Hit Percentage
-    - Five Hit Percentage
-    - Seven Hit Percentage
-    - Average Score Per Axe
+    - Score Per Axe
 
 **Aggregations**
 
-- By Year (maybe)
 - By Season
 - By Season Week
 - By Match
-- By Opponent
+- By Opponent (Maybe)
