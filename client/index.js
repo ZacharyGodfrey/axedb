@@ -16,29 +16,34 @@ const partials = {
   profileHeader: readFile('client/partials/profile-header.html')
 };
 
-const pages = listFiles('client/pages/**/*.md').map(filePath => ({
-  uri: filePath.split('pages/')[1].replace('.md', '.html'),
-  fileContent: readFile(filePath)
-}));
+const templates = listFiles('client/templates/**/*.{md,html}').reduce((result, filePath) => {
+  const name = filePath.split('client/templates/')[1].split('.').slice(0, -1).join('-').replaceAll('/', '-');
 
-const templates = {
-  career: readFile('client/templates/career.md'),
-  season: readFile('client/templates/season.md'),
-  week: readFile('client/templates/week.md'),
-  match: readFile('client/templates/match.md'),
-};
+  result[name] = readFile(filePath);
+
+  return result;
+});
 
 const db = database('data');
-const { throwCount } = db.row(`SELECT COUNT(*) AS throwCount FROM throws`);
-const { matchCount } = db.row(`SELECT COUNT(*) AS matchCount FROM (SELECT DISTINCT matchId FROM matches)`);
-const { seasonCount } = db.row(`SELECT COUNT(*) AS seasonCount FROM seasons`);
-const profiles = db.rows(`
-  SELECT p.*, i.image
-  FROM profiles p
-  JOIN images i ON i.profileId = p.profileId
-  WHERE p.fetch = 1
-  ORDER BY p.name ASC
-`);
+
+const globalData = {
+  seasonCount: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
+  matchCount: db.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches)`).count,
+  throwCount: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
+  profiles: db.rows(`
+    SELECT p.*, i.image
+    FROM profiles p
+    JOIN images i ON i.profileId = p.profileId
+    WHERE p.fetch = 1
+    ORDER BY p.name ASC
+  `)
+};
+
+const profileLookup = globalData.profiles.reduce((result, { profileId }, index) => {
+  result[profileId] = index;
+
+  return result;
+}, {});
 
 // Write Output
 
@@ -46,16 +51,15 @@ emptyFolder('dist');
 copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
-for (const { uri, fileContent } of pages) {
-  const data = { profiles, throwCount, matchCount, seasonCount };
-
-  renderAndWritePage(uri, shell, partials, data, fileContent);
-}
-
 for (const filePath of listFiles('data/profiles/*.json')) {
   const profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
+  const index = profileLookup[profileId];
+
+  if (index >= 0) {
+    globalData.profiles[index].stats = profile.stats;
+  }
 
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
@@ -80,6 +84,12 @@ for (const filePath of listFiles('data/profiles/*.json')) {
       }
     }
   }
+}
+
+for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
+  const uri = filePath.split('pages/')[1].replace('.md', '.html');
+
+  renderAndWritePage(uri, shell, partials, globalData, readFile(filePath));
 }
 
 console.log(`Running Time: ${Date.now() - start}ms`);

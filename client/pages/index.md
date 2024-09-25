@@ -38,6 +38,7 @@ section)
     <p>
       <a href="/{{profileId}}">{{name}}</a>
     </p>
+    <p>SPA: {{stats.overall.scorePerAxe}}</p>
   </div>
 </div>
 
