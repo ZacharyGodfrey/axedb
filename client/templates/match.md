@@ -3,6 +3,8 @@ title: "Match {{match.matchId}} &bull; {{profile.name}}"
 description: "Match stats for {{profile.name}} in Match {{match.matchId}}"
 ---
 
+{{#match}}
+
 {{>siteHeader}}
 
 (section
@@ -13,7 +15,19 @@ section)
 
 (section
 
-## Match Info
+{{#stats}}
+
+## Match Stats
+
+{{>stats}}
+
+{{/stats}}
+
+section)
+
+(section
+
+## Match Details
 
 (card
 
@@ -27,21 +41,9 @@ section)
 {{week.weekId}}
 
 **Match**\
-{{match.matchId}}
+{{matchId}}
 
 card)
-
-section)
-
-(section
-
-{{#match.stats}}
-
-## Match Stats
-
-{{>stats}}
-
-{{/match.stats}}
 
 section)
 
@@ -49,7 +51,7 @@ section)
 
 ## Rounds
 
-{{#match.rounds}}
+{{#rounds}}
 
 (card
 
@@ -57,6 +59,8 @@ Coming soon...
 
 card)
 
-{{/match.rounds}}
+{{/rounds}}
 
 section)
+
+{{/match}}

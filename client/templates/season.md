@@ -34,7 +34,7 @@ section)
 **Year**\
 {{year}}
 
-**Name**\
+**Season**\
 {{name}}
 
 card)

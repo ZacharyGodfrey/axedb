@@ -3,6 +3,8 @@ title: "Week {{week.weekId}} &bull; {{season.name}} &bull; {{profile.name}}"
 description: "Week stats for {{profile.name}} in Week {{week.weekId}} of {{season.name}}"
 ---
 
+{{#week}}
+
 {{>siteHeader}}
 
 (section
@@ -13,7 +15,19 @@ section)
 
 (section
 
-## Week Info
+{{#stats}}
+
+## Week Stats
+
+{{>stats}}
+
+{{/stats}}
+
+section)
+
+(section
+
+## Week Details
 
 (card
 
@@ -24,36 +38,22 @@ section)
 {{season.name}}
 
 **Week**\
-{{week.weekId}}
+{{weekId}}
 
 card)
-
-section)
-
-(section
-
-{{#week.stats}}
-
-## Week Stats
-
-{{>stats}}
-
-{{/week.stats}}
-
-section)
-
-(section
 
 ## Matches
 
 (card
 
-{{#week.matches}}
+{{#matches}}
 
 => [{{matchId}}](/{{profile.profileId}}/m/{{matchId}})
 
-{{/week.matches}}
+{{/matches}}
 
 card)
 
 section)
+
+{{/week}}
