@@ -13,7 +13,8 @@ const partials = {
   font: readFile('client/assets/FiraCode-Variable.ttf', 'base64'),
   style: await minifyCSS(readFile('client/assets/style.css')),
   siteHeader: readFile('client/partials/site-header.html'),
-  profileHeader: readFile('client/partials/profile-header.html')
+  profileHeader: readFile('client/partials/profile-header.html'),
+  stats: readFile('client/partials/stats.html'),
 };
 
 const templates = listFiles('client/templates/**/*.{md,html}').reduce((result, filePath) => {
