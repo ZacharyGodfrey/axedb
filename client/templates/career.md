@@ -20,22 +20,26 @@ section)
 <div class="grid stack fill-2">
   <div class="card text-center">
     <h3>{{hatchet.bullseye.scorePerAxe}}</h3>
-    <p>Hatchet Bullseye</p>
+    <hr>
+    <h4>Hatchet Bullseye</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
     <h3>{{hatchet.clutch.scorePerAxe}}</h3>
-    <p>Hatchet Clutch</p>
+    <hr>
+    <h4>Hatchet Clutch</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
     <h3>{{bigAxe.bullseye.scorePerAxe}}</h3>
-    <p>Big Axe Bullseye</p>
+    <hr>
+    <h4>Big Axe Bullseye</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
     <h3>{{bigAxe.clutch.scorePerAxe}}</h3>
-    <p>Big Axe Clutch</p>
+    <hr>
+    <h4>Big Axe Clutch</h4>
     <p>Score Per Axe</p>
   </div>
 </div>
