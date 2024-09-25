@@ -21,13 +21,30 @@ section)
 
 ### Score Per Axe
 
-|                      |                                  |
-|:---------------------|:--------------------------------:|
-| **Overall**          | {{overall.scorePerAxe}}          |
-| **Hatchet Bullseye** | {{hatchet.bullseye.scorePerAxe}} |
-| **Hatchet Clutch**   | {{hatchet.clutch.scorePerAxe}}   |
-| **Big Axe Bullseye** | {{bigAxe.bullseye.scorePerAxe}}  |
-| **Big Axe Clutch**   | {{bigAxe.clutch.scorePerAxe}}    |
+<table>
+  <tbody>
+    <tr>
+      <th align="left">Overall</th>
+      <td align="center">{{overall.scorePerAxe}}</td>
+    </tr>
+    <tr>
+      <th align="left">Hatchet Bullseye</th>
+      <td align="center">{{hatchet.bullseye.scorePerAxe}}</td>
+    </tr>
+    <tr>
+      <th align="left">Hatchet Clutch</th>
+      <td align="center">{{hatchet.clutch.scorePerAxe}}</td>
+    </tr>
+    <tr>
+      <th align="left">Big Axe Bullseye</th>
+      <td align="center">{{bigAxe.bullseye.scorePerAxe}}</td>
+    </tr>
+    <tr>
+      <th align="left">Big Axe Clutch</th>
+      <td align="center">{{bigAxe.clutch.scorePerAxe}}</td>
+    </tr>
+  </tbody>
+</table>
 
 card)
 
