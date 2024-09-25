@@ -19,13 +19,11 @@ section)
 
 (card
 
-### Overall
+### Score Per Axe
 
 |                      |                                  |
 |:---------------------|:--------------------------------:|
-| **Total Throws**     | {{overall.attempts}}             |
-| **Total Score**      | {{overall.totalScore}}           |
-| **Score Per Axe**    | {{overall.scorePerAxe}}          |
+| **Overall**          | {{overall.scorePerAxe}}          |
 | **Hatchet Bullseye** | {{hatchet.bullseye.scorePerAxe}} |
 | **Hatchet Clutch**   | {{hatchet.clutch.scorePerAxe}}   |
 | **Big Axe Bullseye** | {{bigAxe.bullseye.scorePerAxe}}  |
@@ -33,7 +31,7 @@ section)
 
 card)
 
-### Hatchet
+### Hatchet Breakdown
 
 <div class="grid stack fill-fill items-y-stretch">
   <div class="card">
@@ -92,49 +90,64 @@ card)
   </div>
 </div>
 
-(card
+### Big Axe  Breakdown
 
-#### Bullseye Breakdown
-
-| Score | Count |
-|:-----:|:-----:|
-| 5 | {{hatchet.bullseye.breakdown.5}} |
-| 3 | {{hatchet.bullseye.breakdown.3}} |
-| 1 | {{hatchet.bullseye.breakdown.1}} |
-| 0 | {{hatchet.bullseye.breakdown.0}} |
-
-#### Clutch Breakdown
-
-| Score | Count |
-|:-----:|:-----:|
-| 7 | {{hatchet.clutch.breakdown.7}} |
-| 5 | {{hatchet.clutch.breakdown.5}} |
-| 0 | {{hatchet.clutch.breakdown.0}} |
-
-card)
-
-(card
-
-### Big Axe
-
-#### Bullseye Breakdown
-
-| Score | Count |
-|:-----:|:-----:|
-| 5 | {{bigAxe.bullseye.breakdown.5}} |
-| 3 | {{bigAxe.bullseye.breakdown.3}} |
-| 1 | {{bigAxe.bullseye.breakdown.1}} |
-| 0 | {{bigAxe.bullseye.breakdown.0}} |
-
-#### Clutch Breakdown
-
-| Score | Count |
-|:-----:|:-----:|
-| 7 | {{bigAxe.clutch.breakdown.7}} |
-| 5 | {{bigAxe.clutch.breakdown.5}} |
-| 0 | {{bigAxe.clutch.breakdown.0}} |
-
-card)
+<div class="grid stack fill-fill items-y-stretch">
+  <div class="card">
+    <h4>Bullseye</h4>
+    <table>
+      <thead>
+        <tr>
+          <th align="center">Score</th>
+          <th align="center">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="center">5</td>
+          <td align="center">{{bigAxe.bullseye.breakdown.5}}</td>
+        </tr>
+        <tr>
+          <td align="center">3</td>
+          <td align="center">{{bigAxe.bullseye.breakdown.3}}</td>
+        </tr>
+        <tr>
+          <td align="center">1</td>
+          <td align="center">{{bigAxe.bullseye.breakdown.1}}</td>
+        </tr>
+        <tr>
+          <td align="center">0</td>
+          <td align="center">{{bigAxe.bullseye.breakdown.0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Clutch</h4>
+    <table>
+      <thead>
+        <tr>
+          <th align="center">Score</th>
+          <th align="center">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="center">7</td>
+          <td align="center">{{bigAxe.clutch.breakdown.7}}</td>
+        </tr>
+        <tr>
+          <td align="center">5</td>
+          <td align="center">{{bigAxe.clutch.breakdown.5}}</td>
+        </tr>
+        <tr>
+          <td align="center">0</td>
+          <td align="center">{{bigAxe.clutch.breakdown.0}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 {{/profile.stats}}
 
