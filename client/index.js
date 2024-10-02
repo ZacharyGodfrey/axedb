@@ -1,6 +1,5 @@
 import { database } from '../lib/database.js';
 import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/file.js';
-import { sort } from '../lib/miscellaneous.js';
 import { minifyCSS, renderAndWritePage } from './app.js';
 
 // Read Input
@@ -29,7 +28,7 @@ const db = database('data');
 
 const globalData = {
   seasonCount: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
-  matchCount: db.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches)`).count,
+  matchCount: db.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches WHERE processed = 1)`).count,
   throwCount: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
   profiles: db.rows(`
     SELECT *
@@ -59,6 +58,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
 
   if (index >= 0) {
     globalData.profiles[index].stats = profile.stats;
+    globalData.profiles[index].rank = profile.rank;
   }
 
   const imageRow = db.row(`
@@ -95,9 +95,6 @@ for (const filePath of listFiles('data/profiles/*.json')) {
     }
   }
 }
-
-globalData.profiles.sort(sort.byDescending(x => x.stats.overall.scorePerAxe));
-globalData.profiles.forEach((x, i) => x.rank = i + 1);
 
 for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
   const uri = filePath.split('pages/')[1].replace('.md', '.html');

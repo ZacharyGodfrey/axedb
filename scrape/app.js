@@ -1,4 +1,5 @@
-import { writeFile } from '../lib/file.js'
+import { writeFile } from '../lib/file.js';
+import { sort } from '../lib/miscellaneous.js';
 
 // Helpers
 
@@ -403,10 +404,12 @@ export const recordJsonData = (db) => {
     WHERE fetch = 1
   `);
 
-  for (const { profileId, name } of profiles) {
+  for (const profile of profiles) {
+    const { profileId, name } = profile;
     const career = {
       profileId,
       name,
+      rank: 0,
       stats: null,
       seasons: []
     };
@@ -417,6 +420,8 @@ export const recordJsonData = (db) => {
       WHERE profileId = :profileId
       ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
     `, { profileId }));
+
+    profile.spa = career.stats.overall.scorePerAxe;
 
     const seasons = db.rows(`
       SELECT seasonId, name, year
@@ -529,4 +534,15 @@ export const recordJsonData = (db) => {
 
     writeFile(`data/profiles/${profileId}.json`, JSON.stringify(career, null, 2));
   }
+
+  profiles.sort(sort.byDescending(x => x.spa));
+
+  profiles.forEach(({ profileId }, index) => {
+    const fileName = `data/profiles/${profileId}.json`;
+    const data = JSON.parse(readFile(fileName));
+
+    data.rank = index + 1;
+
+    writeFile(fileName, JSON.stringify(data, null, 2));
+  });
 };
