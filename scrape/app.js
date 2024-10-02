@@ -496,7 +496,7 @@ export const recordJsonData = (db) => {
             WHERE profileId = :opponentId
           `, { opponentId });
 
-          match.opponent.name = opponent ?? opponent.name : match.opponent.name;
+          match.opponent.name = opponent ? opponent.name : match.opponent.name;
 
           match.stats = buildStats(db.rows(`
             SELECT tool, target, score
