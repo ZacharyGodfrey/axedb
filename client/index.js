@@ -97,7 +97,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   }
 }
 
-globalData.profiles.sort(sort.byDescending(x => x.rank));
+globalData.profiles.sort(sort.byAscending(x => x.rank));
 
 for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
   const uri = filePath.split('pages/')[1].replace('.md', '.html');
