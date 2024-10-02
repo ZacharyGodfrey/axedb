@@ -482,10 +482,21 @@ export const recordJsonData = (db) => {
         for (const { matchId, opponentId } of matches) {
           const match = {
             matchId,
-            opponentId,
+            opponent: {
+              id: opponentId,
+              name: 'Unknown'
+            },
             stats: null,
             rounds: []
           };
+
+          const opponent = db.row(`
+            SELECT name
+            FROM profiles
+            WHERE profileId = :opponentId
+          `, { opponentId });
+
+          match.opponent.name = opponent ?? opponent.name : match.opponent.name;
 
           match.stats = buildStats(db.rows(`
             SELECT tool, target, score

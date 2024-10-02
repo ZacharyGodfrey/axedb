@@ -44,15 +44,22 @@ card)
 
 ## Matches
 
-(card
-
 {{#matches}}
 
-=> [{{matchId}}](/{{profile.profileId}}/m/{{matchId}})
+<div class="card">
+  <div class="grid items-y-center">
+    <div>
+      <img alt="{{opponent.name}}" src="/{{opponent.id}}.webp" class="size100">
+    </div>
+    <div>
+      <p>
+        <a href="/{{profile.profileId}}/m/{{matchId}}">{{opponent.name}}</a>
+      </p>
+    </div>
+  </div>
+</div>
 
 {{/matches}}
-
-card)
 
 section)
 
