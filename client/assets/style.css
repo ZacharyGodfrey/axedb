@@ -138,9 +138,8 @@ img {
 }
 
 img.size100 {
-  max-width: min(100%, 100px);
-  max-height: min(75vh, 100px);
-  max-height: min(75svh, 100px);
+  width: 100px;
+  height: 100px;
 }
 
 hr {
