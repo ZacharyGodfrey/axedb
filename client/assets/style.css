@@ -142,6 +142,11 @@ img.size100 {
   height: 100px;
 }
 
+img.size200 {
+  width: 200px;
+  height: 200px;
+}
+
 hr {
   margin-inline: auto;
   width: 100%;
