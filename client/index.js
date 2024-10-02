@@ -35,7 +35,6 @@ const globalData = {
     SELECT *
     FROM profiles
     WHERE fetch = 1
-    ORDER BY name ASC
   `)
 };
 
@@ -51,6 +50,16 @@ emptyFolder('dist');
 copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
+for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
+  const { image } = db.row(`
+    SELECT image
+    FROM images
+    WHERE profileId = :profileId
+  `, { profileId });
+
+  writeFile(`dist/${profileId}.webp`, image, 'base64');
+}
+
 for (const filePath of listFiles('data/profiles/*.json')) {
   const profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
@@ -60,16 +69,6 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   if (index >= 0) {
     globalData.profiles[index].stats = profile.stats;
     globalData.profiles[index].rank = profile.rank;
-  }
-
-  const imageRow = db.row(`
-    SELECT image
-    FROM images
-    WHERE profileId = :profileId
-  `, { profileId });
-
-  if (imageRow) {
-    writeFile(`dist/${profileId}.webp`, imageRow.image, 'base64');
   }
 
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
