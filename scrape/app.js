@@ -71,14 +71,14 @@ const fetchThrowData = async (page, profileId, matchId) => {
 
   const rawMatch = await apiResponse.json();
 
-  if (rawMatch.rounds.length > 4) {
+  if (![3, 4].includes(rawMatch.rounds.length)) {
     console.log(`Invalid round count: ${rawMatch.rounds.length}`);
-    return throws;
+    return { throws, forfeit: false };
   }
 
   if (rawMatch.players.find(x => x.id === profileId)?.forfeit === true) {
     console.log('Match is forfeit');
-    return throws;
+    return { throws, forfeit: true };
   }
 
   const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
@@ -107,7 +107,7 @@ const fetchThrowData = async (page, profileId, matchId) => {
     }
   }
 
-  return throws;
+  return { throws, forfeit: false };
 };
 
 // Process Data
@@ -302,9 +302,21 @@ export const recordThrowData = async (db, page, newMatches) => {
     try {
       console.log(`Match ${matchId}`);
 
-      const throws = await fetchThrowData(page, profileId, matchId);
+      const { throws, forfeit } = await fetchThrowData(page, profileId, matchId);
+
+      if (forfeit) {
+        db.run(`
+          UPDATE matches
+          SET processed = 1
+          WHERE profileId = :profileId AND matchId = :matchId
+        `, { profileId, matchId });
+
+        continue;
+      }
 
       if (throws.length < 1) {
+        console.log('Skipping match with no throws yet.');
+
         continue;
       }
 

@@ -13,7 +13,7 @@ description: ""
 
 ### Disciplines
 
-IATF axe throwing has four distinct disciplines which arise from the combination of two different tools (Hatchet and Big Axe) and two different targets (Bullseye and Clutch). A well-rounded and highly-skilled competitor will achieve a high degree of accuracy in each of these four disciplines.
+IATF axe throwing has two tools (Hatchet and Big Axe) that are thrown at two different targets (Bullseye and Clutch). The combination of these factors creates four distinct disciplines. A well-rounded competitor will develop their skills in each of these four disciplines.
 
 ### Metrics
 
