@@ -1,11 +1,7 @@
-/* Custom Font */
-
 @font-face {
   font-family: 'custom';
   src: url(data:application/x-font-ttf;charset=utf-8;base64,{{>font}});
 }
-
-/* Pseudo Elements */
 
 :root {
   --primary:   hsl(85 15% 45%);
@@ -18,8 +14,10 @@
   --text: var(--light);
   --background: var(--primary);
   --content-width: 50rem;
-  --line-thickness: 2px;
+  --line: 2px;
   --radius: 0.5rem;
+  --margin: 2rem;
+  --padding: 1rem;
   --gapX: 1rem;
   --gapY: 1rem;
   font-size: 18px;
@@ -42,22 +40,14 @@
   background: var(--highlight);
 }
 
-/* Layout */
-
-html, body {
-  margin: 0;
+body {
   padding: 0;
   min-width: 380px;
   min-height: 100vh;
   min-height: 100svh;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
+body, main {
   display: flex;
   flex-direction: column;
 }
@@ -71,42 +61,34 @@ header, section, footer {
   background: var(--background);
 }
 
+header > *, section > *, footer > * {
+  max-width: var(--content-width);
+  margin-inline: auto
+}
+
 header {
   --text: var(--light);
   --background: var(--dark);
-  padding: 0.5rem var(--gapX);
-}
-
-section {
-  padding: 4rem var(--gapX);
 }
 
 section:nth-child(odd) {
   --background: var(--alternate);
 }
 
-header > *, section > *, footer > * {
-  max-width: var(--content-width);
-  margin-inline: auto
-}
-
 footer {
   --text: var(--light);
   --background: var(--dark);
-  padding: 4rem var(--gapX) 2rem var(--gapX);
 }
 
-/* Base Elements */
-
-h1, h2, h3, h4, p, ul, ol, img, table, blockquote {
-  margin-block: var(--gapY);
+header, section, footer, .card {
+  padding: var(--padding);
 }
 
-h1, h2, h3, h4 {
-  line-height: 1.2;
+h1, h2, h3, h4, h5, h6, p, ul, ol, img, table, hr, .card {
+  margin-block: var(--margin);
 }
 
-p, li, th, td {
+h1, h2, h3, h4, h5, h6, p, li, th, td {
   line-height: 1.5;
 }
 
@@ -142,29 +124,9 @@ em {
   font-style: italic;
 }
 
-p > code {
-  display: inline-block;
-  padding: 0.25rem;
-  color: var(--background);
-  background: var(--text);
-  border-radius: var(--radius);
-}
-
-blockquote {
-  padding: var(--gapX);
-  border-left: var(--line-thickness) solid var(--text);
-  border-right: var(--line-thickness) solid var(--text);
-}
-
-/* Other Elements */
-
 ul, ol {
   padding: 0;
   list-style-position: inside;
-}
-
-li:has(input[type="checkbox"]:disabled) {
-  list-style-type: none;
 }
 
 img {
@@ -184,9 +146,9 @@ img.size100 {
 }
 
 hr {
-  margin: var(--gapY) auto;
+  margin-inline: auto;
   width: 100%;
-  height: var(--line-thickness);
+  height: var(--line);
   border: none;
   outline: none;
   background: var(--text);
@@ -199,7 +161,7 @@ table, th, td {
 table {
   width: 100%;
   background: var(--light);
-  border: var(--line-thickness) solid var(--text);
+  border: var(--line) solid var(--text);
 }
 
 thead, th {
@@ -208,26 +170,20 @@ thead, th {
 }
 
 th, td {
-  padding: 0.5rem;
-  border: var(--line-thickness) solid var(--text);
+  padding: calc(var(--padding) / 2);
+  border: var(--line) solid var(--text);
 }
 
 thead tr:not(:has(th:not(:empty))) {
   display: none;
 }
 
-/* Helper Classes */
-
 .text-center { text-align: center; }
 .text-right { text-align: right; }
-
-/* Card */
 
 .card {
   --text: var(--dark);
   --background: var(--light);
-  margin-block: var(--gapY);
-  padding: var(--gapX);
   width: 100%;
   color: var(--text);
   background: var(--background);
@@ -235,12 +191,10 @@ thead tr:not(:has(th:not(:empty))) {
   overflow: hidden;
 }
 
-/* CSS Grid */
-
 .grid {
   display: grid;
-  column-gap: var(--gapX);
-  row-gap: var(--gapY);
+  column-gap: var(--padding);
+  row-gap: var(--padding);
   justify-items: stretch; /* cell content X */
   align-items: start; /* cell content Y */
   justify-content: stretch; /* column spacing X */
