@@ -36,7 +36,6 @@ console.log('Done.');
 
 console.log('Tearing down...');
 
-db.shrink();
 db.close();
 
 console.log('Done.');

@@ -1,4 +1,4 @@
-name: Data Scrape
+name: Scrape All
 on:
   workflow_dispatch:
   schedule:
@@ -20,5 +20,5 @@ jobs:
           git pull
           git status
           git add .
-          git commit -m "Data Scrape"
+          git commit -m "Scrape All"
           git push

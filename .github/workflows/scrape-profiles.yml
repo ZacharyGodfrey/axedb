@@ -1,0 +1,22 @@
+name: Scrape Profiles
+on:
+  workflow_dispatch:
+jobs:
+  data-scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: npm install
+      - name: Scrape
+        run: npm run scrape:profiles
+      - name: Commit
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git pull
+          git status
+          git add .
+          git commit -m "Scrape Profiles"
+          git push
