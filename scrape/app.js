@@ -1,4 +1,4 @@
-import { writeFile } from '../lib/file.js';
+import { writeFile, readFile } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 
 // Helpers
