@@ -69,7 +69,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   `, { profileId });
 
   if (imageRow) {
-    writeFile(`dist/${profileId}.png`, imageRow.image, 'base64');
+    writeFile(`dist/${profileId}.webp`, imageRow.image, 'base64');
   }
 
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);

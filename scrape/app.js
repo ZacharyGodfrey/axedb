@@ -1,4 +1,4 @@
-import { writeFile, readFile } from '../lib/file.js';
+import { writeFile, readFile, pngToWebp } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 
 // Helpers
@@ -45,8 +45,9 @@ const round = (places, value) => {
 const fetchProfileImage = async (profileId) => {
   const url = `https://admin.axescores.com/pic/${profileId}`;
   const response = await fetch(url);
-  const buffer = await response.arrayBuffer();
-  const base64 = Buffer.from(buffer).toString('base64');
+  const pngBuffer = await response.arrayBuffer();
+  const webpBuffer = await pngToWebp(pngBuffer);
+  const base64 = webpBuffer.toString('base64');
 
   return base64;
 };
