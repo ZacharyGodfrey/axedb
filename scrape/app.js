@@ -42,6 +42,32 @@ const round = (places, value) => {
 
 // Retrieve Data
 
+const fetchRegionProfiles = async (page, ruleset, regionName) => {
+  try {
+    const rulesetSelector = '.sc-gwVKww.fJdgsF select';
+    const regionSelector = '.sc-hXRMBi.kcedpm select';
+
+    await page.goto('https://axescores.com/players/collins-rating');
+
+    await page.waitForSelector(rulesetSelector);
+    await page.select(rulesetSelector, ruleset);
+    await page.waitForNetworkIdle();
+
+    await page.waitForSelector(regionSelector);
+    await page.select(regionSelector, regionName);
+    await page.waitForNetworkIdle();
+
+    const state = await reactPageState(page, '#root');
+    const profiles = state.globalStandings.standings.career;
+
+    return profiles;
+  } catch (error) {
+    console.log(error);
+
+    return [];
+  }
+};
+
 const fetchProfileImage = async (profileId) => {
   const url = `https://admin.axescores.com/pic/${profileId}`;
   const response = await fetch(url);
@@ -229,14 +255,22 @@ const buildStats = (throws) => {
 
 // Workflow Steps
 
-export const seedProfiles = (db, profileIds) => {
-  for (const profileId of profileIds) {
-    db.run(`
-      INSERT INTO profiles (profileId, fetch)
-      VALUES (:profileId, 1)
-      ON CONFLICT (profileId) DO UPDATE
-      SET fetch = 1
-    `, { profileId });
+export const seedProfiles = async (db, page, ruleset, regionName) => {
+  const profiles = await fetchRegionProfiles(page, ruleset, regionName);
+
+  for (const { active, id } of profiles) {
+      if (!active) {
+          continue;
+      }
+
+      console.log(`Seeding Profile ${id}`);
+
+      db.run(`
+        INSERT INTO profiles (profileId, fetch)
+        VALUES (:id, 1)
+        ON CONFLICT (profileId) DO UPDATE
+        SET fetch = 1
+      `, { id });
   }
 };
 

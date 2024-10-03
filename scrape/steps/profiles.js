@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer';
 
-import SEED_PROFILES from '../../lib/profile-list.js';
 import { database } from '../../lib/database.js';
 import { seedProfiles, recordProfileData } from '../app.js';
 
@@ -13,11 +12,13 @@ const db = database('data');
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
+const ruleset = 'IATF Premier';
+
 // Seed profiles
 
 console.log('Seeding profiles...');
 
-seedProfiles(db, SEED_PROFILES);
+await seedProfiles(db, page, ruleset, 'Southeast');
 
 console.log('Done.');
 
@@ -32,7 +33,7 @@ const profiles = db.rows(`
 
 console.log(`Processing ${profiles.length} profiles...`);
 
-await recordProfileData(db, page, profiles, 'IATF Premier');
+await recordProfileData(db, page, profiles, ruleset);
 
 console.log('Done.');
 
