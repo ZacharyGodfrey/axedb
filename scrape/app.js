@@ -261,12 +261,12 @@ export const seedProfiles = async (db, page) => {
     for (const profileId of profileIds) {
       console.log(`Seed profile ${profileId}`);
 
-      // db.run(`
-      //   INSERT INTO profiles (profileId, fetch)
-      //   VALUES (:profileId, 1)
-      //   ON CONFLICT (profileId) DO UPDATE
-      //   SET fetch = 1
-      // `, { profileId });
+      db.run(`
+        INSERT INTO profiles (profileId, fetch)
+        VALUES (:profileId, 1)
+        ON CONFLICT (profileId) DO UPDATE
+        SET fetch = 1
+      `, { profileId });
     }
   } catch (error) {
     console.log(error);
