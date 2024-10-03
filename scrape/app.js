@@ -258,8 +258,10 @@ export const seedProfiles = async (db, page) => {
 
     console.log(`Found ${profileIds.length} profiles`);
 
+    let i = 1;
+
     for (const profileId of profileIds) {
-      console.log(`Seed profile ${profileId}`);
+      console.log(`Seed profile ${profileId} (${i} / ${profileIds.length})`);
 
       db.run(`
         INSERT INTO profiles (profileId, fetch)
@@ -267,6 +269,8 @@ export const seedProfiles = async (db, page) => {
         ON CONFLICT (profileId) DO UPDATE
         SET fetch = 1
       `, { profileId });
+
+      i++;
     }
   } catch (error) {
     console.log(error);
