@@ -1,18 +1,13 @@
 import { writeFile, readFile, pngToWebp } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 
-// Helpers
+const RULESET = 'IATF Premier';
+const TOOL_HATCHET = 'hatchet';
+const TOOL_BIG_AXE = 'big axe';
+const TARGET_BULLSEYE = 'bullseye';
+const TARGET_CLUTCH = 'clutch';
 
-const enums = {
-  tool: {
-    hatchet: 'hatchet',
-    bigAxe: 'big axe'
-  },
-  target: {
-    bullseye: 'bullseye',
-    clutch: 'clutch'
-  }
-};
+// Helpers
 
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
@@ -40,105 +35,9 @@ const round = (places, value) => {
   return Math.round(value * factor) / factor;
 };
 
-// Retrieve Data
-
-const fetchRegionProfiles = async (page, ruleset, regionName) => {
-  try {
-    const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
-    const regionSelector = '.sc-TuwoP.gpWLXY:nth-child(3) select';
-
-    await page.goto('https://axescores.com/players/collins-rating');
-
-    await page.waitForSelector(rulesetSelector);
-    await page.select(rulesetSelector, ruleset);
-    await page.waitForNetworkIdle();
-
-    await page.waitForSelector(regionSelector);
-    await page.select(regionSelector, regionName);
-    await page.waitForNetworkIdle();
-
-    const state = await reactPageState(page, '#root');
-    const profiles = state.globalStandings.standings.career;
-
-    return profiles;
-  } catch (error) {
-    console.log(error);
-
-    return [];
-  }
+const scorePerAxe = (score, attempts) => {
+  return round(2, score / Math.max(1, attempts));
 };
-
-const fetchProfileImage = async (profileId) => {
-  const url = `https://admin.axescores.com/pic/${profileId}`;
-  const response = await fetch(url);
-  const pngBuffer = await response.arrayBuffer();
-  const webpBuffer = await pngToWebp(pngBuffer);
-  const base64 = webpBuffer.toString('base64');
-
-  return base64;
-};
-
-const fetchPlayerData = async (page, profileId) => {
-  await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle2' });
-  await waitMilliseconds(1000);
-
-  const state = await reactPageState(page, '#root');
-
-  return state.player.playerData;
-};
-
-const fetchThrowData = async (page, profileId, matchId) => {
-  const throws = [];
-  const url = `https://axescores.com/player/${profileId}/${matchId}`;
-  const apiUrl = `https://api.axescores.com/match/${matchId}`;
-
-  const [apiResponse] = await Promise.all([
-    page.waitForResponse(isDesiredResponse('GET', 200, apiUrl), { timeout: 2000 }),
-    page.goto(url)
-  ]);
-
-  const rawMatch = await apiResponse.json();
-
-  if (![3, 4].includes(rawMatch.rounds.length)) {
-    console.log(`Invalid round count: ${rawMatch.rounds.length}`);
-    return { throws, forfeit: false };
-  }
-
-  if (rawMatch.players.find(x => x.id === profileId)?.forfeit === true) {
-    console.log('Match is forfeit');
-    return { throws, forfeit: true };
-  }
-
-  const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
-
-  for (const { order: roundNumber, name, games } of rawMatch.rounds) {
-    const game = games.find(x => x.player === profileId);
-
-    if (!game || game.forfeit === true) {
-      continue;
-    }
-
-    const isBigAxe = name === 'Tie Break';
-    const { Axes: axes = [] } = game;
-
-    for (const { order: throwNumber, score, clutchCalled: isClutch } of axes) {
-      throws.push({
-        profileId,
-        opponentId,
-        matchId,
-        roundId: roundNumber,
-        throwId: throwNumber,
-        tool: isBigAxe ? enums.tool.bigAxe : enums.tool.hatchet,
-        target: isClutch ? enums.target.clutch : enums.target.bullseye,
-        score
-      });
-    }
-  }
-
-  return { throws, forfeit: false };
-};
-
-// Process Data
 
 const buildStats = (throws) => {
   const result = {
@@ -209,28 +108,28 @@ const buildStats = (throws) => {
     result.overall.attempts += 1;
     result.overall.totalScore += score;
 
-    if (tool === enums.tool.hatchet) {
+    if (tool === TOOL_HATCHET) {
       result.hatchet.overall.attempts += 1;
       result.hatchet.overall.totalScore += score;
 
-      if (target === enums.target.bullseye) {
+      if (target === TARGET_BULLSEYE) {
         result.hatchet.bullseye.attempts += 1;
         result.hatchet.bullseye.totalScore += score;
         result.hatchet.bullseye.breakdown[score] += 1;
-      } else if (target === enums.target.clutch) {
+      } else if (target === TARGET_CLUTCH) {
         result.hatchet.clutch.attempts += 1;
         result.hatchet.clutch.totalScore += score;
         result.hatchet.clutch.breakdown[score] += 1;
       }
-    } else if (tool === enums.tool.bigAxe) {
+    } else if (tool === TOOL_BIG_AXE) {
       result.bigAxe.overall.attempts += 1;
       result.bigAxe.overall.totalScore += score;
 
-      if (target === enums.target.bullseye) {
+      if (target === TARGET_BULLSEYE) {
         result.bigAxe.bullseye.attempts += 1;
         result.bigAxe.bullseye.totalScore += score;
         result.bigAxe.bullseye.breakdown[score] += 1;
-      } else if (target === enums.target.clutch) {
+      } else if (target === TARGET_CLUTCH) {
         result.bigAxe.clutch.attempts += 1;
         result.bigAxe.clutch.totalScore += score;
         result.bigAxe.clutch.breakdown[score] += 1;
@@ -238,47 +137,162 @@ const buildStats = (throws) => {
     }
   }
 
-  result.overall.scorePerAxe = round(2, result.overall.totalScore / Math.max(1, result.overall.attempts));
-  result.hatchet.overall.scorePerAxe = round(2, result.hatchet.overall.totalScore / Math.max(1, result.hatchet.overall.attempts));
-  result.bigAxe.overall.scorePerAxe = round(2, result.bigAxe.overall.totalScore / Math.max(1, result.bigAxe.overall.attempts));
+  result.overall.scorePerAxe = scorePerAxe(result.overall.totalScore, result.overall.attempts);
 
-  result.hatchet.bullseye.scorePerAxe = round(2, result.hatchet.bullseye.totalScore / Math.max(1, result.hatchet.bullseye.attempts));
+  result.hatchet.overall.scorePerAxe = scorePerAxe(result.hatchet.overall.totalScore, result.hatchet.overall.attempts);
+  result.hatchet.bullseye.scorePerAxe = scorePerAxe(result.hatchet.bullseye.totalScore, result.hatchet.bullseye.attempts);
+  result.hatchet.clutch.scorePerAxe = scorePerAxe(result.hatchet.clutch.totalScore, result.hatchet.clutch.attempts);
 
-  result.hatchet.clutch.scorePerAxe = round(2, result.hatchet.clutch.totalScore / Math.max(1, result.hatchet.clutch.attempts));
-
-  result.bigAxe.bullseye.scorePerAxe = round(2, result.bigAxe.bullseye.totalScore / Math.max(1, result.bigAxe.bullseye.attempts));
-
-  result.bigAxe.clutch.scorePerAxe = round(2, result.bigAxe.clutch.totalScore / Math.max(1, result.bigAxe.clutch.attempts));
+  result.bigAxe.overall.scorePerAxe = scorePerAxe(result.bigAxe.overall.totalScore, result.bigAxe.overall.attempts);
+  result.bigAxe.bullseye.scorePerAxe = scorePerAxe(result.bigAxe.bullseye.totalScore, result.bigAxe.bullseye.attempts);
+  result.bigAxe.clutch.scorePerAxe = scorePerAxe(result.bigAxe.clutch.totalScore, result.bigAxe.clutch.attempts);
 
   return result;
 };
 
-// Workflow Steps
+// Retrieve Data
 
-export const seedProfiles = async (db, page, ruleset, regionName) => {
-  const profiles = await fetchRegionProfiles(page, ruleset, regionName);
+const fetchProfileIds = async (page, regionName) => {
+  await page.goto('https://axescores.com/players/collins-rating');
 
-  for (const { active, id } of profiles) {
-      if (!active) {
-          continue;
-      }
+  const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
-      console.log(`Seeding Profile ${id}`);
+  await page.waitForSelector(rulesetSelector);
+  await page.select(rulesetSelector, RULESET);
+  await page.waitForNetworkIdle();
 
-      db.run(`
-        INSERT INTO profiles (profileId, fetch)
-        VALUES (:id, 1)
-        ON CONFLICT (profileId) DO UPDATE
-        SET fetch = 1
-      `, { id });
+  if (regionName) {
+    const regionSelector = '.sc-TuwoP.gpWLXY:nth-child(3) select';
+
+    await page.waitForSelector(regionSelector);
+    await page.select(regionSelector, regionName);
+    await page.waitForNetworkIdle();
   }
+
+  const state = await reactPageState(page, '#root');
+  const profiles = state.globalStandings.standings.career;
+
+  return profiles.reduce((result, { id, active }) => {
+    if (active) {
+      result.push(id);
+    }
+
+    return result;
+  }, []);
 };
 
-export const recordProfileData = async (db, page, profiles, ruleset) => {
-  for (const { profileId } of profiles) {
-    try {
-      console.log(`Profile ${profileId}`);
+const fetchProfileImage = async (profileId) => {
+  const url = `https://admin.axescores.com/pic/${profileId}`;
+  const response = await fetch(url);
+  const pngBuffer = await response.arrayBuffer();
+  const webpBuffer = await pngToWebp(pngBuffer);
+  const base64 = webpBuffer.toString('base64');
 
+  return base64;
+};
+
+const fetchPlayerData = async (page, profileId) => {
+  await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle2' });
+  await waitMilliseconds(1000);
+
+  const state = await reactPageState(page, '#root');
+
+  return state.player.playerData;
+};
+
+const fetchThrowData = async (page, profileId, matchId) => {
+  const throws = [];
+  const url = `https://axescores.com/player/${profileId}/${matchId}`;
+  const apiUrl = `https://api.axescores.com/match/${matchId}`;
+
+  const [apiResponse] = await Promise.all([
+    page.waitForResponse(isDesiredResponse('GET', 200, apiUrl), { timeout: 2000 }),
+    page.goto(url)
+  ]);
+
+  const rawMatch = await apiResponse.json();
+
+  if (![3, 4].includes(rawMatch.rounds.length)) {
+    console.log(`Invalid round count: ${rawMatch.rounds.length}`);
+
+    return { throws, forfeit: false };
+  }
+
+  if (rawMatch.players.find(x => x.id === profileId)?.forfeit === true) {
+    console.log('Match is forfeit');
+
+    return { throws, forfeit: true };
+  }
+
+  const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
+
+  for (const { order: roundNumber, name, games } of rawMatch.rounds) {
+    const game = games.find(x => x.player === profileId);
+
+    if (!game || game.forfeit === true) {
+      continue;
+    }
+
+    const isBigAxe = name === 'Tie Break';
+    const { Axes: axes = [] } = game;
+
+    for (const { order: throwNumber, score, clutchCalled: isClutch } of axes) {
+      throws.push({
+        profileId,
+        opponentId,
+        matchId,
+        roundId: roundNumber,
+        throwId: throwNumber,
+        tool: isBigAxe ? TOOL_BIG_AXE : TOOL_HATCHET,
+        target: isClutch ? TARGET_CLUTCH : TARGET_BULLSEYE,
+        score
+      });
+    }
+  }
+
+  return { throws, forfeit: false };
+};
+
+// Workflow
+
+export const seedProfiles = async (db, page) => {
+  console.log('Step: Seed Profiles');
+
+  try {
+    const profileIds = await fetchProfileIds(page, 'Southeast');
+
+    console.log(`Found ${profileIds.length} profiles`);
+
+    for (const profileId of profileIds) {
+        console.log(`Seeding Profile ${profileId}`);
+
+        db.run(`
+          INSERT INTO profiles (profileId, fetch)
+          VALUES (:profileId, 1)
+          ON CONFLICT (profileId) DO UPDATE
+          SET fetch = 1
+        `, { profileId });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log('Done.');
+};
+
+export const processProfiles = async (db, page) => {
+  console.log('Step: Process Profiles');
+
+  const profiles = db.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
+
+  console.log(`Found ${profiles.length} profiles`);
+
+  let i = 1;
+
+  for (const { profileId } of profiles) {
+    console.log(`Process profile ${profileId} (${i} / ${profiles.length})`);
+
+    try {
       const playerData = await fetchPlayerData(page, profileId);
       const { name, leagues } = playerData;
 
@@ -289,11 +303,9 @@ export const recordProfileData = async (db, page, profiles, ruleset) => {
       `, { profileId, name });
 
       for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
-        if (performanceName !== ruleset) {
+        if (performanceName !== RULESET) {
           continue;
         }
-
-        console.log(`Season ${seasonId}`);
 
         const name = `${season.name.trim()} ${season.shortName.trim()}`;
         const year = parseInt(season.date.split('-')[0]);
@@ -306,11 +318,7 @@ export const recordProfileData = async (db, page, profiles, ruleset) => {
         `, { seasonId, name, year });
 
         for (const { week: weekId, matches } of seasonWeeks) {
-          console.log(`Week ${weekId}`);
-
           for (const { id: matchId } of matches) {
-            console.log(`Match ${matchId}`);
-
             db.run(`
               INSERT INTO matches (profileId, seasonId, weekId, matchId)
               VALUES (:profileId, :seasonId, :weekId, :matchId)
@@ -327,33 +335,50 @@ export const recordProfileData = async (db, page, profiles, ruleset) => {
         }
       }
     } catch (error) {
-      console.log(`Failed to get data for profile ${profileId}`);
       console.error(error);
     }
+
+    i++;
   }
+
+  console.log('Done.');
 };
 
-export const recordThrowData = async (db, page, newMatches) => {
-  for (const { profileId, seasonId, weekId, matchId } of newMatches) {
-    try {
-      console.log(`Match ${matchId}`);
+export const processMatches = async (db, page) => {
+  console.log('Step: Process Matches');
 
+  const newMatches = db.rows(`
+    SELECT profileId, seasonId, weekId, matchId
+    FROM matches
+    WHERE processed = 0
+  `);
+
+  console.log(`Found ${newMatches.length} new matches`);
+
+  let i = 1;
+
+  for (const { profileId, seasonId, weekId, matchId } of newMatches) {
+    console.log(`Process match ${profileId}:${matchId} (${i} / ${newMatches.length})`);
+
+    try {
       const { throws, forfeit } = await fetchThrowData(page, profileId, matchId);
 
       if (forfeit) {
+        console.log('Match is forfeit.');
+
         db.run(`
           UPDATE matches
           SET processed = 1
           WHERE profileId = :profileId AND matchId = :matchId
         `, { profileId, matchId });
 
-        continue;
+        i++; continue;
       }
 
       if (throws.length < 1) {
-        console.log('Skipping match with no throws yet.');
+        console.log('Match has no throws yet.');
 
-        continue;
+        i++; continue;
       }
 
       const { opponentId } = throws[0];
@@ -370,27 +395,34 @@ export const recordThrowData = async (db, page, newMatches) => {
         WHERE profileId = :profileId AND matchId = :matchId
       `, { profileId, opponentId, matchId });
     } catch (error) {
-      console.log(`Failed to get throw data for match ${matchId}`);
       console.error(error);
     }
+
+    i++;
   }
+
+  console.log('Done.');
 };
 
-export const recordOpponentData = async (db, page) => {
+export const processOpponents = async (db, page) => {
+  console.log('Step: Process Opponents');
+
   const opponents = db.rows(`
-    SELECT DISTINCT opponentId FROM matches
+    SELECT DISTINCT opponentId AS profileId FROM matches
     WHERE opponentId > 0 AND opponentId NOT IN (
       SELECT profileId FROM profiles
       WHERE fetch = 1
     )
   `);
 
-  console.log(`Found ${opponents.length} opponents...`);
+  console.log(`Found ${opponents.length} opponents`);
 
-  for (const { opponentId: profileId } of opponents) {
+  let i = 1;
+
+  for (const { profileId } of opponents) {
+    console.log(`Process opponent ${profileId} (${i} / ${opponents.length})`);
+
     try {
-      console.log(`Opponent ${profileId}`);
-
       const playerData = await fetchPlayerData(page, profileId);
       const { name } = playerData;
 
@@ -401,22 +433,28 @@ export const recordOpponentData = async (db, page) => {
         SET name = :name
       `, { profileId, name });
     } catch (error) {
-      console.log(`Failed to get opponent data for profile ${profileId}`);
       console.error(error);
     }
+
+    i++;
   }
+
+  console.log('Done.');
 };
 
-export const recordImageData = async (db) => {
-  const profiles = db.rows(`
-    SELECT profileId
-    FROM profiles
-  `);
+export const getImages = async (db) => {
+  console.log('Step: Get Images');
+
+  const profiles = db.rows(`SELECT profileId FROM profiles`);
+
+  console.log(`Fetching ${profiles.length} images`);
+
+  let i = 1;
 
   for (const { profileId } of profiles) {
-    try {
-      console.log(`Profile ${profileId}`);
+    console.log(`Fetch image for profile ${profileId} (${i} / ${profiles.length})`);
 
+    try {
       const image = await fetchProfileImage(profileId);
 
       db.run(`
@@ -426,159 +464,176 @@ export const recordImageData = async (db) => {
         SET image = :image
       `, { profileId, image });
     } catch (error) {
-      console.log(`Failed to get image data for ${profileId}`);
       console.error(error);
     }
+
+    i++;
   }
+
+  console.log('Done.');
 };
 
-export const recordJsonData = (db) => {
+export const generateJsonFiles = (db) => {
+  console.log('Step: Generate JSON Files');
+
   const profiles = db.rows(`
     SELECT profileId, name
     FROM profiles
     WHERE fetch = 1
   `);
 
+  console.log(`Found ${profiles.length} profiles`);
+
+  let i = 1;
+
   for (const profile of profiles) {
-    const { profileId, name } = profile;
-    const career = {
-      profileId,
-      name,
-      rank: 0,
-      stats: null,
-      seasons: []
-    };
+    console.log(`Write JSON for profile ${profile.profileId} (${i} / ${profiles.length})`);
 
-    career.stats = buildStats(db.rows(`
-      SELECT tool, target, score
-      FROM throws
-      WHERE profileId = :profileId
-      ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
-    `, { profileId }));
-
-    profile.spa = career.stats.overall.scorePerAxe;
-
-    const seasons = db.rows(`
-      SELECT seasonId, name, year
-      FROM seasons
-      WHERE seasonId IN (
-        SELECT DISTINCT seasonId
-        FROM matches
-        WHERE profileId = :profileId
-      )
-      ORDER BY seasonId ASC
-    `, { profileId });
-
-    for (const { seasonId, name, year } of seasons) {
-      const season = {
-        seasonId,
+    try {
+      const { profileId, name } = profile;
+      const career = {
+        profileId,
         name,
-        year,
+        rank: 0,
         stats: null,
-        weeks: []
+        seasons: []
       };
 
-      season.stats = buildStats(db.rows(`
+      career.stats = buildStats(db.rows(`
         SELECT tool, target, score
         FROM throws
-        WHERE profileId = :profileId AND seasonId = :seasonId
-        ORDER BY weekId ASC, matchId ASC, roundId ASC, throwId ASC
-      `, { profileId, seasonId }));
+        WHERE profileId = :profileId
+        ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
+      `, { profileId }));
 
-      const weeks = db.rows(`
-        SELECT DISTINCT weekId
-        FROM matches
-        WHERE profileId = :profileId AND seasonId = :seasonId
-        ORDER BY weekId ASC
-      `, { profileId, seasonId });
+      profile.spa = career.stats.overall.scorePerAxe;
 
-      for (const { weekId } of weeks) {
-        const week = {
-          weekId,
+      const seasons = db.rows(`
+        SELECT seasonId, name, year
+        FROM seasons
+        WHERE seasonId IN (
+          SELECT DISTINCT seasonId
+          FROM matches
+          WHERE profileId = :profileId
+        )
+        ORDER BY seasonId ASC
+      `, { profileId });
+
+      for (const { seasonId, name, year } of seasons) {
+        const season = {
+          seasonId,
+          name,
+          year,
           stats: null,
-          matches: []
+          weeks: []
         };
 
-        week.stats = buildStats(db.rows(`
+        season.stats = buildStats(db.rows(`
           SELECT tool, target, score
           FROM throws
-          WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
-          ORDER BY matchId ASC, roundId ASC, throwId ASC
-        `, { profileId, seasonId, weekId }));
+          WHERE profileId = :profileId AND seasonId = :seasonId
+          ORDER BY weekId ASC, matchId ASC, roundId ASC, throwId ASC
+        `, { profileId, seasonId }));
 
-        const matches = db.rows(`
-          SELECT matchId, opponentId
+        const weeks = db.rows(`
+          SELECT DISTINCT weekId
           FROM matches
-          WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
-          ORDER BY matchId ASC
-        `, { profileId, seasonId, weekId });
+          WHERE profileId = :profileId AND seasonId = :seasonId
+          ORDER BY weekId ASC
+        `, { profileId, seasonId });
 
-        for (const { matchId, opponentId } of matches) {
-          const match = {
-            matchId,
-            opponent: {
-              id: opponentId,
-              name: 'Unknown'
-            },
+        for (const { weekId } of weeks) {
+          const week = {
+            weekId,
             stats: null,
-            rounds: []
+            matches: []
           };
 
-          const opponent = db.row(`
-            SELECT name
-            FROM profiles
-            WHERE profileId = :opponentId
-          `, { opponentId });
-
-          match.opponent.name = opponent ? opponent.name : match.opponent.name;
-
-          match.stats = buildStats(db.rows(`
+          week.stats = buildStats(db.rows(`
             SELECT tool, target, score
             FROM throws
-            WHERE profileId = :profileId AND matchId = :matchId
-            ORDER BY roundId ASC, throwId ASC
-          `, { profileId, matchId }));
+            WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
+            ORDER BY matchId ASC, roundId ASC, throwId ASC
+          `, { profileId, seasonId, weekId }));
 
-          const rounds = db.rows(`
-            SELECT DISTINCT roundId
-            FROM throws
-            WHERE profileId = :profileId AND matchId = :matchId
-            ORDER BY roundId ASC
-          `, { profileId, matchId });
+          const matches = db.rows(`
+            SELECT matchId, opponentId
+            FROM matches
+            WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
+            ORDER BY matchId ASC
+          `, { profileId, seasonId, weekId });
 
-          for (const { roundId } of rounds) {
-            const round = {
-              roundId,
+          for (const { matchId, opponentId } of matches) {
+            const match = {
+              matchId,
+              opponent: {
+                id: opponentId,
+                name: 'Unknown'
+              },
               stats: null,
-              throws: []
+              rounds: []
             };
 
-            round.throws = db.rows(`
-              SELECT throwId, tool, target, score
+            const opponent = db.row(`
+              SELECT name
+              FROM profiles
+              WHERE profileId = :opponentId
+            `, { opponentId });
+
+            match.opponent.name = opponent ? opponent.name : match.opponent.name;
+
+            match.stats = buildStats(db.rows(`
+              SELECT tool, target, score
               FROM throws
-              WHERE profileId = :profileId AND matchId = :matchId AND roundId = :roundId
-              ORDER BY throwId ASC
-            `, { profileId, matchId, roundId });
+              WHERE profileId = :profileId AND matchId = :matchId
+              ORDER BY roundId ASC, throwId ASC
+            `, { profileId, matchId }));
 
-            round.stats = buildStats(round.throws);
+            const rounds = db.rows(`
+              SELECT DISTINCT roundId
+              FROM throws
+              WHERE profileId = :profileId AND matchId = :matchId
+              ORDER BY roundId ASC
+            `, { profileId, matchId });
 
-            match.rounds.push(round);
+            for (const { roundId } of rounds) {
+              const round = {
+                roundId,
+                stats: null,
+                throws: []
+              };
+
+              round.throws = db.rows(`
+                SELECT throwId, tool, target, score
+                FROM throws
+                WHERE profileId = :profileId AND matchId = :matchId AND roundId = :roundId
+                ORDER BY throwId ASC
+              `, { profileId, matchId, roundId });
+
+              round.stats = buildStats(round.throws);
+
+              match.rounds.push(round);
+            }
+
+            week.matches.push(match);
           }
 
-          week.matches.push(match);
+          season.weeks.push(week);
         }
 
-        season.weeks.push(week);
+        writeFile(`data/profiles/${profileId}/s/${seasonId}.json`, JSON.stringify(season, null, 2));
+
+        delete season.weeks;
+
+        career.seasons.push(season);
       }
 
-      writeFile(`data/profiles/${profileId}/s/${seasonId}.json`, JSON.stringify(season, null, 2));
-
-      delete season.weeks;
-
-      career.seasons.push(season);
+      writeFile(`data/profiles/${profileId}.json`, JSON.stringify(career, null, 2));
+    } catch (error) {
+      console.error(error);
     }
 
-    writeFile(`data/profiles/${profileId}.json`, JSON.stringify(career, null, 2));
+    i++;
   }
 
   profiles.sort(sort.byDescending(x => x.spa));
@@ -591,4 +646,43 @@ export const recordJsonData = (db) => {
 
     writeFile(fileName, JSON.stringify(data, null, 2));
   });
+
+  console.log('Done.');
+};
+
+export const databaseReport = (db) => {
+  console.log('Step: Database Report');
+
+  const tables = {
+    images: db.row(`SELECT COUNT(*) AS count FROM images`).count,
+    profiles: db.row(`SELECT COUNT(*) AS count FROM profiles`).count,
+    seasons: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
+    matches: db.row(`SELECT COUNT(*) AS count FROM matches`).count,
+    throws: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
+  };
+
+  console.table(Object.entries(tables).map(([table, count]) => ({ table, count })));
+
+  console.log('Done.');
+};
+
+export const teardown = async (startTime, db, browser) => {
+  console.log('Step: Teardown');
+
+  if (browser) {
+    await browser.close();
+  }
+
+  if (db) {
+    db.shrink();
+    db.close();
+  }
+
+  if (startTime) {
+    const duration = Math.round((Date.now() - startTime) / 1000);
+
+    console.log(`Total Runtime: ${duration} seconds`);
+  }
+
+  console.log('Done.');
 };

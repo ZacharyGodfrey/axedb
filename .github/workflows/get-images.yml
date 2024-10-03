@@ -1,16 +1,16 @@
-name: Scrape Throws
+name: Get Images
 on:
   workflow_dispatch:
 jobs:
-  data-scrape:
+  get-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Scrape
-        run: npm run scrape:throws
+      - name: Get Images
+        run: npm run get-images
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
@@ -18,5 +18,5 @@ jobs:
           git pull
           git status
           git add .
-          git commit -m "Scrape Throws"
+          git commit -m "Get Images"
           git push

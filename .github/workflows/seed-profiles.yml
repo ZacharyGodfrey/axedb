@@ -1,16 +1,18 @@
-name: Scrape Throws
+name: Seed Profiles
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 4"
 jobs:
-  data-scrape:
+  seed-profiles:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Scrape
-        run: npm run scrape:throws
+      - name: Seed Profiles
+        run: npm run seed-profiles
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
@@ -18,5 +20,5 @@ jobs:
           git pull
           git status
           git add .
-          git commit -m "Scrape Throws"
+          git commit -m "Seed Profiles"
           git push

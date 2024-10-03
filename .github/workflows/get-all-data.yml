@@ -1,17 +1,17 @@
-name: Scrape All
+name: Get All Data
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 3 * * 4"
 jobs:
-  data-scrape:
+  get-all-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Scrape
+      - name: Get All Data
         run: npm run scrape
       - name: Commit
         run: |
@@ -20,5 +20,5 @@ jobs:
           git pull
           git status
           git add .
-          git commit -m "Scrape All"
+          git commit -m "Get All Data"
           git push
