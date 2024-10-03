@@ -12,6 +12,7 @@ const TARGET_CLUTCH = 'clutch';
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
     return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
+    // document.getElementById('root')._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
   });
 };
 
@@ -153,27 +154,21 @@ const buildStats = (throws) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page, regionName) => {
-  await page.goto('https://axescores.com/players/collins-rating');
-
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
+  await page.goto('https://axescores.com/players/collins-rating');
   await page.waitForSelector(rulesetSelector);
   await page.select(rulesetSelector, RULESET);
   await page.waitForNetworkIdle();
 
-  if (regionName) {
-    const regionSelector = '.sc-TuwoP.gpWLXY:nth-child(3) select';
-
-    await page.waitForSelector(regionSelector);
-    await page.select(regionSelector, regionName);
-    await page.waitForNetworkIdle();
-  }
-
   const state = await reactPageState(page, '#root');
+  const regions = state.globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
   const profiles = state.globalStandings.standings.career;
 
-  return profiles.reduce((result, { id, active }) => {
-    if (active) {
+  console.log(`Regions: ${JSON.stringify(regions, null, 2)}`);
+
+  return profiles.reduce((result, { id, active, regionIDs }) => {
+    if (active && (!regionName || regionIDs.contains(regions[regionName]))) {
       result.push(id);
     }
 
@@ -264,14 +259,14 @@ export const seedProfiles = async (db, page) => {
     console.log(`Found ${profileIds.length} profiles`);
 
     for (const profileId of profileIds) {
-        console.log(`Seeding Profile ${profileId}`);
+      console.log(`Seed profile ${profileId}`);
 
-        db.run(`
-          INSERT INTO profiles (profileId, fetch)
-          VALUES (:profileId, 1)
-          ON CONFLICT (profileId) DO UPDATE
-          SET fetch = 1
-        `, { profileId });
+      // db.run(`
+      //   INSERT INTO profiles (profileId, fetch)
+      //   VALUES (:profileId, 1)
+      //   ON CONFLICT (profileId) DO UPDATE
+      //   SET fetch = 1
+      // `, { profileId });
     }
   } catch (error) {
     console.log(error);
