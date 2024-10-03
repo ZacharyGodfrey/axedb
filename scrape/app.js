@@ -2,6 +2,8 @@ import { writeFile, readFile, pngToWebp } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 
 const RULESET = 'IATF Premier';
+const REGIONS = ['Southeast'];
+
 const TOOL_HATCHET = 'hatchet';
 const TOOL_BIG_AXE = 'big axe';
 const TARGET_BULLSEYE = 'bullseye';
@@ -153,7 +155,7 @@ const buildStats = (throws) => {
 
 // Retrieve Data
 
-const fetchProfileIds = async (page, regionName) => {
+const fetchProfileIds = async (page) => {
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
   await page.goto('https://axescores.com/players/collins-rating');
@@ -168,7 +170,9 @@ const fetchProfileIds = async (page, regionName) => {
   console.log(`Regions: ${JSON.stringify(regions, null, 2)}`);
 
   return profiles.reduce((result, { id, active, regionIDs }) => {
-    if (active && (!regionName || regionIDs.contains(regions[regionName]))) {
+    const inRegions = REGIONS.length === 0 || REGIONS.some(x => regionIDs.includes(regions[x]));
+
+    if (active && inRegions) {
       result.push(id);
     }
 
@@ -254,7 +258,7 @@ export const seedProfiles = async (db, page) => {
   console.log('Step: Seed Profiles');
 
   try {
-    const profileIds = await fetchProfileIds(page, 'Southeast');
+    const profileIds = await fetchProfileIds(page);
 
     console.log(`Found ${profileIds.length} profiles`);
 
