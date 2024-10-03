@@ -1,4 +1,4 @@
-import { writeFile, readFile, pngToWebp } from '../lib/file.js';
+import { writeFile, readFile, imageToWebp } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
 
 const RULESET = 'IATF Premier';
@@ -179,11 +179,11 @@ const fetchProfileIds = async (page) => {
 const fetchProfileImage = async (profileId) => {
   const url = `https://admin.axescores.com/pic/${profileId}`;
   const response = await fetch(url);
-  const pngBuffer = await response.arrayBuffer();
-  const webpBuffer = await pngToWebp(pngBuffer);
-  const base64 = webpBuffer.toString('base64');
+  const originalBuffer = await response.arrayBuffer();
+  const webpBuffer = await imageToWebp(originalBuffer);
+  // const base64 = webpBuffer.toString('base64');
 
-  return base64;
+  return webpBuffer;
 };
 
 const fetchPlayerData = async (page, profileId) => {

@@ -50,14 +50,18 @@ emptyFolder('dist');
 copyFolder('client/static', 'dist');
 copyFolder('data/profiles', 'dist');
 
-for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
+for (const { profileId } of db.rows(`SELECT profileId FROM images LIMIT 1`)) {
   const { image } = db.row(`
     SELECT image
     FROM images
     WHERE profileId = :profileId
   `, { profileId });
 
-  writeFile(`dist/${profileId}.webp`, image, 'base64');
+  console.log('##### IMAGE Start #####');
+  console.log(image);
+  console.log('##### IMAGE End   #####');
+
+  writeFile(`dist/${profileId}.webp`, image, null);
 }
 
 for (const filePath of listFiles('data/profiles/*.json')) {
