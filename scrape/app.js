@@ -44,8 +44,8 @@ const round = (places, value) => {
 
 const fetchRegionProfiles = async (page, ruleset, regionName) => {
   try {
-    const rulesetSelector = '.sc-gwVKww.fJdgsF select';
-    const regionSelector = '.sc-hXRMBi.kcedpm select';
+    const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
+    const regionSelector = '.sc-TuwoP.gpWLXY:nth-child(3) select';
 
     await page.goto('https://axescores.com/players/collins-rating');
 
