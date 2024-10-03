@@ -1,8 +1,10 @@
-import { writeFile, readFile, imageToWebp } from '../lib/file.js';
-import { sort } from '../lib/miscellaneous.js';
+import { writeFile, readFile } from '../lib/file.js';
+import { sort, imageToWebp } from '../lib/miscellaneous.js';
 
 const RULESET = 'IATF Premier';
 const REGIONS = ['Southeast'];
+
+const TIMEOUT = 2000;
 
 const TOOL_HATCHET = 'hatchet';
 const TOOL_BIG_AXE = 'big axe';
@@ -10,6 +12,15 @@ const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
 
 // Helpers
+
+const logError = (error) => {
+  const data = {
+    message: error.message,
+    stack: error.stack.split('\n').slice(1).map(x => x.trim())
+  };
+
+  console.error(`ERROR: ${JSON.stringify(data, null, '\t')}`);
+};
 
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
@@ -177,18 +188,16 @@ const fetchProfileIds = async (page) => {
 };
 
 const fetchProfileImage = async (profileId) => {
-  const url = `https://admin.axescores.com/pic/${profileId}`;
-  const response = await fetch(url);
+  const response = await fetch(`https://admin.axescores.com/pic/${profileId}`);
   const originalBuffer = await response.arrayBuffer();
   const webpBuffer = await imageToWebp(originalBuffer);
-  // const base64 = webpBuffer.toString('base64');
 
   return webpBuffer;
 };
 
 const fetchPlayerData = async (page, profileId) => {
   await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle2' });
-  await waitMilliseconds(1000);
+  await page.waitForNetworkIdle();
 
   const state = await reactPageState(page, '#root');
 
@@ -201,7 +210,7 @@ const fetchThrowData = async (page, profileId, matchId) => {
   const apiUrl = `https://api.axescores.com/match/${matchId}`;
 
   const [apiResponse] = await Promise.all([
-    page.waitForResponse(isDesiredResponse('GET', 200, apiUrl), { timeout: 2000 }),
+    page.waitForResponse(isDesiredResponse('GET', 200, apiUrl), { timeout: TIMEOUT }),
     page.goto(url)
   ]);
 
@@ -334,7 +343,7 @@ export const processProfiles = async (db, page) => {
         }
       }
     } catch (error) {
-      console.error(error);
+      logError(error);
     }
 
     i++;
@@ -394,7 +403,7 @@ export const processMatches = async (db, page) => {
         WHERE profileId = :profileId AND matchId = :matchId
       `, { profileId, opponentId, matchId });
     } catch (error) {
-      console.error(error);
+      logError(error);
     }
 
     i++;
@@ -432,7 +441,7 @@ export const processOpponents = async (db, page) => {
         SET name = :name
       `, { profileId, name });
     } catch (error) {
-      console.error(error);
+      logError(error);
     }
 
     i++;
@@ -463,7 +472,7 @@ export const getImages = async (db) => {
         SET image = :image
       `, { profileId, image });
     } catch (error) {
-      console.error(error);
+      logError(error);
     }
 
     i++;
@@ -629,7 +638,7 @@ export const generateJsonFiles = (db) => {
 
       writeFile(`data/profiles/${profileId}.json`, JSON.stringify(career, null, 2));
     } catch (error) {
-      console.error(error);
+      logError(error);
     }
 
     i++;
