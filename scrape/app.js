@@ -167,12 +167,8 @@ const fetchProfileIds = async (page) => {
   const regions = state.globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
   const profiles = state.globalStandings.standings.career;
 
-  console.log(`Regions: ${JSON.stringify(regions, null, 2)}`);
-
   return profiles.reduce((result, { id, active, regionIDs }) => {
-    const inRegions = REGIONS.length === 0 || REGIONS.some(x => regionIDs.includes(regions[x]));
-
-    if (active && inRegions) {
+    if (active && regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))) {
       result.push(id);
     }
 
