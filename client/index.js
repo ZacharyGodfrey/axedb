@@ -60,10 +60,13 @@ for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
   writeFile(`dist/${profileId}.webp`, image, null);
 }
 
-console.log('Done writing images.');
+const profileJsonFiles = listFiles('data/profiles/*.json');
+let p = 1;
 
-for (const filePath of listFiles('data/profiles/*.json')) {
-  let profile = JSON.parse(readFile(filePath));
+for (const filePath of profileJsonFiles) {
+  console.log(`Profile ${p} of ${profileJsonFiles.length}`);
+
+  const profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
   const index = profileLookup[profileId];
@@ -76,7 +79,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
   for (const { seasonId } of profile.seasons) {
-    let season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
+    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
     const uri = `${profileId}/s/${seasonId}/index.html`;
 
     renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
@@ -92,14 +95,10 @@ for (const filePath of listFiles('data/profiles/*.json')) {
         renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
       }
     }
-
-    season = null;
   }
 
-  profile = null;
+  p++;
 }
-
-console.log('Done writing profiles.');
 
 globalData.profiles.sort(sort.byAscending(x => x.rank));
 

@@ -45,7 +45,6 @@ export const parseMetadata = (fileContent) => {
 };
 
 export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) => {
-  const fileName = `dist/${uri}`;
   const output = pipe(fileContent, [
     (text) => renderMustache(text, pageData, partials),
     (text) => parseMetadata(text),
@@ -54,7 +53,7 @@ export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) 
     ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
   ]);
 
-  console.log(`Writing File: ${fileName}`);
+  // console.log(`Writing File: ${`dist/${uri}`}`);
 
-  writeFile(fileName, output);
+  writeFile(`dist/${uri}`, output);
 };
