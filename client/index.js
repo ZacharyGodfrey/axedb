@@ -1,7 +1,7 @@
 import { database } from '../lib/database.js';
 import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
-import { minifyCSS, renderAndWritePage, prepareDistFolder } from './app.js';
+import { minifyCSS, renderAndWritePage, prepareDistFolder, writeProfileImages } from './app.js';
 
 // Read Input
 
