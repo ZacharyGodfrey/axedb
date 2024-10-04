@@ -1,7 +1,14 @@
 import { database } from '../lib/database.js';
-import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/file.js';
+import { readFile, listFiles } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
-import { minifyCSS, renderAndWritePage, prepareDistFolder, writeProfileImages } from './app.js';
+import {
+  minifyCSS,
+  renderAndWritePage,
+  prepareDistFolder,
+  writeProfileImages,
+  writeProfilePages,
+  writeSimplePages
+} from './app.js';
 
 // Read Input
 
@@ -50,57 +57,15 @@ prepareDistFolder();
 
 writeProfileImages(db);
 
-const profileJsonFiles = listFiles('data/profiles/*.json');
-let p = 1;
+listFiles('data/profiles/*.json').forEach((filePath, i, { length }) => {
+  console.log(`Profile ${i + 1} of ${length}`);
 
-const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
-  const profile = JSON.parse(readFile(filePath));
-  const { profileId } = profile;
-  const uri = `${profileId}/index.html`;
-  const index = profileLookup[profileId];
-
-  if (index >= 0) {
-    globalData.profiles[index].spa = profile.stats.overall.scorePerAxe;
-    globalData.profiles[index].rank = profile.rank;
-  }
-
-  renderAndWritePage(uri, shell, partials, { profile }, templates.career);
-
-  for (const { seasonId } of profile.seasons) {
-    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
-    const uri = `${profileId}/s/${seasonId}/index.html`;
-
-    renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
-
-    for (const week of season.weeks) {
-      const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
-
-      renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
-
-      for (const match of week.matches) {
-        const uri = `${profileId}/m/${match.matchId}/index.html`;
-
-        renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
-      }
-    }
-  }
-};
-
-for (const filePath of profileJsonFiles) {
-  console.log(`Profile ${p} of ${profileJsonFiles.length}`);
-
-  processProfileJson(filePath, profileLookup, globalData, shell, partials, templates);
-
-  p++;
-}
+  writeProfilePages(filePath, profileLookup, globalData, shell, partials, templates);
+});
 
 globalData.profiles.sort(sort.byAscending(x => x.rank));
 
-for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
-  const uri = filePath.split('pages/')[1].replace('.md', '.html');
-
-  renderAndWritePage(uri, shell, partials, globalData, readFile(filePath));
-}
+writeSimplePages(shell, partials, globalData);
 
 console.log('Done.');
 console.log(`Running Time: ${Date.now() - start} milliseconds`);

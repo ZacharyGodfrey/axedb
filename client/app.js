@@ -5,7 +5,9 @@ import { gfmHeadingId } from 'marked-gfm-heading-id';
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 
-import { emptyFolder, copyFolder, writeFile } from '../lib/file.js';
+import { emptyFolder, copyFolder, listFiles, readFile, writeFile } from '../lib/file.js';
+
+const NOW = new Date().toISOString();
 
 marked.use(gfmHeadingId({ prefix: '' }));
 
@@ -15,7 +17,9 @@ export const pipe = (initial, transforms) => {
   return transforms.reduce((result, transform) => transform(result), initial);
 };
 
-export const renderMustache = Mustache.render;
+export const renderMustache = (template, data, partials) => {
+  return Mustache.render(template, { _now: NOW, ...data }, partials);
+};
 
 export const renderMD = (fileContent) => {
   return marked.parse(fileContent, { gfm: true });
@@ -44,21 +48,14 @@ export const parseMetadata = (fileContent) => {
   return { meta, content };
 };
 
-export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) => {
-  // const output = pipe(fileContent, [
-  //   (text) => renderMustache(text, pageData, partials),
-  //   (text) => parseMetadata(text),
-  //   ({ meta, content }) => ({ meta, content: renderMD(content) }),
-  //   ({ meta, content }) => ({ meta, content: renderCustomTags(content) }),
-  //   ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
-  // ]);
-
-  const step1 = renderMustache(fileContent, pageData, partials);
-  const { meta, content: step2 } = parseMetadata(step1);
-  const step3 = renderCustomTags(step2);
-  const output = renderMustache(shell, { meta, pageData }, { ...partials, content: step3 });
-
-  writeFile(`dist/${uri}`, output);
+export const renderAndWritePage = (uri, shell, partials, pageData, pageTemplate) => {
+  writeFile(`dist/${uri}`, pipe(pageTemplate, [
+    (text) => renderMustache(text, pageData, partials),
+    (text) => parseMetadata(text),
+    ({ meta, content }) => ({ meta, content: renderMD(content) }),
+    ({ meta, content }) => ({ meta, content: renderCustomTags(content) }),
+    ({ meta, content }) => renderMustache(shell, { meta }, { ...partials, content })
+  ]));
 };
 
 // Workflow
@@ -78,5 +75,46 @@ export const writeProfileImages = (db) => {
     `, { profileId });
 
     writeFile(`dist/${profileId}.webp`, image, null);
+  }
+};
+
+export const writeProfilePages = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
+  const profile = JSON.parse(readFile(profileJsonPath));
+  const { profileId } = profile;
+  const uri = `${profileId}/index.html`;
+  const index = profileLookup[profileId];
+
+  if (index >= 0) {
+    globalData.profiles[index].spa = profile.stats.overall.scorePerAxe;
+    globalData.profiles[index].rank = profile.rank;
+  }
+
+  // renderAndWritePage(uri, shell, partials, { profile }, templates.career);
+
+  for (const { seasonId } of profile.seasons) {
+    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
+    const uri = `${profileId}/s/${seasonId}/index.html`;
+
+    // renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
+
+    for (const week of season.weeks) {
+      const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
+
+      // renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
+
+      for (const match of week.matches) {
+        const uri = `${profileId}/m/${match.matchId}/index.html`;
+
+        // renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
+      }
+    }
+  }
+};
+
+export const writeSimplePages = (shell, partials, data) => {
+  for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
+    const uri = filePath.split('pages/')[1].replace('.md', '.html');
+
+    renderAndWritePage(uri, shell, partials, data, readFile(filePath));
   }
 };
