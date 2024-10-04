@@ -1,7 +1,7 @@
 import { database } from '../lib/database.js';
 import { readFile, listFiles, emptyFolder, copyFolder, writeFile } from '../lib/file.js';
 import { sort } from '../lib/miscellaneous.js';
-import { minifyCSS, renderAndWritePage } from './app.js';
+import { minifyCSS, renderAndWritePage, prepareDistFolder } from './app.js';
 
 // Read Input
 
@@ -46,19 +46,9 @@ const profileLookup = globalData.profiles.reduce((result, { profileId }, index) 
 
 // Write Output
 
-emptyFolder('dist');
-copyFolder('client/static', 'dist');
-copyFolder('data/profiles', 'dist');
+prepareDistFolder();
 
-for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
-  const { image } = db.row(`
-    SELECT image
-    FROM images
-    WHERE profileId = :profileId
-  `, { profileId });
-
-  writeFile(`dist/${profileId}.webp`, image, null);
-}
+writeProfileImages(db);
 
 const profileJsonFiles = listFiles('data/profiles/*.json');
 let p = 1;
@@ -74,23 +64,23 @@ const processProfileJson = (filePath, profileLookup, globalData, shell, partials
     globalData.profiles[index].rank = profile.rank;
   }
 
-  // renderAndWritePage(uri, shell, partials, { profile }, templates.career);
+  renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
   for (const { seasonId } of profile.seasons) {
     const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
     const uri = `${profileId}/s/${seasonId}/index.html`;
 
-    // renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
+    renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
 
     for (const week of season.weeks) {
       const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
 
-      // renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
+      renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
 
       for (const match of week.matches) {
         const uri = `${profileId}/m/${match.matchId}/index.html`;
 
-        // renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
+        renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
       }
     }
   }
@@ -113,4 +103,4 @@ for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
 }
 
 console.log('Done.');
-console.log(`Running Time: ${Date.now() - start}ms`);
+console.log(`Running Time: ${Date.now() - start} milliseconds`);
