@@ -6,6 +6,7 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 
 import { emptyFolder, copyFolder, listFiles, readFile, writeFile } from '../lib/file.js';
+import { buildStats } from '../scrape/app.js';
 
 const NOW = new Date().toISOString();
 
@@ -72,6 +73,145 @@ export const renderPage = await (async () => {
 
 export const renderAndWritePage = (uri, template, data) => {
   writeFile(`dist/${uri}`, renderPage(template, data));
+};
+
+export const buildProfileData = (db, profileId) => {
+  const profile = db.row(`
+    SELECT profileId, name, rank, scorePerAxe
+    FROM profiles
+    WHERE profileId = :profileId
+  `, { profileId });
+
+  const career = {
+    ...profile,
+    stats: {},
+    seasons: [],
+  };
+
+  career.stats = buildStats(db.rows(`
+    SELECT tool, target, score
+    FROM throws
+    WHERE profileId = :profileId
+    ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
+  `, { profileId }));
+
+  const seasons = db.rows(`
+    SELECT seasonId, name, year
+    FROM seasons
+    WHERE seasonId IN (
+      SELECT DISTINCT seasonId
+      FROM matches
+      WHERE profileId = :profileId
+    )
+    ORDER BY seasonId ASC
+  `, { profileId });
+
+  for (const { seasonId, name, year } of seasons) {
+    const season = {
+      seasonId,
+      name,
+      year,
+      stats: null,
+      weeks: []
+    };
+
+    season.stats = buildStats(db.rows(`
+      SELECT tool, target, score
+      FROM throws
+      WHERE profileId = :profileId AND seasonId = :seasonId
+      ORDER BY weekId ASC, matchId ASC, roundId ASC, throwId ASC
+    `, { profileId, seasonId }));
+
+    const weeks = db.rows(`
+      SELECT DISTINCT weekId
+      FROM matches
+      WHERE profileId = :profileId AND seasonId = :seasonId
+      ORDER BY weekId ASC
+    `, { profileId, seasonId });
+
+    for (const { weekId } of weeks) {
+      const week = {
+        weekId,
+        stats: null,
+        matches: []
+      };
+
+      week.stats = buildStats(db.rows(`
+        SELECT tool, target, score
+        FROM throws
+        WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
+        ORDER BY matchId ASC, roundId ASC, throwId ASC
+      `, { profileId, seasonId, weekId }));
+
+      const matches = db.rows(`
+        SELECT matchId, opponentId
+        FROM matches
+        WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
+        ORDER BY matchId ASC
+      `, { profileId, seasonId, weekId });
+
+      for (const { matchId, opponentId } of matches) {
+        const match = {
+          matchId,
+          opponent: {
+            id: opponentId,
+            name: 'Unknown'
+          },
+          stats: null,
+          rounds: []
+        };
+
+        const opponent = db.row(`
+          SELECT name
+          FROM profiles
+          WHERE profileId = :opponentId
+        `, { opponentId });
+
+        match.opponent.name = opponent ? opponent.name : match.opponent.name;
+
+        match.stats = buildStats(db.rows(`
+          SELECT tool, target, score
+          FROM throws
+          WHERE profileId = :profileId AND matchId = :matchId
+          ORDER BY roundId ASC, throwId ASC
+        `, { profileId, matchId }));
+
+        const rounds = db.rows(`
+          SELECT DISTINCT roundId
+          FROM throws
+          WHERE profileId = :profileId AND matchId = :matchId
+          ORDER BY roundId ASC
+        `, { profileId, matchId });
+
+        for (const { roundId } of rounds) {
+          const round = {
+            roundId,
+            stats: null,
+            throws: []
+          };
+
+          round.throws = db.rows(`
+            SELECT throwId, tool, target, score
+            FROM throws
+            WHERE profileId = :profileId AND matchId = :matchId AND roundId = :roundId
+            ORDER BY throwId ASC
+          `, { profileId, matchId, roundId });
+
+          round.stats = buildStats(round.throws);
+
+          match.rounds.push(round);
+        }
+
+        week.matches.push(match);
+      }
+
+      season.weeks.push(week);
+    }
+
+    career.seasons.push(season);
+  }
+
+  return career;
 };
 
 // Workflow

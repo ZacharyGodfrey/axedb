@@ -10,8 +10,7 @@
     "process-matches": "node ./scrape/steps/process-matches.js",
     "process-opponents": "node ./scrape/steps/process-opponents.js",
     "get-images": "node ./scrape/steps/get-images.js",
-    "generate-json": "node ./scrape/steps/generate-json.js",
-    "build": "npm run generate-json && node ./client/index.js",
+    "build": "node ./client/index.js",
     "serve": "npm run build && http-server dist -p 8080 -c-1 -e html",
     "watch": "nodemon --watch client --ext html,css,js,md --exec \"npm run build\"",
     "local": "npm run serve & npm run watch && kill $(jobs -p)"

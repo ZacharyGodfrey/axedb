@@ -1,11 +1,10 @@
+import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
-import { renderPage } from '../client/app.js';
+import { buildProfileData, renderPage } from '../client/app.js';
+
+const db = database('data');
 
 const template = readFile('client/templates/career.md');
-
-const cacheHeader = {
-  'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=31536000, must-revalidate'
-};
 
 export const config = {
   preferStatic: true,
@@ -13,8 +12,7 @@ export const config = {
 };
 
 export default async (req, context) => {
-  const { profileId } = context.params;
-  const profile = JSON.parse(readFile(`data/profiles/${profileId}.json`));
+  const profile = buildProfileData(db, context.params.profileId);
   const content = renderPage(template, { profile });
 
   return new Response(content, {

@@ -5,6 +5,7 @@ import {
   seedProfiles,
   processProfiles,
   processMatches,
+  updateRankings,
   processOpponents,
   getImages,
   databaseReport,
@@ -21,6 +22,8 @@ await seedProfiles(db, page);
 await processProfiles(db, page);
 
 await processMatches(db, page);
+
+await updateRankings(db);
 
 await processOpponents(db, page);
 
