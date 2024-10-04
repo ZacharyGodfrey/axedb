@@ -9,6 +9,8 @@ import { emptyFolder, copyFolder, listFiles, readFile, writeFile } from '../lib/
 
 const NOW = new Date().toISOString();
 
+Mustache.templateCache = undefined;
+
 marked.use(gfmHeadingId({ prefix: '' }));
 
 const cssNano = postcss([cssnano]);
@@ -76,11 +78,17 @@ export const renderAndWritePage = (uri, template, data) => {
 // Workflow
 
 export const prepareDistFolder = () => {
+  console.log('Preparing dist folder...');
+
   emptyFolder('dist');
   copyFolder('client/static', 'dist');
+
+  console.log('Done.');
 };
 
 export const writeProfileImages = (db) => {
+  console.log('Writing profile images...');
+
   for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
     const { image } = db.row(`
       SELECT image
@@ -90,15 +98,21 @@ export const writeProfileImages = (db) => {
 
     writeFile(`dist/${profileId}.webp`, image, null);
   }
+
+  console.log('Done.');
 };
 
 export const writeSimplePages = (data) => {
+  console.log('Writing simple images...');
+
   for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
     const uri = filePath.split('pages/')[1].replace('.md', '.html');
     const template = readFile(filePath);
 
     renderAndWritePage(uri, template, data);
   }
+
+  console.log('Done.');
 };
 
 export const writeProfilePages = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
