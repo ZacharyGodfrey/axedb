@@ -60,12 +60,15 @@ for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
   writeFile(`dist/${profileId}.webp`, image, null);
 }
 
-const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
-  //
-};
+// const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
+//   //
+// };
+
+let profile = null;
+let season = null;
 
 for (const filePath of listFiles('data/profiles/*.json')) {
-  const profile = JSON.parse(readFile(filePath));
+  profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
   const index = profileLookup[profileId];
@@ -78,7 +81,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
   for (const { seasonId } of profile.seasons) {
-    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
+    season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
     const data = { profile, season };
     const uri = `${profileId}/s/${seasonId}/index.html`;
 
