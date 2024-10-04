@@ -53,7 +53,7 @@ const scorePerAxe = (score, attempts) => {
   return round(2, score / Math.max(1, attempts));
 };
 
-const buildStats = (throws) => {
+export const buildStats = (throws) => {
   const result = {
     overall: {
       attempts: 0,
