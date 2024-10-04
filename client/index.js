@@ -60,6 +60,10 @@ for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
   writeFile(`dist/${profileId}.webp`, image, null);
 }
 
+const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
+  //
+};
+
 for (const filePath of listFiles('data/profiles/*.json')) {
   const profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
@@ -67,7 +71,7 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   const index = profileLookup[profileId];
 
   if (index >= 0) {
-    globalData.profiles[index].stats = profile.stats;
+    globalData.profiles[index].spa = profile.stats.overall.scorePerAxe;
     globalData.profiles[index].rank = profile.rank;
   }
 
