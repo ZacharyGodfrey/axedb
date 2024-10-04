@@ -103,7 +103,7 @@ export const writeProfileImages = (db) => {
 };
 
 export const writeSimplePages = (data) => {
-  console.log('Writing simple images...');
+  console.log('Writing simple pages...');
 
   for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
     const uri = filePath.split('pages/')[1].replace('.md', '.html');

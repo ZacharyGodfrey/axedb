@@ -14,13 +14,13 @@ writeSimplePages({
   seasonCount: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
   matchCount: db.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches WHERE processed = 1)`).count,
   throwCount: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
-  profiles: db.rows(`SELECT * FROM profiles WHERE fetch = 1 LIMIT 1`).map((profile) => {
-    console.log(profile);
-    const { profileId } = profile;
-    const data = JSON.parse(readFile(`data/profiles/${profileId}.json`));
+  profiles: db.rows(`SELECT * FROM profiles WHERE fetch = 1`).map((profile) => {
+    const data = JSON.parse(readFile(`data/profiles/${profile.profileId}.json`));
 
     profile.spa = data.stats.overall.scorePerAxe;
     profile.rank = data.rank;
+
+    return profile;
   }).sort(sort.byAscending(x => x.rank))
 });
 
