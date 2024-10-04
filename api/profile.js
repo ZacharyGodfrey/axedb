@@ -13,6 +13,11 @@ export const config = {
 
 export default async (req, context) => {
   const profile = buildProfileData(db, context.params.profileId);
+
+  profile.seasons.forEach((x) => {
+    delete x.weeks;
+  });
+
   const content = renderPage(template, {
     profile,
     profileJson: JSON.stringify(profile, null, 2)
