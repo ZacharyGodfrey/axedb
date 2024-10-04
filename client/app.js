@@ -82,6 +82,8 @@ export const buildProfileData = (db, profileId) => {
     WHERE profileId = :profileId
   `, { profileId });
 
+  return profile; // TODO: Remove this
+
   const career = {
     ...profile,
     stats: {},
