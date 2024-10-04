@@ -18,6 +18,9 @@ export default async (req, context) => {
   const content = renderPage(template, data);
 
   return new Response(content, {
-    headers: { ...cacheHeader }
+    headers: {
+      'content-type': 'text/html',
+      'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=31536000, must-revalidate'
+    }
   });
 };

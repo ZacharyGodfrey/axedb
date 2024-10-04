@@ -54,7 +54,6 @@ export const renderPage = await (async () => {
   const shell = readFile('client/assets/shell.html');
 
   const partials = {
-    favicon: readFile('client/assets/icon.png', 'base64'),
     font: readFile('client/assets/FiraCode-Variable.ttf', 'base64'),
     style: await minifyCSS(readFile('client/assets/style.css')),
     siteHeader: readFile('client/partials/site-header.html'),
