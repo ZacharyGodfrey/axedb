@@ -63,7 +63,7 @@ export const renderAndWritePage = (uri, shell, partials, pageData, pageTemplate)
 export const prepareDistFolder = () => {
   emptyFolder('dist');
   copyFolder('client/static', 'dist');
-  copyFolder('data/profiles', 'dist');
+  // copyFolder('data/profiles', 'dist');
 };
 
 export const writeProfileImages = (db) => {
