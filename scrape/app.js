@@ -352,13 +352,14 @@ export const processProfiles = async (db, page) => {
   console.log('Done.');
 };
 
-export const processMatches = async (db, page) => {
-  console.log('Step: Process Matches');
+export const processMatches = async (db, page, limit = 0) => {
+  console.log(`Step: Process Matches (Limit ${limit})`);
 
   const newMatches = db.rows(`
     SELECT profileId, seasonId, weekId, matchId
     FROM matches
     WHERE processed = 0
+    ${limit ? `LIMIT ${limit}` : ''}
   `);
 
   console.log(`Found ${newMatches.length} new matches`);
