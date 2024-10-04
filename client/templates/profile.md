@@ -38,3 +38,7 @@ section)
 card)
 
 section)
+
+<script>
+  const profile = {{{profileJson}}};
+</script>

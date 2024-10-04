@@ -4,7 +4,7 @@ import { buildProfileData, renderPage } from '../client/app.js';
 
 const db = database('data');
 
-const template = readFile('client/templates/career.md');
+const template = readFile('client/templates/profile.md');
 
 export const config = {
   preferStatic: true,
@@ -13,7 +13,10 @@ export const config = {
 
 export default async (req, context) => {
   const profile = buildProfileData(db, context.params.profileId);
-  const content = renderPage(template, { profile });
+  const content = renderPage(template, {
+    profile,
+    profileJson: JSON.stringify(profile, null, 2)
+  });
 
   return new Response(content, {
     headers: {
