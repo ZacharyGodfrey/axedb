@@ -63,9 +63,7 @@ for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
 const profileJsonFiles = listFiles('data/profiles/*.json');
 let p = 1;
 
-for (const filePath of profileJsonFiles) {
-  console.log(`Profile ${p} of ${profileJsonFiles.length}`);
-
+const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
   const profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
@@ -96,6 +94,12 @@ for (const filePath of profileJsonFiles) {
       }
     }
   }
+};
+
+for (const filePath of profileJsonFiles) {
+  console.log(`Profile ${p} of ${profileJsonFiles.length}`);
+
+  processProfileJson(filePath, profileLookup, globalData, shell, partials, templates);
 
   p++;
 }

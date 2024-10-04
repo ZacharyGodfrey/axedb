@@ -53,7 +53,5 @@ export const renderAndWritePage = (uri, shell, partials, pageData, fileContent) 
     ({ meta, content }) => renderMustache(shell, { meta, pageData }, { ...partials, content })
   ]);
 
-  // console.log(`Writing File: ${`dist/${uri}`}`);
-
   writeFile(`dist/${uri}`, output);
 };
