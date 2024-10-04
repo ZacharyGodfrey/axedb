@@ -14,8 +14,8 @@ export const config = {
 
 export default async (req, context) => {
   const { profileId } = context.params;
-  const data = JSON.parse(readFile(`data/profiles/${profileId}.json`));
-  const content = renderPage(template, data);
+  const profile = JSON.parse(readFile(`data/profiles/${profileId}.json`));
+  const content = renderPage(template, { profile });
 
   return new Response(content, {
     headers: {
