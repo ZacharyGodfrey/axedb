@@ -60,15 +60,10 @@ for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
   writeFile(`dist/${profileId}.webp`, image, null);
 }
 
-// const processProfileJson = (filePath, profileLookup, globalData, shell, partials, templates) => {
-//   //
-// };
-
-let profile = null;
-let season = null;
+console.log('Done writing images.');
 
 for (const filePath of listFiles('data/profiles/*.json')) {
-  profile = JSON.parse(readFile(filePath));
+  let profile = JSON.parse(readFile(filePath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
   const index = profileLookup[profileId];
@@ -81,27 +76,30 @@ for (const filePath of listFiles('data/profiles/*.json')) {
   renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
   for (const { seasonId } of profile.seasons) {
-    season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
-    const data = { profile, season };
+    let season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
     const uri = `${profileId}/s/${seasonId}/index.html`;
 
-    renderAndWritePage(uri, shell, partials, data, templates.season);
+    renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
 
     for (const week of season.weeks) {
-      const data = { profile, season, week };
       const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
 
-      renderAndWritePage(uri, shell, partials, data, templates.week);
+      renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
 
       for (const match of week.matches) {
-        const data = { profile, season, week, match };
         const uri = `${profileId}/m/${match.matchId}/index.html`;
 
-        renderAndWritePage(uri, shell, partials, data, templates.match);
+        renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
       }
     }
+
+    season = null;
   }
+
+  profile = null;
 }
+
+console.log('Done writing profiles.');
 
 globalData.profiles.sort(sort.byAscending(x => x.rank));
 
