@@ -53,7 +53,7 @@ card)
     </div>
     <div>
       <p>
-        <a href="/{{profile.profileId}}/m/{{matchId}}">{{opponent.name}}</a>
+        <a href="/profile/{{profile.profileId}}/m/{{matchId}}">{{opponent.name}}</a>
       </p>
     </div>
   </div>

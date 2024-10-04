@@ -45,7 +45,7 @@ card)
 
 {{#weeks}}
 
-=> [Week {{weekId}}](/{{profile.profileId}}/s/{{seasonId}}/w/{{weekId}})
+=> [Week {{weekId}}](w/{{weekId}})
 
 {{/weeks}}
 

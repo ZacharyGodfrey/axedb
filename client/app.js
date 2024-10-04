@@ -48,14 +48,29 @@ export const parseMetadata = (fileContent) => {
   return { meta, content };
 };
 
-export const renderAndWritePage = (uri, shell, partials, pageData, pageTemplate) => {
-  writeFile(`dist/${uri}`, pipe(pageTemplate, [
-    (text) => renderMustache(text, pageData, partials),
+export const renderPage = await (async () => {
+  const shell = readFile('client/assets/shell.html');
+
+  const partials = {
+    favicon: readFile('client/assets/icon.png', 'base64'),
+    font: readFile('client/assets/FiraCode-Variable.ttf', 'base64'),
+    style: await minifyCSS(readFile('client/assets/style.css')),
+    siteHeader: readFile('client/partials/site-header.html'),
+    profileHeader: readFile('client/partials/profile-header.html'),
+    stats: readFile('client/partials/stats.html'),
+  };
+
+  return (template, data) => pipe(template, [
+    (text) => renderMustache(text, data, partials),
     (text) => parseMetadata(text),
     ({ meta, content }) => ({ meta, content: renderMD(content) }),
     ({ meta, content }) => ({ meta, content: renderCustomTags(content) }),
     ({ meta, content }) => renderMustache(shell, { meta }, { ...partials, content })
-  ]));
+  ]);
+})();
+
+export const renderAndWritePage = (uri, template, data) => {
+  writeFile(`dist/${uri}`, renderPage(template, data));
 };
 
 // Workflow
@@ -63,7 +78,6 @@ export const renderAndWritePage = (uri, shell, partials, pageData, pageTemplate)
 export const prepareDistFolder = () => {
   emptyFolder('dist');
   copyFolder('client/static', 'dist');
-  // copyFolder('data/profiles', 'dist');
 };
 
 export const writeProfileImages = (db) => {
@@ -78,16 +92,19 @@ export const writeProfileImages = (db) => {
   }
 };
 
+export const writeSimplePages = (data) => {
+  for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
+    const uri = filePath.split('pages/')[1].replace('.md', '.html');
+    const template = readFile(filePath);
+
+    renderAndWritePage(uri, template, data);
+  }
+};
+
 export const writeProfilePages = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
   const profile = JSON.parse(readFile(profileJsonPath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
-  const index = profileLookup[profileId];
-
-  if (index >= 0) {
-    globalData.profiles[index].spa = profile.stats.overall.scorePerAxe;
-    globalData.profiles[index].rank = profile.rank;
-  }
 
   // renderAndWritePage(uri, shell, partials, { profile }, templates.career);
 
@@ -108,13 +125,5 @@ export const writeProfilePages = (profileJsonPath, profileLookup, globalData, sh
         // renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
       }
     }
-  }
-};
-
-export const writeSimplePages = (shell, partials, data) => {
-  for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
-    const uri = filePath.split('pages/')[1].replace('.md', '.html');
-
-    renderAndWritePage(uri, shell, partials, data, readFile(filePath));
   }
 };
