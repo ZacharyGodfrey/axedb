@@ -359,6 +359,7 @@ export const processMatches = async (db, page, limit = 0) => {
     SELECT profileId, seasonId, weekId, matchId
     FROM matches
     WHERE processed = 0
+    ORDER BY matchId ASC
     ${limit ? `LIMIT ${limit}` : ''}
   `);
 
