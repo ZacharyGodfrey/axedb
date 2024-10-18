@@ -2,7 +2,7 @@ import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
 import { buildProfileData, renderPage } from '../client/app.js';
 
-const db = database('data');
+const db = database();
 
 const template = readFile('client/templates/profile.md');
 

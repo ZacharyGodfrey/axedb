@@ -3,13 +3,11 @@ import { sort, imageToWebp } from '../lib/miscellaneous.js';
 
 const RULESET = 'IATF Premier';
 const REGIONS = ['Southeast'];
-
-const TIMEOUT = 2000;
-
 const TOOL_HATCHET = 'hatchet';
 const TOOL_BIG_AXE = 'big axe';
 const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
+const TIMEOUT = 2000;
 
 // Helpers
 
@@ -396,7 +394,10 @@ export const processMatches = async (db, page, limit = 0) => {
       console.table(throws);
 
       for (const row of throws) {
-        db.insert('throws', { ...row, seasonId, weekId });
+        db.run(`
+          INSERT INTO throws (profileId, seasonId, weekId, opponentId, matchId, roundId, throwId, tool, target, score)
+          VALUES (:profileId, :seasonId, :weekId, :opponentId, :matchId, :roundId, :throwId, :tool, :target, :score)
+        `, { ...row, seasonId, weekId });
       }
 
       db.run(`

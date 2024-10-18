@@ -4,7 +4,7 @@ import { sort } from '../lib/miscellaneous.js';
 import { prepareDistFolder, writeProfileImages, writeSimplePages } from './app.js';
 
 const start = Date.now();
-const db = database('data');
+const db = database();
 
 prepareDistFolder();
 

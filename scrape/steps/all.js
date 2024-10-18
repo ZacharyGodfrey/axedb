@@ -13,7 +13,7 @@ import {
 } from '../app.js';
 
 const start = Date.now();
-const db = database('data');
+const db = database();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
