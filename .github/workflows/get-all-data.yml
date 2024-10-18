@@ -1,8 +1,8 @@
 name: Get All Data
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 3 * * 4"
+  # schedule:
+  #   - cron: "0 3 * * 4"
 jobs:
   get-all-data:
     runs-on: ubuntu-latest
