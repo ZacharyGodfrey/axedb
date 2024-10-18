@@ -165,6 +165,10 @@ export const buildStats = (throws) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page) => {
+  return [
+    1207260, // me
+  ];
+
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
   await page.goto('https://axescores.com/players/collins-rating');
