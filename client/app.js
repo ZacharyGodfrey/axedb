@@ -223,22 +223,7 @@ export const prepareDistFolder = () => {
 
   emptyFolder('dist');
   copyFolder('client/static', 'dist');
-
-  console.log('Done.');
-};
-
-export const writeProfileImages = (db) => {
-  console.log('Writing profile images...');
-
-  for (const { profileId } of db.rows(`SELECT profileId FROM images`)) {
-    const { image } = db.row(`
-      SELECT image
-      FROM images
-      WHERE profileId = :profileId
-    `, { profileId });
-
-    writeFile(`dist/${profileId}.webp`, image, null);
-  }
+  copyFolder('data/images', 'dist');
 
   console.log('Done.');
 };

@@ -8,7 +8,7 @@ const db = database();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-await processMatches(db, page, 1000);
+await processMatches(db, page, 100);
 
 updateRankings(db);
 

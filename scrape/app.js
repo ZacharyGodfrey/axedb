@@ -1,5 +1,6 @@
 import { writeFile, readFile } from '../lib/file.js';
 import { sort, imageToWebp } from '../lib/miscellaneous.js';
+import { database } from '../lib/database.js';
 
 const RULESET = 'IATF Premier';
 const REGIONS = ['Southeast'];
@@ -176,9 +177,9 @@ const fetchProfileIds = async (page) => {
   await page.select(rulesetSelector, RULESET);
   await page.waitForNetworkIdle();
 
-  const state = await reactPageState(page, '#root');
-  const regions = state.globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
-  const profiles = state.globalStandings.standings.career;
+  const { globalStandings } = await reactPageState(page, '#root');
+  const regions = globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
+  const profiles = globalStandings.standings.career;
 
   return profiles.reduce((result, { id, active, regionIDs }) => {
     if (active && regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))) {
@@ -206,9 +207,16 @@ const fetchPlayerData = async (page, profileId) => {
   return state.player.playerData;
 };
 
-const fetchThrowData = async (page, profileId, matchId) => {
+const fetchMatchData = async (page, matchId) => {
+  const result = {
+    unplayed: false,
+    invalid: false,
+    competitors: []
+  };
+
   const throws = [];
-  const url = `https://axescores.com/player/${profileId}/${matchId}`;
+
+  const url = `https://axescores.com/player/1/${matchId}`;
   const apiUrl = `https://api.axescores.com/match/${matchId}`;
 
   const [apiResponse] = await Promise.all([
@@ -218,50 +226,45 @@ const fetchThrowData = async (page, profileId, matchId) => {
 
   const rawMatch = await apiResponse.json();
 
+  if (rawMatch.rounds.length === 0) {
+    return { unplayed: true };
+  }
+
   if (![3, 4].includes(rawMatch.rounds.length)) {
-    console.log(`Invalid round count: ${rawMatch.rounds.length}`);
-
-    return { throws, forfeit: false };
+    return { invalid: true };
   }
 
-  if (rawMatch.players.find(x => x.id === profileId)?.forfeit === true) {
-    console.log('Match is forfeit');
-
-    return { throws, forfeit: true };
+  if (rawMatch.rounds.slice(0, 3).some(x => x.games.some(y => y.Axes.length !== 5))) {
+    return { invalid: true };
   }
 
-  const opponentId = rawMatch.players.find(x => x.id !== profileId)?.id ?? 0;
+  result.competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({ profileId, name, forfeit, throws: [] }));
 
-  for (const { order: roundNumber, name, games } of rawMatch.rounds) {
-    const game = games.find(x => x.player === profileId);
+  for (const { order: roundId, player: profileId, Axes } of rawMatch.rounds.flatMap(x => x.games)) {
+    const competitor = result.competitors.find(x => x.profileId === profileId);
 
-    if (!game || game.forfeit === true) {
+    if (competitor.forfeit) {
       continue;
     }
 
-    const isBigAxe = name === 'Tie Break';
-    const { Axes: axes = [] } = game;
-
-    for (const { order: throwNumber, score, clutchCalled: isClutch } of axes) {
-      throws.push({
-        profileId,
-        opponentId,
+    for (const { order: throwId, score, clutchCalled } of Axes) {
+      competitor.throws.push({
         matchId,
-        roundId: roundNumber,
-        throwId: throwNumber,
-        tool: isBigAxe ? TOOL_BIG_AXE : TOOL_HATCHET,
-        target: isClutch ? TARGET_CLUTCH : TARGET_BULLSEYE,
+        roundId,
+        throwId,
+        tool: roundId === 4 ? TOOL_BIG_AXE : TOOL_HATCHET,
+        target: clutchCalled ? TARGET_CLUTCH : TARGET_BULLSEYE,
         score
       });
     }
   }
 
-  return { throws, forfeit: false };
+  return result;
 };
 
 // Workflow
 
-export const seedProfiles = async (db, page) => {
+export const seedProfiles = async (mainDb, page) => {
   console.log('Step: Seed Profiles');
 
   try {
@@ -274,7 +277,7 @@ export const seedProfiles = async (db, page) => {
     for (const profileId of profileIds) {
       console.log(`Seed profile ${profileId} (${i} / ${profileIds.length})`);
 
-      db.run(`
+      mainDb.run(`
         INSERT INTO profiles (profileId, fetch)
         VALUES (:profileId, 1)
         ON CONFLICT (profileId) DO UPDATE
@@ -290,23 +293,25 @@ export const seedProfiles = async (db, page) => {
   console.log('Done.');
 };
 
-export const processProfiles = async (db, page) => {
-  console.log('Step: Process Profiles');
+export const discoverMatches = async (mainDb, page) => {
+  console.log('Step: Discover Matches');
 
-  const profiles = db.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
+  const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
 
   console.log(`Found ${profiles.length} profiles`);
 
   let i = 1;
 
   for (const { profileId } of profiles) {
-    console.log(`Process profile ${profileId} (${i} / ${profiles.length})`);
+    console.log(`Discover matches for profile ${profileId} (${i} / ${profiles.length})`);
+
+    const profileDb = database.profile(profileId);
 
     try {
       const playerData = await fetchPlayerData(page, profileId);
       const { name, leagues } = playerData;
 
-      db.run(`
+      mainDb.run(`
         UPDATE profiles
         SET name = :name
         WHERE profileId = :profileId
@@ -320,7 +325,7 @@ export const processProfiles = async (db, page) => {
         const name = `${season.name.trim()} ${season.shortName.trim()}`;
         const year = parseInt(season.date.split('-')[0]);
 
-        db.run(`
+        profileDb.run(`
           INSERT INTO seasons (seasonId, name, year)
           VALUES (:seasonId, :name, :year)
           ON CONFLICT (seasonId) DO UPDATE
@@ -329,18 +334,12 @@ export const processProfiles = async (db, page) => {
 
         for (const { week: weekId, matches } of seasonWeeks) {
           for (const { id: matchId } of matches) {
-            db.run(`
-              INSERT INTO matches (profileId, seasonId, weekId, matchId)
-              VALUES (:profileId, :seasonId, :weekId, :matchId)
-              ON CONFLICT (profileId, matchId) DO UPDATE
+            profileDb.run(`
+              INSERT INTO matches (seasonId, weekId, matchId, status)
+              VALUES (:seasonId, :weekId, :matchId, ${database.enums.matchStatus.new})
+              ON CONFLICT (matchId) DO UPDATE
               SET weekId = :weekId
-            `, { profileId, seasonId, weekId, matchId });
-
-            db.run(`
-              UPDATE throws
-              SET weekId = :weekId
-              WHERE profileId = :profileId AND matchId = :matchId
-            `, { profileId, matchId, weekId });
+            `, { seasonId, weekId, matchId });
           }
         }
       }
@@ -348,67 +347,112 @@ export const processProfiles = async (db, page) => {
       logError(error);
     }
 
+    profileDb.close();
+
     i++;
   }
 
   console.log('Done.');
 };
 
-export const processMatches = async (db, page, limit = 0) => {
+export const processMatches = async (mainDb, page, limit = 0) => {
   console.log(`Step: Process Matches (Limit ${limit})`);
 
-  const newMatches = db.rows(`
-    SELECT profileId, seasonId, weekId, matchId
-    FROM matches
-    WHERE processed = 0
-    ORDER BY matchId ASC
-    ${limit ? `LIMIT ${limit}` : ''}
-  `);
+  const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
+  const profileIds = new Set();
+  const matchIds = new Set();
+  const profileMatches = {};
 
-  console.log(`Found ${newMatches.length} new matches`);
+  for (const { profileId } of profiles) {
+    profileIds.add(profileId);
+
+    const profileDb = database.profile(profileId);
+    const newMatches = profileDb.rows(`
+      SELECT matchId
+      FROM matches
+      WHERE status = ${database.enums.matchStatus.new}
+    `);
+
+    for (const { matchId } of newMatches) {
+      matchIds.add(matchId);
+    }
+
+    profileDb.close();
+  }
+
+  const limitedMatchIds = [...matchIds].slice(0, limit > 0 ? limit : matchIds.size);
+
+  console.log(`Processing ${limitedMatchIds.length} of ${matchIds.size} new matches`);
 
   let i = 1;
 
-  for (const { profileId, seasonId, weekId, matchId } of newMatches) {
-    console.log(`Process match ${profileId}:${matchId} (${i} / ${newMatches.length})`);
+  for (const { matchId } of limitedMatchIds) {
+    console.log(`Process match ${matchId} (${i} / ${limitedMatchIds.length})`);
 
     try {
-      const { throws, forfeit } = await fetchThrowData(page, profileId, matchId);
+      const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
 
-      if (forfeit) {
-        console.log('Match is forfeit.');
+      for (const { profileId, forfeit, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
+        const profileDb = database.profile(profileId);
 
-        db.run(`
+        if (unplayed) {
+          console.log(`Match ${matchId} is unplayed for profile ${profileId}.`);
+
+          profileDb.run(`
+            UPDATE matches
+            SET status = ${database.enums.matchStatus.unplayed}
+            WHERE matchId = :matchId
+          `, { matchId });
+
+          continue;
+        }
+
+        if (invalid) {
+          console.log(`Match ${matchId} is invalid for profile ${profileId}.`);
+
+          profileDb.run(`
+            UPDATE matches
+            SET status = ${database.enums.matchStatus.invalid}
+            WHERE matchId = :matchId
+          `, { matchId });
+
+          continue;
+        }
+
+        if (forfeit) {
+          console.log(`Match ${matchId} is forfeit for profile ${profileId}.`);
+
+          profileDb.run(`
+            UPDATE matches
+            SET status = ${database.enums.matchStatus.processed}
+            WHERE matchId = :matchId
+          `, { matchId });
+
+          continue;
+        }
+
+        for (const row of throws) {
+          profileDb.run(`
+            INSERT INTO throws (matchId, roundId, throwId, tool, target, score)
+            VALUES (:matchId, :roundId, :throwId, :tool, :target, :score)
+          `, row);
+        }
+
+        const opponent = competitors.find(x => x.profileId !== profileId);
+
+        profileDb.run(`
           UPDATE matches
-          SET processed = 1
-          WHERE profileId = :profileId AND matchId = :matchId
-        `, { profileId, matchId });
+          SET opponentId = :opponentId, status = ${database.enums.matchStatus.processed}
+          WHERE matchId = :matchId
+        `, { opponentId: opponent.profileId, matchId });
 
-        i++; continue;
+        mainDb.run(`
+          INSERT OR IGNORE INTO profiles (profileId, name)
+          VALUES (:profileId, :name)
+        `, opponent);
+
+        profileDb.close();
       }
-
-      if (throws.length < 1) {
-        console.log('Match has no throws yet.');
-
-        i++; continue;
-      }
-
-      const { opponentId } = throws[0];
-
-      console.table(throws);
-
-      for (const row of throws) {
-        db.run(`
-          INSERT INTO throws (profileId, seasonId, weekId, opponentId, matchId, roundId, throwId, tool, target, score)
-          VALUES (:profileId, :seasonId, :weekId, :opponentId, :matchId, :roundId, :throwId, :tool, :target, :score)
-        `, { ...row, seasonId, weekId });
-      }
-
-      db.run(`
-        UPDATE matches
-        SET processed = 1, opponentId = :opponentId
-        WHERE profileId = :profileId AND matchId = :matchId
-      `, { profileId, opponentId, matchId });
     } catch (error) {
       logError(error);
     }
@@ -419,41 +463,36 @@ export const processMatches = async (db, page, limit = 0) => {
   console.log('Done.');
 };
 
-export const updateRankings = (db) => {
+export const updateRankings = (mainDb) => {
   console.log('Step: Update Rankings');
 
-  const profiles = db.rows(`
-    SELECT profileId
-    FROM profiles
-    WHERE fetch = 1
-  `);
+  for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
+    const profileDb = database.profile(profileId);
 
-  for (const { profileId } of profiles) {
-    const stats = buildStats(db.rows(`
+    const stats = buildStats(profileDb.rows(`
       SELECT tool, target, score
       FROM throws
-      WHERE profileId = :profileId
-      ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
+      ORDER BY matchId ASC, roundId ASC, throwId ASC
     `, { profileId }));
 
     const { scorePerAxe } = stats.overall;
 
-    db.run(`
+    mainDb.run(`
       UPDATE profiles
       SET scorePerAxe = :scorePerAxe
       WHERE profileId = :profileId
     `, { profileId, scorePerAxe });
+
+    profileDb.close();
   }
 
-  const orderedProfiles = db.rows(`
+  mainDb.rows(`
     SELECT profileId
     FROM profiles
     WHERE fetch = 1
-    ORDER BY scorePerAxe DESC
-  `);
-
-  orderedProfiles.forEach(({ profileId }, i) => {
-    db.run(`
+    ORDER BY scorePerAxe DESC, name ASC
+  `).forEach(({ profileId }, i) => {
+    mainDb.run(`
       UPDATE profiles
       SET rank = :rank
       WHERE profileId = :profileId
@@ -463,48 +502,10 @@ export const updateRankings = (db) => {
   console.log('Done.');
 };
 
-export const processOpponents = async (db, page) => {
-  console.log('Step: Process Opponents');
-
-  const opponents = db.rows(`
-    SELECT DISTINCT opponentId AS profileId FROM matches
-    WHERE opponentId > 0 AND opponentId NOT IN (
-      SELECT profileId FROM profiles
-      WHERE fetch = 1
-    )
-  `);
-
-  console.log(`Found ${opponents.length} opponents`);
-
-  let i = 1;
-
-  for (const { profileId } of opponents) {
-    console.log(`Process opponent ${profileId} (${i} / ${opponents.length})`);
-
-    try {
-      const playerData = await fetchPlayerData(page, profileId);
-      const { name } = playerData;
-
-      db.run(`
-        INSERT INTO profiles (profileId, name)
-        VALUES (:profileId, :name)
-        ON CONFLICT (profileId) DO UPDATE
-        SET name = :name
-      `, { profileId, name });
-    } catch (error) {
-      logError(error);
-    }
-
-    i++;
-  }
-
-  console.log('Done.');
-};
-
-export const getImages = async (db) => {
+export const getImages = async (mainDb) => {
   console.log('Step: Get Images');
 
-  const profiles = db.rows(`SELECT profileId FROM profiles`);
+  const profiles = mainDb.rows(`SELECT profileId FROM profiles`);
 
   console.log(`Fetching ${profiles.length} images`);
 
@@ -516,12 +517,7 @@ export const getImages = async (db) => {
     try {
       const image = await fetchProfileImage(profileId);
 
-      db.run(`
-        INSERT INTO images (profileId, image)
-        VALUES (:profileId, :image)
-        ON CONFLICT (profileId) DO UPDATE
-        SET image = :image
-      `, { profileId, image });
+      writeFile(`data/images/${profileId}.webp`, image, null);
     } catch (error) {
       logError(error);
     }
@@ -532,32 +528,40 @@ export const getImages = async (db) => {
   console.log('Done.');
 };
 
-export const databaseReport = (db) => {
+export const databaseReport = (mainDb) => {
   console.log('Step: Database Report');
 
   const tables = {
-    images: db.row(`SELECT COUNT(*) AS count FROM images`).count,
-    profiles: db.row(`SELECT COUNT(*) AS count FROM profiles`).count,
-    seasons: db.row(`SELECT COUNT(*) AS count FROM seasons`).count,
-    matches: db.row(`SELECT COUNT(*) AS count FROM matches`).count,
-    throws: db.row(`SELECT COUNT(*) AS count FROM throws`).count,
+    profiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles`).count,
+    throws: 0,
   };
+
+  for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
+    const profileDb = database.profile(profileId);
+
+    tables.throws += profileId.row(`SELECT COUNT(*) AS count FROM throws`).count;
+
+    profileDb.close();
+  }
 
   console.table(Object.entries(tables).map(([table, count]) => ({ table, count })));
 
   console.log('Done.');
 };
 
-export const teardown = async (startTime, db, browser) => {
+export const teardown = async (startTime, mainDb, browser) => {
   console.log('Step: Teardown');
 
   if (browser) {
     await browser.close();
   }
 
-  if (db) {
-    db.shrink();
-    db.close();
+  if (mainDb) {
+    for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
+      database.profile(profileId).close();
+    }
+
+    mainDb.close();
   }
 
   if (startTime) {
