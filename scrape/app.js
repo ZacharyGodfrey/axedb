@@ -265,17 +265,19 @@ const fetchMatchData = async (page, matchId) => {
 // Workflow
 
 export const seedProfiles = async (mainDb, page) => {
+  console.log('**********');
   console.log('Step: Seed Profiles');
+  console.log('**********');
 
   try {
     const profileIds = await fetchProfileIds(page);
 
-    console.log(`Found ${profileIds.length} profiles`);
+    console.log(`Found ${profileIds.length} profiles.`);
 
     let i = 1;
 
     for (const profileId of profileIds) {
-      console.log(`Seed profile ${profileId} (${i} / ${profileIds.length})`);
+      console.log(`Seeding profile ${profileId} (${i} / ${profileIds.length})...`);
 
       mainDb.run(`
         INSERT INTO profiles (profileId, fetch)
@@ -294,16 +296,18 @@ export const seedProfiles = async (mainDb, page) => {
 };
 
 export const discoverMatches = async (mainDb, page) => {
+  console.log('**********');
   console.log('Step: Discover Matches');
+  console.log('**********');
 
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
 
-  console.log(`Found ${profiles.length} profiles`);
+  console.log(`Found ${profiles.length} profiles.`);
 
   let i = 1;
 
   for (const { profileId } of profiles) {
-    console.log(`Discover matches for profile ${profileId} (${i} / ${profiles.length})`);
+    console.log(`Discovering matches for profile ${profileId} (${i} / ${profiles.length})...`);
 
     const profileDb = database.profile(profileId);
 
@@ -364,7 +368,9 @@ export const discoverMatches = async (mainDb, page) => {
 };
 
 export const processMatches = async (mainDb, page, limit = 0) => {
+  console.log('**********');
   console.log(`Step: Process Matches (Limit ${limit})`);
+  console.log('**********');
 
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
   const profileIds = new Set();
@@ -390,12 +396,13 @@ export const processMatches = async (mainDb, page, limit = 0) => {
 
   const limitedMatchIds = [...matchIds].slice(0, limit > 0 ? limit : matchIds.size);
 
-  console.log(`Processing ${limitedMatchIds.length} of ${matchIds.size} new matches`);
+  console.log(`Found ${matchIds.size} new matches.`);
+  console.log(`Processing ${limitedMatchIds.length} of ${matchIds.size} new matches.`);
 
   let i = 1;
 
   for (const matchId of limitedMatchIds) {
-    console.log(`Process match ${matchId} (${i} / ${limitedMatchIds.length})`);
+    console.log(`Processing match ${matchId} (${i} / ${limitedMatchIds.length})...`);
 
     try {
       const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
@@ -472,26 +479,39 @@ export const processMatches = async (mainDb, page, limit = 0) => {
 };
 
 export const updateRankings = (mainDb) => {
+  console.log('**********');
   console.log('Step: Update Rankings');
+  console.log('**********');
 
-  for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
-    const profileDb = database.profile(profileId);
+  const profileIds = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
 
-    const stats = buildStats(profileDb.rows(`
-      SELECT tool, target, score
-      FROM throws
-      ORDER BY matchId ASC, roundId ASC, throwId ASC
-    `, { profileId }));
+  let i = 1;
 
-    const { scorePerAxe } = stats.overall;
+  for (const { profileId } of profileIds) {
+    console.log(`Calculating ranking criteria for profile ${profileId} (${i} / ${profileIds.length})...`);
 
-    mainDb.run(`
-      UPDATE profiles
-      SET scorePerAxe = :scorePerAxe
-      WHERE profileId = :profileId
-    `, { profileId, scorePerAxe });
+    try {
+      const profileDb = database.profile(profileId);
+      const throws = profileDb.rows(`
+        SELECT tool, target, score
+        FROM throws
+        ORDER BY matchId ASC, roundId ASC, throwId ASC
+      `, { profileId });
 
-    profileDb.close();
+      const { scorePerAxe } = buildStats(throws).overall;
+
+      mainDb.run(`
+        UPDATE profiles
+        SET scorePerAxe = :scorePerAxe
+        WHERE profileId = :profileId
+      `, { profileId, scorePerAxe });
+
+      profileDb.close();
+    } catch (error) {
+      logError(error);
+    }
+
+    i++;
   }
 
   mainDb.rows(`
@@ -511,16 +531,18 @@ export const updateRankings = (mainDb) => {
 };
 
 export const getImages = async (mainDb) => {
+  console.log('**********');
   console.log('Step: Get Images');
+  console.log('**********');
 
-  const profiles = mainDb.rows(`SELECT profileId FROM profiles`);
+  const profileIds = mainDb.rows(`SELECT profileId FROM profiles`);
 
-  console.log(`Fetching ${profiles.length} images`);
+  console.log(`Fetching ${profileIds.length} images.`);
 
   let i = 1;
 
-  for (const { profileId } of profiles) {
-    console.log(`Fetch image for profile ${profileId} (${i} / ${profiles.length})`);
+  for (const { profileId } of profileIds) {
+    console.log(`Fetching image for profile ${profileId} (${i} / ${profileIds.length})...`);
 
     try {
       const image = await fetchProfileImage(profileId);
@@ -537,7 +559,9 @@ export const getImages = async (mainDb) => {
 };
 
 export const databaseReport = (mainDb) => {
+  console.log('**********');
   console.log('Step: Database Report');
+  console.log('**********');
 
   const tables = {
     profiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles`).count,
@@ -547,7 +571,7 @@ export const databaseReport = (mainDb) => {
   for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
     const profileDb = database.profile(profileId);
 
-    tables.throws += profileId.row(`SELECT COUNT(*) AS count FROM throws`).count;
+    tables.throws += profileDb.row(`SELECT COUNT(*) AS count FROM throws`).count;
 
     profileDb.close();
   }
@@ -558,7 +582,9 @@ export const databaseReport = (mainDb) => {
 };
 
 export const teardown = async (startTime, mainDb, browser) => {
+  console.log('**********');
   console.log('Step: Teardown');
+  console.log('**********');
 
   if (browser) {
     await browser.close();
