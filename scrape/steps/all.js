@@ -6,7 +6,6 @@ import {
   discoverMatches,
   processMatches,
   updateRankings,
-  processOpponents,
   getImages,
   databaseReport,
   teardown
