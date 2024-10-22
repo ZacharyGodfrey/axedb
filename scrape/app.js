@@ -317,6 +317,8 @@ export const discoverMatches = async (mainDb, page) => {
         WHERE profileId = :profileId
       `, { profileId, name });
 
+      let seasonCount = 0, matchCount = 0;
+
       for (const { id: seasonId, seasonWeeks, performanceName, ...season } of leagues) {
         if (performanceName !== RULESET) {
           continue;
@@ -332,6 +334,8 @@ export const discoverMatches = async (mainDb, page) => {
           SET name = :name, year = :year
         `, { seasonId, name, year });
 
+        seasonCount++;
+
         for (const { week: weekId, matches } of seasonWeeks) {
           for (const { id: matchId } of matches) {
             profileDb.run(`
@@ -340,9 +344,13 @@ export const discoverMatches = async (mainDb, page) => {
               ON CONFLICT (matchId) DO UPDATE
               SET weekId = :weekId
             `, { seasonId, weekId, matchId });
+
+            matchCount++;
           }
         }
       }
+
+      console.log(`Found ${matchCount} matches across ${seasonCount} seasons.`);
     } catch (error) {
       logError(error);
     }
