@@ -405,7 +405,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
     console.log(`Processing match ${matchId} (${i} / ${limitedMatchIds.length})...`);
 
     try {
-      const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
+      const { unplayed, invalid, competitors = [] } = await fetchMatchData(page, matchId);
 
       for (const { profileId, forfeit, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
         const profileDb = database.profile(profileId);
