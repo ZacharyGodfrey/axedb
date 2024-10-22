@@ -386,7 +386,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
 
   let i = 1;
 
-  for (const { matchId } of limitedMatchIds) {
+  for (const matchId of limitedMatchIds) {
     console.log(`Process match ${matchId} (${i} / ${limitedMatchIds.length})`);
 
     try {
