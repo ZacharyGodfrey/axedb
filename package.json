@@ -6,9 +6,8 @@
   "scripts": {
     "scrape": "node ./scrape/steps/all.js",
     "seed-profiles": "node ./scrape/steps/seed-profiles.js",
-    "process-profiles": "node ./scrape/steps/process-profiles.js",
+    "discover-matches": "node ./scrape/steps/discover-matches.js",
     "process-matches": "node ./scrape/steps/process-matches.js",
-    "process-opponents": "node ./scrape/steps/process-opponents.js",
     "get-images": "node ./scrape/steps/get-images.js",
     "build": "node ./client/index.js",
     "serve": "npm run build && http-server dist -p 8080 -c-1 -e html",
