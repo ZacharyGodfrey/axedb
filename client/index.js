@@ -20,6 +20,8 @@ for (const profile of profiles) {
   const profileDb = database.profile(profile.profileId);
 
   writeProfilePages(mainDb, profileDb, profile);
+
+  profileDb.close();
 }
 
 mainDb.close();

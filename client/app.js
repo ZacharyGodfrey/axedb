@@ -6,6 +6,7 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 
 import { emptyFolder, copyFolder, listFiles, readFile, writeFile } from '../lib/file.js';
+import { enums } from '../lib/database.js';
 import { buildStats } from '../lib/miscellaneous.js';
 
 const NOW = new Date().toISOString();
@@ -246,10 +247,49 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
     profile: readFile('client/templates/profile.md'),
   };
 
-  renderAndWritePage(`${profile.profileId}/index.html`, templates.profile, {
-    profile,
-    stats: buildStats([]),
-    seasons: []
+  const career = {
+    ...profile,
+    stats: {},
+    seasons: [],
+  };
+
+  career.stats = buildStats(profileDb.rows(`
+    SELECT tool, target, score
+    FROM throws
+    ORDER BY matchId ASC, roundId ASC, throwId ASC
+  `, { profileId }));
+
+  const seasons = profileDb.rows(`
+    SELECT seasonId, name, year
+    FROM seasons
+    WHERE seasonId IN (
+      SELECT DISTINCT seasonId
+      FROM matches
+      WHERE status = ${enums.matchStatus.processed}
+    )
+    ORDER BY seasonId ASC
+  `);
+
+  career.seasons = seasons.map((row) => {
+    const season = {
+      ...row,
+      stats: null,
+      weeks: []
+    };
+
+    season.stats = buildStats(profileDb.rows(`
+      SELECT t.tool, t.target, t.score
+      FROM throws AS t
+      JOIN matches AS m ON m.matchId = t.matchId
+      WHERE m.seasonId = :seasonId
+      ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
+    `, { seasonId }));
+
+    return season;
+  });
+
+  renderAndWritePage(`profile/${profile.profileId}/index.html`, templates.profile, {
+    profile: career
   });
 };
 
