@@ -385,15 +385,13 @@ export const processMatches = async (mainDb, page, limit = 0) => {
     profileDb.close();
   }
 
-  const limitedMatchIds = [...matchIds].slice(0, limit > 0 ? limit : matchIds.size);
+  let processed = 0, count = Math.min(matchIds.size, limit);
 
   console.log(`Found ${matchIds.size} new matches.`);
-  console.log(`Processing ${limitedMatchIds.length} of ${matchIds.size} new matches.`);
+  console.log(`Processing ${count} of ${matchIds.size} new matches.`);
 
-  let i = 1;
-
-  for (const matchId of limitedMatchIds) {
-    console.log(`Processing match ${matchId} (${i} / ${limitedMatchIds.length})...`);
+  for (const matchId of matchIds) {
+    console.log(`Processing match ${matchId} (${processed + 1} / ${count})...`);
 
     try {
       const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
@@ -401,7 +399,6 @@ export const processMatches = async (mainDb, page, limit = 0) => {
       if (unplayed) {
         console.log(`Match ${matchId} is unplayed.`);
 
-        i++;
         continue;
       }
 
@@ -458,7 +455,11 @@ export const processMatches = async (mainDb, page, limit = 0) => {
       logError(error);
     }
 
-    i++;
+    processed++;
+
+    if (processed === count) {
+      break;
+    }
   }
 
   console.log('Done.');
