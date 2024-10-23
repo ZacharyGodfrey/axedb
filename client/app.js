@@ -282,7 +282,7 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
       weeks: []
     };
 
-    renderAndWritePage(`profile/${profile.profileId}/s/${row.seasonId}index.html`, templates.season, {
+    renderAndWritePage(`profile/${profile.profileId}/s/${row.seasonId}/index.html`, templates.season, {
       profile,
       season
     });
