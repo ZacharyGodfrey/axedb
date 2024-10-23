@@ -1,20 +1,26 @@
 import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
-import { prepareDistFolder, writeSimplePages } from './app.js';
+import { prepareDistFolder, writeSimplePages, writeTemplatePages } from './app.js';
 
 const start = Date.now();
 const mainDb = database.main();
 const stats = JSON.parse(readFile('data/stats.json'));
+const profiles = mainDb.rows(`
+  SELECT *
+  FROM profiles
+  WHERE fetch = 1
+  ORDER BY rank ASC
+`);
 
 prepareDistFolder();
 
-writeSimplePages({
-  stats,
-  // seasonCount: mainDb.row(`SELECT COUNT(*) AS count FROM seasons`).count,
-  // matchCount: mainDb.row(`SELECT COUNT(*) AS count FROM (SELECT DISTINCT matchId FROM matches WHERE processed = 1)`).count,
-  // throwCount: mainDb.row(`SELECT COUNT(*) AS count FROM throws`).count,
-  profiles: mainDb.rows(`SELECT * FROM profiles WHERE fetch = 1 ORDER BY rank ASC`)
-});
+writeSimplePages({ stats, profiles });
+
+for (const profile of profiles) {
+  const profileDb = database.profile(profile.profileId);
+
+  writeProfilePages(mainDb, profileDb, profile);
+}
 
 mainDb.close();
 

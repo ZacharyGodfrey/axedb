@@ -6,7 +6,7 @@ import postcss from 'postcss';
 import cssnano from 'cssnano';
 
 import { emptyFolder, copyFolder, listFiles, readFile, writeFile } from '../lib/file.js';
-import { buildStats } from '../scrape/app.js';
+import { buildStats } from '../lib/miscellaneous.js';
 
 const NOW = new Date().toISOString();
 
@@ -241,7 +241,19 @@ export const writeSimplePages = (data) => {
   console.log('Done.');
 };
 
-export const writeProfilePages = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
+export const writeProfilePages = (mainDb, profileDb, profile) => {
+  const templates = {
+    profile: readFile('client/templates/profile.md'),
+  };
+
+  renderAndWritePage(`${profile.profileId}/index.html`, templates.profile, {
+    profile,
+    stats: buildStats([]),
+    seasons: []
+  });
+};
+
+export const writeProfilePages_old = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
   const profile = JSON.parse(readFile(profileJsonPath));
   const { profileId } = profile;
   const uri = `${profileId}/index.html`;
