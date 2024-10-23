@@ -245,19 +245,18 @@ export const writeSimplePages = (data) => {
 export const writeProfilePages = (mainDb, profileDb, profile) => {
   const templates = {
     profile: readFile('client/templates/profile.md'),
+    season: readFile('client/templates/season.md'),
   };
 
   const career = {
     ...profile,
-    stats: {},
+    stats: buildStats(profileDb.rows(`
+      SELECT tool, target, score
+      FROM throws
+      ORDER BY matchId ASC, roundId ASC, throwId ASC
+    `)),
     seasons: [],
   };
-
-  career.stats = buildStats(profileDb.rows(`
-    SELECT tool, target, score
-    FROM throws
-    ORDER BY matchId ASC, roundId ASC, throwId ASC
-  `));
 
   const seasons = profileDb.rows(`
     SELECT seasonId, name, year
@@ -270,23 +269,26 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
     ORDER BY seasonId ASC
   `);
 
-  career.seasons = seasons.map((row) => {
+  for (const row of seasons) {
     const season = {
       ...row,
-      stats: null,
+      stats: buildStats(profileDb.rows(`
+        SELECT t.tool, t.target, t.score
+        FROM throws AS t
+        JOIN matches AS m ON m.matchId = t.matchId
+        WHERE m.seasonId = :seasonId
+        ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
+      `, { seasonId: row.seasonId })),
       weeks: []
     };
 
-    season.stats = buildStats(profileDb.rows(`
-      SELECT t.tool, t.target, t.score
-      FROM throws AS t
-      JOIN matches AS m ON m.matchId = t.matchId
-      WHERE m.seasonId = :seasonId
-      ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
-    `, { seasonId: row.seasonId }));
+    renderAndWritePage(`profile/${profile.profileId}/s/${row.seasonId}index.html`, templates.season, {
+      profile,
+      season
+    });
 
-    return season;
-  });
+    career.seasons.push(season);
+  }
 
   renderAndWritePage(`profile/${profile.profileId}/index.html`, templates.profile, {
     profile: career
