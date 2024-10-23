@@ -10,6 +10,13 @@ const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
 const TIMEOUT = 2000;
 
+const ALPHA_PROFILES = [
+  1207260, // me
+  1432962, // "Panda", best in the venue
+  1385993, // "Ender", best in the region
+  494365, // "Canexican", best in the world
+];
+
 // Helpers
 
 const logError = (error) => {
@@ -166,9 +173,7 @@ export const buildStats = (throws) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page) => {
-  return [
-    1207260, // me
-  ];
+  return ALPHA_PROFILES;
 
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
