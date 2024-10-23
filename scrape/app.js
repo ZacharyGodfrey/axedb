@@ -397,7 +397,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
       const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
 
       if (unplayed) {
-        console.log(`Match ${matchId} is unplayed.`);
+        console.log(`Match ${matchId} is unplayed and won't count toward the processing limit.`);
 
         continue;
       }
