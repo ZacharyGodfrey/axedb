@@ -225,23 +225,22 @@ const fetchMatchData = async (page, matchId) => {
   ]);
 
   const rawMatch = await apiResponse.json();
+  const competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({ profileId, name, forfeit, throws: [] }));
 
   if (rawMatch.rounds.length === 0) {
-    return { unplayed: true };
+    return { unplayed: true, competitors };
   }
 
   if (![3, 4].includes(rawMatch.rounds.length)) {
-    return { invalid: true };
+    return { invalid: true, competitors };
   }
 
   if (rawMatch.rounds.slice(0, 3).some(x => x.games.some(y => y.Axes.length !== 5))) {
-    return { invalid: true };
+    return { invalid: true, competitors };
   }
 
-  result.competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({ profileId, name, forfeit, throws: [] }));
-
   for (const { order: roundId, player: profileId, Axes } of rawMatch.rounds.flatMap(x => x.games)) {
-    const competitor = result.competitors.find(x => x.profileId === profileId);
+    const competitor = competitors.find(x => x.profileId === profileId);
 
     if (competitor.forfeit) {
       continue;
@@ -259,7 +258,7 @@ const fetchMatchData = async (page, matchId) => {
     }
   }
 
-  return result;
+  return { unplayed: false, invalid: false, competitors };
 };
 
 // Workflow
