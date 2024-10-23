@@ -438,6 +438,8 @@ export const processMatches = async (mainDb, page, limit = 0) => {
           profileDb.run(`
             INSERT INTO throws (matchId, roundId, throwId, tool, target, score)
             VALUES (:matchId, :roundId, :throwId, :tool, :target, :score)
+            ON CONFLICT (matchId, roundId, throwId) DO UPDATE
+            SET tool = :tool, target = :target, score = :score
           `, row);
         }
 
