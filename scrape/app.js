@@ -1,5 +1,5 @@
-import { writeFile, readFile, listFiles } from '../lib/file.js';
-import { sort, imageToWebp } from '../lib/miscellaneous.js';
+import { writeFile, listFiles } from '../lib/file.js';
+import { imageToWebp } from '../lib/miscellaneous.js';
 import { database } from '../lib/database.js';
 
 const RULESET = 'IATF Premier';
@@ -41,12 +41,6 @@ const isDesiredResponse = (method, status, url) => {
       && response.status() === status
       && response.url() === url;
   };
-};
-
-const waitMilliseconds = (milliseconds) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
-  });
 };
 
 const round = (places, value) => {
