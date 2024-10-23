@@ -208,14 +208,6 @@ const fetchPlayerData = async (page, profileId) => {
 };
 
 const fetchMatchData = async (page, matchId) => {
-  const result = {
-    unplayed: false,
-    invalid: false,
-    competitors: []
-  };
-
-  const throws = [];
-
   const url = `https://axescores.com/player/1/${matchId}`;
   const apiUrl = `https://api.axescores.com/match/${matchId}`;
 
@@ -228,15 +220,15 @@ const fetchMatchData = async (page, matchId) => {
   const competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({ profileId, name, forfeit, throws: [] }));
 
   if (rawMatch.rounds.length === 0) {
-    return { unplayed: true, competitors };
+    return { unplayed: true, invalid: false, competitors };
   }
 
   if (![3, 4].includes(rawMatch.rounds.length)) {
-    return { invalid: true, competitors };
+    return { unplayed: false, invalid: true, competitors };
   }
 
   if (rawMatch.rounds.slice(0, 3).some(x => x.games.some(y => y.Axes.length !== 5))) {
-    return { invalid: true, competitors };
+    return { unplayed: false, invalid: true, competitors };
   }
 
   for (const { order: roundId, player: profileId, Axes } of rawMatch.rounds.flatMap(x => x.games)) {
@@ -404,22 +396,17 @@ export const processMatches = async (mainDb, page, limit = 0) => {
     console.log(`Processing match ${matchId} (${i} / ${limitedMatchIds.length})...`);
 
     try {
-      const { unplayed, invalid, competitors = [] } = await fetchMatchData(page, matchId);
+      const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
+
+      if (unplayed) {
+        console.log(`Match ${matchId} is unplayed.`);
+
+        i++;
+        continue;
+      }
 
       for (const { profileId, forfeit, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
         const profileDb = database.profile(profileId);
-
-        if (unplayed) {
-          console.log(`Match ${matchId} is unplayed for profile ${profileId}.`);
-
-          profileDb.run(`
-            UPDATE matches
-            SET status = ${database.enums.matchStatus.unplayed}
-            WHERE matchId = :matchId
-          `, { matchId });
-
-          continue;
-        }
 
         if (invalid) {
           console.log(`Match ${matchId} is invalid for profile ${profileId}.`);
