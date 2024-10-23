@@ -283,7 +283,7 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
       JOIN matches AS m ON m.matchId = t.matchId
       WHERE m.seasonId = :seasonId
       ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
-    `, { seasonId }));
+    `, { seasonId: row.seasonId }));
 
     return season;
   });
