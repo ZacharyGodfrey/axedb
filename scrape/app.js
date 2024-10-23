@@ -550,20 +550,24 @@ export const databaseReport = (mainDb) => {
   console.log('Step: Database Report');
   console.log('**********');
 
-  const tables = {
-    profiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles`).count,
-    throws: 0,
+  const stats = {
+    allProfiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles`).count,
+    fetchProfiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles WHERE fetch = 1`).count,
+    images: listFiles('data/images/*.webp').length,
+    totalThrows: 0,
   };
 
   for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
     const profileDb = database.profile(profileId);
 
-    tables.throws += profileDb.row(`SELECT COUNT(*) AS count FROM throws`).count;
+    stats.throws += profileDb.row(`SELECT COUNT(*) AS count FROM throws`).count;
 
     profileDb.close();
   }
 
-  console.table(Object.entries(tables).map(([table, count]) => ({ table, count })));
+  console.table(Object.entries(stats).map(([stat, count]) => ({ stat, count })));
+
+  writeFile('data/stats.json', JSON.stringify(stats, null, 2));
 
   console.log('Done.');
 };
@@ -578,10 +582,6 @@ export const teardown = async (startTime, mainDb, browser) => {
   }
 
   if (mainDb) {
-    for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
-      database.profile(profileId).close();
-    }
-
     mainDb.close();
   }
 
