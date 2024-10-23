@@ -4,12 +4,12 @@ import { database } from '../../lib/database.js';
 import { seedProfiles, databaseReport, teardown } from '../app.js';
 
 const start = Date.now();
-const db = database('data');
+const mainDb = database.main();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-await seedProfiles(db, page);
+await seedProfiles(mainDb, page);
 
-databaseReport(db);
+databaseReport(mainDb);
 
-await teardown(start, db, browser);
+await teardown(start, mainDb, browser);

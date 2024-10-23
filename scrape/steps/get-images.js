@@ -2,10 +2,10 @@ import { database } from '../../lib/database.js';
 import { getImages, databaseReport, teardown } from '../app.js';
 
 const start = Date.now();
-const db = database('data');
+const mainDb = database.main();
 
-await getImages(db);
+await getImages(mainDb);
 
-databaseReport(db);
+databaseReport(mainDb);
 
-await teardown(start, db);
+await teardown(start, mainDb);

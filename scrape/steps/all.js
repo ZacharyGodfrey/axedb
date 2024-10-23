@@ -3,32 +3,29 @@ import puppeteer from 'puppeteer';
 import { database } from '../../lib/database.js';
 import {
   seedProfiles,
-  processProfiles,
+  discoverMatches,
   processMatches,
   updateRankings,
-  processOpponents,
   getImages,
   databaseReport,
   teardown
 } from '../app.js';
 
 const start = Date.now();
-const db = database('data');
+const mainDb = database.main();
 const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
-await seedProfiles(db, page);
+await seedProfiles(mainDb, page);
 
-await processProfiles(db, page);
+await discoverMatches(mainDb, page);
 
-await processMatches(db, page);
+await processMatches(mainDb, page, 500);
 
-await updateRankings(db);
+await updateRankings(mainDb);
 
-await processOpponents(db, page);
+await getImages(mainDb);
 
-await getImages(db);
+databaseReport(mainDb);
 
-databaseReport(db);
-
-await teardown(start, db, browser);
+await teardown(start, mainDb, browser);
