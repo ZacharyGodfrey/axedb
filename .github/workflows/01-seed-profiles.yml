@@ -1,21 +1,23 @@
-name: Get Images
+name: 01 Seed Profiles
 on:
   workflow_dispatch:
+  # schedule:
+  #   - cron: "0 3 * * 4"
 jobs:
-  get-images:
+  seed-profiles:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Get Images
-        run: npm run get-images
+      - name: Seed Profiles
+        run: npm run seed-profiles
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git pull
           git add .
-          git commit -m "Get Images"
+          git commit -m "Seed Profiles"
           git push

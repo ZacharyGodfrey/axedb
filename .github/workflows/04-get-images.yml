@@ -1,21 +1,21 @@
-name: Discover Matches
+name: 04 Get Images
 on:
   workflow_dispatch:
 jobs:
-  discover-matches:
+  get-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Discover Matches
-        run: npm run discover-matches
+      - name: Get Images
+        run: npm run get-images
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git pull
           git add .
-          git commit -m "Discover Matches"
+          git commit -m "Get Images"
           git push

@@ -1,21 +1,21 @@
-name: Process Matches
+name: 02 Discover Matches
 on:
   workflow_dispatch:
 jobs:
-  process-matches:
+  discover-matches:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         run: npm install
-      - name: Process Matches
-        run: npm run process-matches
+      - name: Discover Matches
+        run: npm run discover-matches
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git pull
           git add .
-          git commit -m "Process Matches"
+          git commit -m "Discover Matches"
           git push
