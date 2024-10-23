@@ -257,7 +257,7 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
     SELECT tool, target, score
     FROM throws
     ORDER BY matchId ASC, roundId ASC, throwId ASC
-  `, { profileId }));
+  `));
 
   const seasons = profileDb.rows(`
     SELECT seasonId, name, year
