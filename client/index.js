@@ -26,5 +26,4 @@ for (const profile of profiles) {
 
 mainDb.close();
 
-console.log('Done.');
 console.log(`Running Time: ${Date.now() - start} milliseconds`);

@@ -220,7 +220,9 @@ export const buildProfileData = (db, profileId) => {
 // Workflow
 
 export const prepareDistFolder = () => {
-  console.log('Preparing dist folder...');
+  console.log('**********');
+  console.log('Step: Prepare dist folder');
+  console.log('**********');
 
   emptyFolder('dist');
   copyFolder('client/static', 'dist');
@@ -230,7 +232,9 @@ export const prepareDistFolder = () => {
 };
 
 export const writeSimplePages = (data) => {
-  console.log('Writing simple pages...');
+  console.log('**********');
+  console.log('Step: Write simple pages');
+  console.log('**********');
 
   for (const filePath of listFiles('client/pages/**/*.{md,html}')) {
     const uri = filePath.split('pages/')[1].replace('.md', '.html');
@@ -243,6 +247,8 @@ export const writeSimplePages = (data) => {
 };
 
 export const writeProfilePages = (mainDb, profileDb, profile) => {
+  console.log(`Writing profile pages for profile ${profile.profileId}...`);
+
   const templates = {
     profile: readFile('client/templates/profile.md'),
     season: readFile('client/templates/season.md'),
@@ -293,6 +299,8 @@ export const writeProfilePages = (mainDb, profileDb, profile) => {
   renderAndWritePage(`profile/${profile.profileId}/index.html`, templates.profile, {
     profile: career
   });
+
+  console.log('Done.');
 };
 
 export const writeProfilePages_old = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
