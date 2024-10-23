@@ -1,6 +1,6 @@
 import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
-import { prepareDistFolder, writeSimplePages, writeTemplatePages } from './app.js';
+import { prepareDistFolder, writeSimplePages, writeProfilePages } from './app.js';
 
 const start = Date.now();
 const mainDb = database.main();
