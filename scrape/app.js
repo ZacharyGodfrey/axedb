@@ -554,7 +554,7 @@ export const databaseReport = (mainDb) => {
     allProfiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles`).count,
     fetchProfiles: mainDb.row(`SELECT COUNT(*) AS count FROM profiles WHERE fetch = 1`).count,
     images: listFiles('data/images/*.webp').length,
-    totalThrows: 0,
+    throws: 0,
   };
 
   for (const { profileId } of mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`)) {
