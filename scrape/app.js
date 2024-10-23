@@ -2,12 +2,13 @@ import { writeFile, listFiles } from '../lib/file.js';
 import { logError, buildStats, imageToWebp } from '../lib/miscellaneous.js';
 import { database } from '../lib/database.js';
 
-const RULESET = 'IATF Premier';
-const REGIONS = ['Southeast'];
 const TOOL_HATCHET = 'hatchet';
 const TOOL_BIG_AXE = 'big axe';
 const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
+
+const RULESET = 'IATF Premier';
+const REGIONS = ['Southeast'];
 const TIMEOUT = 2000;
 
 const ALPHA_PROFILES = [
