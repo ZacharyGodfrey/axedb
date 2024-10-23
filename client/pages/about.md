@@ -40,7 +40,7 @@ section)
 
 (card
 
-AxeDB has analyzed **{{throwCount}}** throws from **{{profiles.length}}** competitors across **{{matchCount}}** matches so far.
+AxeDB has analyzed **{{stats.throws}}** throws from **{{profiles.length}}** competitors so far.
 
 card)
 
