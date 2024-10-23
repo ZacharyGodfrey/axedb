@@ -1,12 +1,10 @@
 import { database } from '../lib/database.js';
-import { prepareDistFolder, writeProfileImages, writeSimplePages } from './app.js';
+import { prepareDistFolder, writeSimplePages } from './app.js';
 
 const start = Date.now();
 const mainDb = database.main();
 
 prepareDistFolder();
-
-writeProfileImages();
 
 writeSimplePages({
   // seasonCount: mainDb.row(`SELECT COUNT(*) AS count FROM seasons`).count,
