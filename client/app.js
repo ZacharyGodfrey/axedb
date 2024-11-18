@@ -17,6 +17,16 @@ marked.use(gfmHeadingId({ prefix: '' }));
 
 const cssNano = postcss([cssnano]);
 
+const pages = listFiles('client/pages/*').reduce((res, fileName) => {
+  const key = fileName.split('client/pages/')[1].split('.').slice(0, -1).join('.');
+
+  res[key] = readFile(fileName);
+
+  return res;
+}, {});
+
+console.log('Pages: ', Object.keys(pages));
+
 export const pipe = (initial, transforms) => {
   return transforms.reduce((result, transform) => transform(result), initial);
 };
@@ -78,7 +88,7 @@ export const renderAndWritePage = (uri, template, data) => {
   writeFile(`dist/${uri}`, renderPage(template, data));
 };
 
-const buildProfileData = (profileDb, profile) => {
+export const buildProfileData = (profileDb, profile) => {
   const career = {
     profile,
     stats: buildStats(profileDb.rows(`
@@ -170,15 +180,28 @@ export const writeSimplePages = (data) => {
   console.log('Done.');
 };
 
-export const writeProfilePage = (profileDb, profile) => {
+export const writeProfilePages = (profileDb, profile) => {
   console.log(`Writing profile page for profile ${profile.profileId}...`);
 
-  const uri = `profile/${profile.profileId}/index.html`;
+  const uri = `${profile.profileId}.html`;
   const template = readFile('client/templates/profile.md');
   const data = buildProfileData(profileDb, profile);
 
+  writeFile(`dist/${profile.profileId}.json`, JSON.stringify(data, null, 2));
+
   renderAndWritePage(uri, template, { ...data, json: JSON.stringify(data) });
-  writeFile(`dist/profile/${profile.profileId}.json`, JSON.stringify(data, null, 2));
+
+  for (const season of data.seasons) {
+    writeSeasonPage(data.profile, season);
+  }
 
   console.log('Done.');
+};
+
+export const writeSeasonPage = (profile, season) => {
+  console.log(`Writing season page for profile ${profile.profileId} season ${season.seasonId}...`);
+
+  const uri = `${profile.profileId}/s/${season.seasonId}.html`;
+  const template = readFile('client/templates/season.md');
+  const data = buildProfileData(profileDb, profile);
 };

@@ -1,6 +1,6 @@
 import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
-import { prepareDistFolder, writeSimplePages, writeProfilePage } from './app.js';
+import { prepareDistFolder, writeSimplePages, writeProfilePages } from './app.js';
 
 const start = Date.now();
 const mainDb = database.main();
@@ -19,7 +19,7 @@ writeSimplePages({ stats, profiles });
 for (const profile of profiles) {
   const profileDb = database.profile(profile.profileId);
 
-  writeProfilePage(profileDb, profile);
+  writeProfilePages(profileDb, profile);
 
   profileDb.close();
 }

@@ -18,13 +18,13 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 <div class="grid stack auto-fill-auto items-y-center">
   <div>
-    <a href="/profile/{{profileId}}">
+    <a href="/{{profileId}}">
       <img alt="{{name}}" src="/{{profileId}}.webp" class="size100">
     </a>
   </div>
   <div>
     <h3>
-      <a href="/profile/{{profileId}}">{{name}}</a>
+      <a href="/{{profileId}}">{{name}}</a>
     </h3>
   </div>
   <div>
