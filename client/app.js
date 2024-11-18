@@ -60,7 +60,7 @@ export const renderPage = await (async () => {
     style: await minifyCSS(readFile('client/assets/style.css')),
     siteHeader: readFile('client/partials/site-header.html'),
     profileHeader: readFile('client/partials/profile-header.html'),
-    stats: readFile('client/partials/stats.html'),
+    stats: readFile('client/partials/stats.html').split('\n').filter(x => x.length).join('\n'),
   };
 
   return (template, data) => pipe(template, [
