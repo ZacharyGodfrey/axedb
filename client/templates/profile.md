@@ -31,7 +31,7 @@ section)
 
 {{#seasons}}
 
-=> [{{name}}](s/{{seasonId}})
+=> [{{name}}](/{{profile.profileId}}/s/{{seasonId}})
 
 {{/seasons}}
 
