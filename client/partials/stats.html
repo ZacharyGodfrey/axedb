@@ -1,26 +1,53 @@
 <div class="grid fill-2 items-y-stretch">
   <div class="card text-center">
-    <h3>{{hatchet.bullseye.scorePerAxe}}</h3>
+    <h3>Hatchet Bullseye</h3>
+    <p>{{hatchet.bullseye.attempts}}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Score</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>5</th>
+          <td>{{hatchet.bullseye.breakdown.5}}</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>{{hatchet.bullseye.breakdown.3}}</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>{{hatchet.bullseye.breakdown.1}}</td>
+        </tr>
+        <tr>
+          <th>0</th>
+          <td>{{hatchet.bullseye.breakdown.0}}</td>
+        </tr>
+      </tbody>
+    </table>
     <hr>
-    <h4>Hatchet Bullseye</h4>
+    <h4>{{hatchet.bullseye.scorePerAxe}}</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
-    <h3>{{hatchet.clutch.scorePerAxe}}</h3>
+    <h3>Hatchet Clutch</h3>
     <hr>
-    <h4>Hatchet Clutch</h4>
+    <h4>{{hatchet.clutch.scorePerAxe}}</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
-    <h3>{{bigAxe.bullseye.scorePerAxe}}</h3>
+    <h3>Big Axe Bullseye</h3>
     <hr>
-    <h4>Big Axe Bullseye</h4>
+    <h4>{{bigAxe.bullseye.scorePerAxe}}</h4>
     <p>Score Per Axe</p>
   </div>
   <div class="card text-center">
-    <h3>{{bigAxe.clutch.scorePerAxe}}</h3>
+    <h3>Big Axe Clutch</h3>
     <hr>
-    <h4>Big Axe Clutch</h4>
+    <h4>{{bigAxe.clutch.scorePerAxe}}</h4>
     <p>Score Per Axe</p>
   </div>
 </div>
