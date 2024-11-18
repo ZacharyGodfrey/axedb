@@ -52,7 +52,7 @@ export const parseMetadata = (fileContent) => {
   return { meta, content };
 };
 
-const prepareHtmlPartial = (text) => text.split('\n').filter(x => x.length).join('\n');
+const prepareHtmlPartial = (text) => `\n${text.split('\n').filter(x => x.length).join('\n')}\n`;
 
 export const renderPage = await (async () => {
   const shell = readFile('client/assets/shell.html');
