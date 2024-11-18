@@ -52,15 +52,17 @@ export const parseMetadata = (fileContent) => {
   return { meta, content };
 };
 
+const prepareHtmlPartial = (text) => text.split('\n').filter(x => x.length).join('\n');
+
 export const renderPage = await (async () => {
   const shell = readFile('client/assets/shell.html');
 
   const partials = {
     font: readFile('client/assets/FiraCode-Variable.ttf', 'base64'),
     style: await minifyCSS(readFile('client/assets/style.css')),
-    siteHeader: readFile('client/partials/site-header.html'),
-    profileHeader: readFile('client/partials/profile-header.html'),
-    stats: readFile('client/partials/stats.html').split('\n').filter(x => x.length).join('\n'),
+    siteHeader: prepareHtmlPartial(readFile('client/partials/site-header.html')),
+    profileHeader: prepareHtmlPartial(readFile('client/partials/profile-header.html')),
+    stats: prepareHtmlPartial(readFile('client/partials/stats.html')),
   };
 
   return (template, data) => pipe(template, [
