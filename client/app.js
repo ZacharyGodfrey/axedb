@@ -17,16 +17,6 @@ marked.use(gfmHeadingId({ prefix: '' }));
 
 const cssNano = postcss([cssnano]);
 
-const pages = listFiles('client/pages/*').reduce((res, fileName) => {
-  const key = fileName.split('client/pages/')[1].split('.').slice(0, -1).join('.');
-
-  res[key] = readFile(fileName);
-
-  return res;
-}, {});
-
-console.log('Pages: ', Object.keys(pages));
-
 export const pipe = (initial, transforms) => {
   return transforms.reduce((result, transform) => transform(result), initial);
 };
@@ -62,7 +52,9 @@ export const parseMetadata = (fileContent) => {
   return { meta, content };
 };
 
-const prepareHtmlPartial = (text) => `\n${text.split('\n').filter(x => x.length).join('\n')}\n`;
+const prepareHtmlPartial = (text) => {
+  return `\n${text.split('\n').filter(x => x.length).join('\n')}\n`;
+};
 
 export const renderPage = await (async () => {
   const shell = readFile('client/assets/shell.html');
@@ -180,28 +172,30 @@ export const writeSimplePages = (data) => {
   console.log('Done.');
 };
 
+const profileTemplate = readFile('client/templates/profile.md');
+
 export const writeProfilePages = (profileDb, profile) => {
   console.log(`Writing profile page for profile ${profile.profileId}...`);
 
   const uri = `${profile.profileId}.html`;
-  const template = readFile('client/templates/profile.md');
   const data = buildProfileData(profileDb, profile);
 
   writeFile(`dist/${profile.profileId}.json`, JSON.stringify(data, null, 2));
 
-  renderAndWritePage(uri, template, { ...data, json: JSON.stringify(data) });
+  renderAndWritePage(uri, profileTemplate, { ...data, json: JSON.stringify(data) });
 
   for (const season of data.seasons) {
     writeSeasonPage(data.profile, season);
   }
-
-  console.log('Done.');
 };
+
+const seasonTemplate = readFile('client/templates/season.md');
 
 export const writeSeasonPage = (profile, season) => {
   console.log(`Writing season page for profile ${profile.profileId} season ${season.seasonId}...`);
 
   const uri = `${profile.profileId}/s/${season.seasonId}.html`;
-  const template = readFile('client/templates/season.md');
-  const data = buildProfileData(profileDb, profile);
+  const data = { profile, season };
+
+  renderAndWritePage(uri, seasonTemplate, { ...data, json: JSON.stringify(data) });
 };
