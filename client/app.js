@@ -175,7 +175,7 @@ export const writeProfilePage = (profileDb, profile) => {
   const template = readFile('client/templates/profile.md');
   const data = buildProfileData(profileDb, profile);
 
-  renderAndWritePage(uri, template, data);
+  renderAndWritePage(uri, template, { ...data, json: JSON.stringify(data) });
   writeFile(`dist/profile/${profile.profileId}.json`, JSON.stringify(data, null, 2));
 
   console.log('Done.');

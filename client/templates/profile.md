@@ -13,13 +13,13 @@ section)
 
 (section
 
-{{#profile.stats}}
+{{#stats}}
 
 ## Career Stats
 
 {{>stats}}
 
-{{/profile.stats}}
+{{/stats}}
 
 section)
 
@@ -29,16 +29,16 @@ section)
 
 (card
 
-{{#profile.seasons}}
+{{#seasons}}
 
 => [{{name}}](s/{{seasonId}})
 
-{{/profile.seasons}}
+{{/seasons}}
 
 card)
 
 section)
 
 <script>
-  const profile = {{{profileJson}}};
+  const profile = {{{json}}};
 </script>
