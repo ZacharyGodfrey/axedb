@@ -39,15 +39,15 @@ section)
 
 card)
 
-## Weeks
+## Matches
 
 (card
 
-{{#weeks}}
+{{#matches}}
 
-=> [Week {{weekId}}](w/{{weekId}})
+=> [Match {{matchId}}](m/{{matchId}})
 
-{{/weeks}}
+{{/matches}}
 
 card)
 

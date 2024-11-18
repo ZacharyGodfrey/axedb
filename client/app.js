@@ -76,139 +76,61 @@ export const renderAndWritePage = (uri, template, data) => {
   writeFile(`dist/${uri}`, renderPage(template, data));
 };
 
-export const buildProfileData = (db, profileId) => {
-  const profile = db.row(`
-    SELECT profileId, name, rank, scorePerAxe
-    FROM profiles
-    WHERE profileId = :profileId
-  `, { profileId });
-
-  return profile; // TODO: Remove this
-
+const buildProfileData = (profileDb, profile) => {
   const career = {
-    ...profile,
-    stats: {},
+    profile,
+    stats: buildStats(profileDb.rows(`
+      SELECT tool, target, score
+      FROM throws
+      ORDER BY matchId ASC, roundId ASC, throwId ASC
+    `)),
     seasons: [],
   };
 
-  career.stats = buildStats(db.rows(`
-    SELECT tool, target, score
-    FROM throws
-    WHERE profileId = :profileId
-    ORDER BY seasonId ASC, weekId ASC, matchId ASC, roundId ASC, throwId ASC
-  `, { profileId }));
-
-  const seasons = db.rows(`
+  const seasons = profileDb.rows(`
     SELECT seasonId, name, year
     FROM seasons
     WHERE seasonId IN (
       SELECT DISTINCT seasonId
       FROM matches
-      WHERE profileId = :profileId
+      WHERE status = ${enums.matchStatus.processed}
     )
     ORDER BY seasonId ASC
-  `, { profileId });
+  `);
 
-  for (const { seasonId, name, year } of seasons) {
+  for (const sRow of seasons) {
     const season = {
-      seasonId,
-      name,
-      year,
-      stats: null,
-      weeks: []
+      ...sRow,
+      stats: buildStats(profileDb.rows(`
+        SELECT t.tool, t.target, t.score
+        FROM throws AS t
+        JOIN matches AS m ON m.matchId = t.matchId
+        WHERE m.seasonId = :seasonId
+        ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
+      `, { seasonId: sRow.seasonId })),
+      matches: []
     };
 
-    season.stats = buildStats(db.rows(`
-      SELECT tool, target, score
-      FROM throws
-      WHERE profileId = :profileId AND seasonId = :seasonId
-      ORDER BY weekId ASC, matchId ASC, roundId ASC, throwId ASC
-    `, { profileId, seasonId }));
-
-    const weeks = db.rows(`
-      SELECT DISTINCT weekId
+    const matches = profileDb.rows(`
+      SELECT matchId, opponentId
       FROM matches
-      WHERE profileId = :profileId AND seasonId = :seasonId
-      ORDER BY weekId ASC
-    `, { profileId, seasonId });
+      WHERE seasonId = :seasonId
+      ORDER BY matchId ASC
+    `, { seasonId: sRow.seasonId });
 
-    for (const { weekId } of weeks) {
-      const week = {
-        weekId,
-        stats: null,
-        matches: []
-      };
-
-      week.stats = buildStats(db.rows(`
-        SELECT tool, target, score
-        FROM throws
-        WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
-        ORDER BY matchId ASC, roundId ASC, throwId ASC
-      `, { profileId, seasonId, weekId }));
-
-      const matches = db.rows(`
-        SELECT matchId, opponentId
-        FROM matches
-        WHERE profileId = :profileId AND seasonId = :seasonId AND weekId = :weekId
-        ORDER BY matchId ASC
-      `, { profileId, seasonId, weekId });
-
-      for (const { matchId, opponentId } of matches) {
-        const match = {
-          matchId,
-          opponent: {
-            id: opponentId,
-            name: 'Unknown'
-          },
-          stats: null,
-          rounds: []
-        };
-
-        const opponent = db.row(`
-          SELECT name
-          FROM profiles
-          WHERE profileId = :opponentId
-        `, { opponentId });
-
-        match.opponent.name = opponent ? opponent.name : match.opponent.name;
-
-        match.stats = buildStats(db.rows(`
+    for (const mRow of matches) {
+      const match = {
+        ...mRow,
+        stats: buildStats(profileDb.rows(`
           SELECT tool, target, score
           FROM throws
-          WHERE profileId = :profileId AND matchId = :matchId
-          ORDER BY roundId ASC, throwId ASC
-        `, { profileId, matchId }));
+          WHERE matchId = :matchId
+          ORDER BY matchId ASC, roundId ASC, throwId ASC
+        `, { matchId: mRow.matchId })),
+        throws: []
+      };
 
-        const rounds = db.rows(`
-          SELECT DISTINCT roundId
-          FROM throws
-          WHERE profileId = :profileId AND matchId = :matchId
-          ORDER BY roundId ASC
-        `, { profileId, matchId });
-
-        for (const { roundId } of rounds) {
-          const round = {
-            roundId,
-            stats: null,
-            throws: []
-          };
-
-          round.throws = db.rows(`
-            SELECT throwId, tool, target, score
-            FROM throws
-            WHERE profileId = :profileId AND matchId = :matchId AND roundId = :roundId
-            ORDER BY throwId ASC
-          `, { profileId, matchId, roundId });
-
-          round.stats = buildStats(round.throws);
-
-          match.rounds.push(round);
-        }
-
-        week.matches.push(match);
-      }
-
-      season.weeks.push(week);
+      season.matches.push(match);
     }
 
     career.seasons.push(season);
@@ -246,86 +168,15 @@ export const writeSimplePages = (data) => {
   console.log('Done.');
 };
 
-export const writeProfilePages = (mainDb, profileDb, profile) => {
-  console.log(`Writing profile pages for profile ${profile.profileId}...`);
+export const writeProfilePage = (profileDb, profile) => {
+  console.log(`Writing profile page for profile ${profile.profileId}...`);
 
-  const templates = {
-    profile: readFile('client/templates/profile.md'),
-    season: readFile('client/templates/season.md'),
-  };
+  const uri = `profile/${profile.profileId}/index.html`;
+  const template = readFile('client/templates/profile.md');
+  const data = buildProfileData(profileDb, profile);
 
-  const career = {
-    ...profile,
-    stats: buildStats(profileDb.rows(`
-      SELECT tool, target, score
-      FROM throws
-      ORDER BY matchId ASC, roundId ASC, throwId ASC
-    `)),
-    seasons: [],
-  };
-
-  const seasons = profileDb.rows(`
-    SELECT seasonId, name, year
-    FROM seasons
-    WHERE seasonId IN (
-      SELECT DISTINCT seasonId
-      FROM matches
-      WHERE status = ${enums.matchStatus.processed}
-    )
-    ORDER BY seasonId ASC
-  `);
-
-  for (const row of seasons) {
-    const season = {
-      ...row,
-      stats: buildStats(profileDb.rows(`
-        SELECT t.tool, t.target, t.score
-        FROM throws AS t
-        JOIN matches AS m ON m.matchId = t.matchId
-        WHERE m.seasonId = :seasonId
-        ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
-      `, { seasonId: row.seasonId })),
-      weeks: []
-    };
-
-    renderAndWritePage(`profile/${profile.profileId}/s/${row.seasonId}/index.html`, templates.season, {
-      profile,
-      season
-    });
-
-    career.seasons.push(season);
-  }
-
-  renderAndWritePage(`profile/${profile.profileId}/index.html`, templates.profile, {
-    profile: career
-  });
+  renderAndWritePage(uri, template, data);
+  writeFile(`dist/profile/${profile.profileId}.json`, JSON.stringify(data, null, 2));
 
   console.log('Done.');
-};
-
-export const writeProfilePages_old = (profileJsonPath, profileLookup, globalData, shell, partials, templates) => {
-  const profile = JSON.parse(readFile(profileJsonPath));
-  const { profileId } = profile;
-  const uri = `${profileId}/index.html`;
-
-  // renderAndWritePage(uri, shell, partials, { profile }, templates.career);
-
-  for (const { seasonId } of profile.seasons) {
-    const season = JSON.parse(readFile(`data/profiles/${profileId}/s/${seasonId}.json`));
-    const uri = `${profileId}/s/${seasonId}/index.html`;
-
-    // renderAndWritePage(uri, shell, partials, { profile, season }, templates.season);
-
-    for (const week of season.weeks) {
-      const uri = `${profileId}/s/${seasonId}/w/${week.weekId}/index.html`;
-
-      // renderAndWritePage(uri, shell, partials, { profile, season, week }, templates.week);
-
-      for (const match of week.matches) {
-        const uri = `${profileId}/m/${match.matchId}/index.html`;
-
-        // renderAndWritePage(uri, shell, partials, { profile, season, week, match }, templates.match);
-      }
-    }
-  }
 };
