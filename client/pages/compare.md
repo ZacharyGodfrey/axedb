@@ -16,10 +16,14 @@ description: "Compare competitors side-by-side."
 
 section)
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
 <script>
   const DATA = {{{json}}};
 
   console.log(DATA);
+
+  const selectProfile = (e) => {
+    const profileId = e.value;
+
+    console.log(e);
+  };
 </script>

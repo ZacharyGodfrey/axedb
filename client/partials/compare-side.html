@@ -1,13 +1,8 @@
-<div class="card" x-data="{ profiles: DATA.profiles, profile: null }">
-  <select>
+<div class="card">
+  <select onchange="selectProfile">
+    <option>Competitor</option>
     {{#profiles}}
     <option value="{{profileId}}">{{name}}</option>
     {{/profiles}}
   </select>
-
-  <p x-show="profile === null">Select a profile.</p>
-
-  <div x-show="profile !== null">
-    <p x-text="profile.name"></p>
-  </div>
 </div>
