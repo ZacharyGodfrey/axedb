@@ -24,6 +24,10 @@ section)
   console.log(DATA);
 
   const getProfile = async (profileId) => {
+    if (!profileId) {
+      return null;
+    }
+
     const data = await fetch(`/${profileId}.json`).then(x => x.json());
 
     console.log(data);
