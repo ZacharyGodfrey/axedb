@@ -54,3 +54,7 @@ card)
 section)
 
 {{/season}}
+
+<script>
+  const DATA = {{{json}}};
+</script>

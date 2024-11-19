@@ -182,7 +182,10 @@ export const writeProfilePages = (profileDb, profile) => {
 
   writeFile(`dist/${profile.profileId}.json`, JSON.stringify(data, null, 2));
 
-  renderAndWritePage(uri, profileTemplate, { ...data, json: JSON.stringify(data) });
+  renderAndWritePage(uri, profileTemplate, {
+    ...data,
+    json: JSON.stringify(data)
+  });
 
   for (const season of data.seasons) {
     writeSeasonPage(data.profile, season);
@@ -197,5 +200,8 @@ export const writeSeasonPage = (profile, season) => {
   const uri = `${profile.profileId}/s/${season.seasonId}.html`;
   const data = { profile, season };
 
-  renderAndWritePage(uri, seasonTemplate, { ...data, json: JSON.stringify(data) });
+  renderAndWritePage(uri, seasonTemplate, {
+    ...data,
+    json: JSON.stringify(data)
+  });
 };

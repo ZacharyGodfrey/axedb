@@ -40,5 +40,5 @@ card)
 section)
 
 <script>
-  const profile = {{{json}}};
+  const DATA = {{{json}}};
 </script>
