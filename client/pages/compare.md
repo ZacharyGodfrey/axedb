@@ -21,9 +21,9 @@ section)
 
   console.log(DATA);
 
-  const selectProfile = (e) => {
-    const profileId = e.value;
+  const selectProfile = (element) => {
+    const profileId = element.value;
 
-    console.log(e);
+    console.log(profileId);
   };
 </script>
