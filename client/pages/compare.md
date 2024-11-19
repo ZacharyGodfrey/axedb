@@ -23,9 +23,9 @@ section)
 
   console.log(DATA);
 
-  const getProfile = async (event) => {
-    // const data = await fetch(`/${event.value}.json`).then(x => x.json());
+  const getProfile = async (profileId) => {
+    const data = await fetch(`/${profileId}.json`).then(x => x.json());
 
-    console.log(event);
+    console.log(data);
   };
 </script>
