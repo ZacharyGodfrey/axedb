@@ -24,6 +24,8 @@ section)
   console.log(DATA);
 
   const getProfile = async (profileId) => {
+    console.log(profileId);
+
     if (!profileId) {
       return null;
     }
