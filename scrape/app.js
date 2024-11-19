@@ -12,8 +12,12 @@ const REGIONS = ['Southeast'];
 const TIMEOUT = 2000;
 
 const ALPHA_PROFILES = [
-  1207260, // me
-  1432962, // "Panda", best in the venue
+  1207260, // Me
+  1008079, // "Yggdraskill", Jay
+  1008078, // "Fletch", Sheldon
+  932968, // "Big Dan", Dan
+  1408913, // "Pain in the axe", Liam
+  1432962, // "Panda", Amanda
   1385993, // "Ender", best in the region
   494365, // "Canexican", best in the world
 ];
