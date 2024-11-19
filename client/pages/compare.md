@@ -27,5 +27,7 @@ section)
     const data = await fetch(`/${profileId}.json`).then(x => x.json());
 
     console.log(data);
+
+    return data;
   };
 </script>
