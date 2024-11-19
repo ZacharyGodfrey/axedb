@@ -16,14 +16,16 @@ description: "Compare competitors side-by-side."
 
 section)
 
+<script src="//unpkg.com/alpinejs" defer></script>
+
 <script>
   const DATA = {{{json}}};
 
   console.log(DATA);
 
-  const selectProfile = async (element) => {
-    const data = await fetch(`/${element.value}.json`).then(x => x.json());
+  const getProfile = async (event) => {
+    // const data = await fetch(`/${event.value}.json`).then(x => x.json());
 
-    console.log(data);
+    console.log(event);
   };
 </script>
