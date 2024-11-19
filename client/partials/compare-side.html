@@ -1,12 +1,12 @@
-<div class="card" x-data="{ profile: null }">
-  <select x-on:change="profile = getProfile($event.target.value)">
+<div class="card" x-data="{ data: null }">
+  <select x-on:change="data = getProfile($event.target.value)">
     <option>Competitor</option>
     {{#profiles}}
     <option value="{{profileId}}">{{name}}</option>
     {{/profiles}}
   </select>
 
-  <template x-if="profile !== null">
-    <p x-text="profile.name"></p>
+  <template x-if="data !== null">
+    <p x-text="data.profile.name"></p>
   </template>
 </div>
