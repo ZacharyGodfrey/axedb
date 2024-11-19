@@ -1,4 +1,4 @@
-<div class="card" x-data="{ data: null }">
+<div class="card" x-data="{ data: null, loading: false }">
   <select x-on:change="data = await getProfile($event.target.value)">
     <option>Competitor</option>
     {{#profiles}}
@@ -6,7 +6,11 @@
     {{/profiles}}
   </select>
 
-  <template x-if="data !== null">
+  <template x-if="loading === true">
+    <p>Getting stats...</p>
+  </template>
+
+  <template x-if="loading === false && data !== null">
     <p x-text="data.profile.name"></p>
   </template>
 </div>
