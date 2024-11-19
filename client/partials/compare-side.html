@@ -1,4 +1,10 @@
 <div class="card" x-data="{ profiles: DATA.profiles, profile: null }">
+  <select>
+    {{#profiles}}
+    <option value="{{profileId}}">{{name}}</option>
+    {{/profiles}}
+  </select>
+
   <p x-show="profile === null">Select a profile.</p>
 
   <div x-show="profile !== null">
