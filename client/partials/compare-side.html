@@ -1,5 +1,5 @@
 <div class="card">
-  <select onchange="selectProfile">
+  <select onchange="selectProfile(this)">
     <option>Competitor</option>
     {{#profiles}}
     <option value="{{profileId}}">{{name}}</option>
