@@ -9,7 +9,7 @@ description: "Compare competitors side-by-side."
 
 ## Compare
 
-<div class="grid stack fill-2 items-y-stretch" x-data="DATA">
+<div class="grid stack fill-2 items-y-stretch">
   <div>{{>compareSide}}</div>
   <div>{{>compareSide}}</div>
 </div>
@@ -21,9 +21,9 @@ section)
 
   console.log(DATA);
 
-  const selectProfile = (element) => {
-    const profileId = element.value;
+  const selectProfile = async (element) => {
+    const data = await fetch(`/${element.value}.json`).then(x => x.json());
 
-    console.log(profileId);
+    console.log(data);
   };
 </script>
