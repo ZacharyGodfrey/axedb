@@ -65,6 +65,7 @@ export const renderPage = await (async () => {
     siteHeader: prepareHtmlPartial(readFile('client/partials/site-header.html')),
     profileHeader: prepareHtmlPartial(readFile('client/partials/profile-header.html')),
     stats: prepareHtmlPartial(readFile('client/partials/stats.html')),
+    compareSide: prepareHtmlPartial(readFile('client/partials/compare-side.html')),
   };
 
   return (template, data) => pipe(template, [
@@ -170,6 +171,17 @@ export const writeSimplePages = (data) => {
   }
 
   console.log('Done.');
+};
+
+
+const writeComparePage = (profiles) => {
+  const content = readFile('client/pages/compare.md');
+  const data = { profiles };
+
+  renderAndWritePage('compare.html', content, {
+    ...data,
+    json: JSON.stringify(data)
+  });
 };
 
 const profileTemplate = readFile('client/templates/profile.md');
