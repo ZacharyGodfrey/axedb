@@ -1,3 +1,7 @@
-<div class="card">
-  <p>TBD</p>
+<div class="card" x-data="{ profiles: DATA.profiles, profile: null }">
+  <p x-show="profile === null">Select a profile.</p>
+
+  <div x-show="profile !== null">
+    <p x-text="profile.name"></p>
+  </div>
 </div>

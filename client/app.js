@@ -173,7 +173,6 @@ export const writeSimplePages = (data) => {
   console.log('Done.');
 };
 
-
 export const writeComparePage = (profiles) => {
   const content = readFile('client/pages/compare.md');
   const data = { profiles };
