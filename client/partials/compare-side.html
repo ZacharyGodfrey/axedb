@@ -1,5 +1,5 @@
 <div class="card" x-data="{ data: null }">
-  <select x-on:change="data = getProfile($event.target.value)">
+  <select x-on:change="data = await getProfile($event.target.value)">
     <option>Competitor</option>
     {{#profiles}}
     <option value="{{profileId}}">{{name}}</option>
