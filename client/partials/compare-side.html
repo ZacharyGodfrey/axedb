@@ -1,6 +1,6 @@
 <div class="card" x-data="{ data: null, loading: false }">
   <select x-on:change="loading = true; data = await getProfile($event.target.value); loading = false;">
-    <option>Competitor</option>
+    <option value="">Competitor</option>
     {{#profiles}}
     <option value="{{profileId}}">{{name}}</option>
     {{/profiles}}
