@@ -20,18 +20,6 @@ description: "Compare competitors side-by-side."
             <option value="{{profileId}}">{{name}}</option>
             {{/profiles}}
           </select>
-        </th>
-        <th colspan="2" x-data="right">
-          <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
-            <option value="">Competitor</option>
-            {{#profiles}}
-            <option value="{{profileId}}">{{name}}</option>
-            {{/profiles}}
-          </select>
-        </th>
-      </tr>
-      <tr>
-        <th colspan="2" x-data="left">
           <select x-on:change="stats = getStats(data, $event.target.value)">
             <option value="">Career</option>
             <optgroup label="Seasons">
@@ -42,6 +30,12 @@ description: "Compare competitors side-by-side."
           </select>
         </th>
         <th colspan="2" x-data="right">
+          <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
+            <option value="">Competitor</option>
+            {{#profiles}}
+            <option value="{{profileId}}">{{name}}</option>
+            {{/profiles}}
+          </select>
           <select x-on:change="stats = getStats(data, $event.target.value)">
             <option value="">Career</option>
             <optgroup label="Seasons">
