@@ -6,10 +6,6 @@
     {{/profiles}}
   </select>
 
-  <template x-if="loading === false && data === null">
-    <p>Select a competitor.</p>
-  </template>
-
   <template x-if="loading === false && data !== null">
     <select>
       <option>Season</option>
@@ -17,5 +13,9 @@
         <option x-bind:value="season.seasonId" x-text="season.name"></option>
       </template>
     </select>
+  </template>
+
+  <template x-if="loading === false && data === null">
+    <p>Select a competitor.</p>
   </template>
 </div>
