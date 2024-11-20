@@ -15,7 +15,7 @@ description: "Compare competitors side-by-side."
       <tr>
         <th colspan="2" x-data="left">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
-            <option value=""></option>
+            <option value="">Competitor</option>
             {{#profiles}}
             <option value="{{profileId}}">{{name}}</option>
             {{/profiles}}
@@ -23,7 +23,7 @@ description: "Compare competitors side-by-side."
         </th>
         <th colspan="2" x-data="right">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
-            <option value=""></option>
+            <option value="">Competitor</option>
             {{#profiles}}
             <option value="{{profileId}}">{{name}}</option>
             {{/profiles}}
