@@ -56,9 +56,9 @@ description: "Compare competitors side-by-side."
           <th x-text="right.data?.profile?.name" colspan="2"></th>
         </tr>
         <tr>
-          <th x-text="left.stats.hatchet.bullseye.percent.5"></th>
+          <th x-text="left.stats.hatchet.bullseye.percent[5]"></th>
           <th colspan="2">Hatchet Bullseye %</th>
-          <th x-text="right.stats.hatchet.bullseye.percent.5"></th>
+          <th x-text="right.stats.hatchet.bullseye.percent[5]"></th>
         </tr>
       </tbody>
     </table>
