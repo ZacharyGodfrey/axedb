@@ -20,7 +20,7 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-show="data?.seasons?.length > 0">
+      <select>
         <option value="">Career</option>
         <template x-for="season in data?.seasons || []">
           <option x-bind:value="season.seasonId" x-text="season.name"></option>
@@ -36,11 +36,13 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-show="data?.seasons?.length > 0">
+      <select>
         <option value="">Career</option>
-        <template x-for="season in data?.seasons || []">
-          <option x-bind:value="season.seasonId" x-text="season.name"></option>
-        </template>
+        <optgroup label="Seasons">
+          <template x-for="season in data?.seasons || []">
+            <option x-bind:value="season.seasonId" x-text="season.name"></option>
+          </template>
+        </optgroup>
       </select>
     </div>
   </div>
