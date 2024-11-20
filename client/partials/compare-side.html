@@ -6,6 +6,10 @@
     {{/profiles}}
   </select>
 
+  <template x-if="loading === false && data === null">
+    <p>Select a competitor.</p>
+  </template>
+
   <template x-if="loading === false && data !== null">
     <select>
       <option>Season</option>
