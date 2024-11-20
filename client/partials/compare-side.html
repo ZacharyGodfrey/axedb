@@ -1,4 +1,4 @@
-<div x-data="{ data: null }">
+<div x-data="{ data: null }" x-cloak>
   <div class="card">
     <select x-on:change="data = await getProfile($event.target.value);">
       <option value="">Competitor</option>
