@@ -9,75 +9,73 @@ description: "Compare competitors side-by-side."
 
 ## Compare
 
-<div x-data="STATE" x-cloak>
-  <div class="grid stack fill-2 items-y-stretch">
-    <div class="card" x-data="left">
-      <p>Competitor:</p>
-      <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
-        <option value=""></option>
-        {{#profiles}}
-        <option value="{{profileId}}">{{name}}</option>
-        {{/profiles}}
-      </select>
-      <p>Time Frame:</p>
-      <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
-        <option value="">Career</option>
-        <optgroup label="Seasons">
-          <template x-for="season in data?.seasons || []">
-            <option x-bind:value="season.seasonId" x-text="season.name"></option>
-          </template>
-        </optgroup>
-      </select>
-    </div>
-    <div class="card" x-data="right">
-      <p>Competitor:</p>
-      <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
-        <option value=""></option>
-        {{#profiles}}
-        <option value="{{profileId}}">{{name}}</option>
-        {{/profiles}}
-      </select>
-      <p>Time Frame:</p>
-      <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
-        <option value="">Career</option>
-        <optgroup label="Seasons">
-          <template x-for="season in data?.seasons || []">
-            <option x-bind:value="season.seasonId" x-text="season.name"></option>
-          </template>
-        </optgroup>
-      </select>
-    </div>
-  </div>
-  <div class="card" x-show="left.stats !== null && right.stats !== null">
-    <table class="fixed">
-      <tbody>
-        <tr>
-          <th x-text="left.data?.profile?.name" colspan="2"></th>
-          <th x-text="right.data?.profile?.name" colspan="2"></th>
-        </tr>
-        <tr>
-          <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
-          <th colspan="2">Hatchet Bullseye SPA</th>
-          <th x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></th>
-        </tr>
-        <tr>
-          <th x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></th>
-          <th colspan="2">Hatchet Clutch SPA</th>
-          <th x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></th>
-        </tr>
-        <tr>
-          <th x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
-          <th colspan="2">Big Axe Bullseye SPA</th>
-          <th x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
-        </tr>
-        <tr>
-          <th x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></th>
-          <th colspan="2">Big Axe Clutch SPA</th>
-          <th x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></th>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card" x-data="STATE" x-cloak>
+  <table class="fixed">
+    <tbody>
+      <tr>
+        <th colspan="2" x-data="left">
+          <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
+            <option value=""></option>
+            {{#profiles}}
+            <option value="{{profileId}}">{{name}}</option>
+            {{/profiles}}
+          </select>
+        </th>
+        <th colspan="2" x-data="right">
+          <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
+            <option value=""></option>
+            {{#profiles}}
+            <option value="{{profileId}}">{{name}}</option>
+            {{/profiles}}
+          </select>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2" x-data="left">
+          <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
+            <option value="">Career</option>
+            <optgroup label="Seasons">
+              <template x-for="season in data?.seasons || []">
+                <option x-bind:value="season.seasonId" x-text="season.name"></option>
+              </template>
+            </optgroup>
+          </select>
+        </th>
+        <th colspan="2" x-data="right">
+          <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
+            <option value="">Career</option>
+            <optgroup label="Seasons">
+              <template x-for="season in data?.seasons || []">
+                <option x-bind:value="season.seasonId" x-text="season.name"></option>
+              </template>
+            </optgroup>
+          </select>
+        </th>
+      </tr>
+    </tbody>
+    <tbody x-show="left.stats !== null && right.stats !== null">
+      <tr>
+        <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+        <th colspan="2">Hatchet Bullseye SPA</th>
+        <th x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+      </tr>
+      <tr>
+        <th x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></th>
+        <th colspan="2">Hatchet Clutch SPA</th>
+        <th x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></th>
+      </tr>
+      <tr>
+        <th x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+        <th colspan="2">Big Axe Bullseye SPA</th>
+        <th x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+      </tr>
+      <tr>
+        <th x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></th>
+        <th colspan="2">Big Axe Clutch SPA</th>
+        <th x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></th>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 section)
