@@ -9,11 +9,11 @@ description: "Compare competitors side-by-side."
 
 ## Compare
 
-<div x-data="{ left: { data: null, stats: null }, right: { data: null, stats: null } }" x-cloak>
+<div x-data="STATE" x-cloak>
   <div class="grid stack fill-2 items-y-stretch">
     <div class="card" x-data="left">
       <p>Competitor:</p>
-      <select x-on:change="data = await getProfile($event.target.value); stats = getStats(data, '')">
+      <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
         <option value=""></option>
         {{#profiles}}
         <option value="{{profileId}}">{{name}}</option>
@@ -31,7 +31,7 @@ description: "Compare competitors side-by-side."
     </div>
     <div class="card" x-data="right">
       <p>Competitor:</p>
-      <select x-on:change="data = await getProfile($event.target.value); stats = getStats(data, '')">
+      <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
         <option value=""></option>
         {{#profiles}}
         <option value="{{profileId}}">{{name}}</option>
@@ -63,31 +63,24 @@ section)
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <script>
-  const DATA = {{{json}}};
-
-  console.log(DATA);
-
-  const getProfile = async (profileId) => {
-    console.log(profileId);
-
-    if (!profileId) {
-      return null;
+  const STATE = {
+    left: {
+      data: null,
+      stats: null
+    },
+    right: {
+      data: null,
+      stats: null
     }
-
-    const data = await fetch(`/${profileId}.json`).then(x => x.json());
-
-    console.log(data);
-
-    return data;
   };
+
+  const getData = async (profileId) => {
+    return await fetch(`/${profileId}.json`).then(x => x.json()).catch(() => null);
+  }
 
   const getStats = (data, seasonId) => {
-    if (!seasonId) {
-      return data.stats;
-    }
+    const timeFrame = !seasonId ? data : data.seasons.find(x => `${x.seasonId}` === seasonId);
 
-    const season = data.seasons.find(x => `${x.seasonId}` === seasonId);
-
-    return season?.stats;
-  };
+    return timeFrame?.stats ?? null;
+  }
 </script>
