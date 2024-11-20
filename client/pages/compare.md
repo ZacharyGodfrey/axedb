@@ -11,7 +11,7 @@ description: "Compare competitors side-by-side."
 
 <div class="card" x-data="compare" x-cloak>
   <table class="fixed">
-    <tbody>
+    <tbody id="selection-rows">
       <tr>
         <th colspan="2" x-data="left">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
@@ -53,7 +53,7 @@ description: "Compare competitors side-by-side."
         </th>
       </tr>
     </tbody>
-    <tbody x-show="left.stats !== null && right.stats !== null">
+    <tbody id="data-rows" x-show="left.stats !== null && right.stats !== null">
       <tr>
         <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
         <th colspan="2">Hatchet Bullseye SPA</th>
