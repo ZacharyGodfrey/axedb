@@ -9,7 +9,7 @@ description: "Compare competitors side-by-side."
 
 ## Compare
 
-<div class="card" x-data="STATE" x-cloak>
+<div class="card" x-data="compare" x-cloak>
   <table class="fixed">
     <tbody>
       <tr>
@@ -83,7 +83,7 @@ section)
 <script src="//unpkg.com/alpinejs" defer></script>
 
 <script>
-  const STATE = {
+  const compare = {
     left: {
       data: null,
       stats: null,
