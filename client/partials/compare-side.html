@@ -6,10 +6,6 @@
     {{/profiles}}
   </select>
 
-  <template x-if="loading === true">
-    <p>Getting stats...</p>
-  </template>
-
   <template x-if="loading === false && data !== null">
     <select>
       <option>Season</option>
