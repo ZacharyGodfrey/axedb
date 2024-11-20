@@ -47,23 +47,35 @@ description: "Compare competitors side-by-side."
         </th>
       </tr>
       <tr>
+        <th colspan="4">Hatchet Bullseye</th>
+      </tr>
+      <tr>
         <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
-        <th colspan="2">Hatchet Bullseye SPA</th>
+        <th colspan="2">Score Per Axe</th>
         <th x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></th>
       </tr>
       <tr>
+        <th colspan="4">Hatchet Clutch</th>
+      </tr>
+      <tr>
         <th x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></th>
-        <th colspan="2">Hatchet Clutch SPA</th>
+        <th colspan="2">Score Per Axe</th>
         <th x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></th>
       </tr>
       <tr>
+        <th colspan="4">Big Axe Bullseye</th>
+      </tr>
+      <tr>
         <th x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
-        <th colspan="2">Big Axe Bullseye SPA</th>
+        <th colspan="2">Score Per Axe</th>
         <th x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
       </tr>
       <tr>
+        <th colspan="4">Big Axe Clutch</th>
+      </tr>
+      <tr>
         <th x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></th>
-        <th colspan="2">Big Axe Clutch SPA</th>
+        <th colspan="2">Score Per Axe</th>
         <th x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></th>
       </tr>
     </tbody>
