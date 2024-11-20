@@ -1,21 +1,17 @@
-<div class="card" x-data="{ data: null, loading: false }">
-  <select x-on:change="loading = true; data = await getProfile($event.target.value); loading = false;">
-    <option value="">Competitor</option>
-    {{#profiles}}
-    <option value="{{profileId}}">{{name}}</option>
-    {{/profiles}}
-  </select>
+<div x-data="{ data: null }">
+  <div class="card">
+    <select x-on:change="data = await getProfile($event.target.value);">
+      <option value="">Competitor</option>
+      {{#profiles}}
+      <option value="{{profileId}}">{{name}}</option>
+      {{/profiles}}
+    </select>
 
-  <template x-if="loading === false && data !== null">
-    <select>
-      <option>Season</option>
-      <template x-for="season in data.seasons">
+    <select x-show="data?.seasons?.length > 0">
+      <option value="">Season</option>
+      <template x-for="season in data?.seasons || []">
         <option x-bind:value="season.seasonId" x-text="season.name"></option>
       </template>
     </select>
-  </template>
-
-  <template x-if="loading === false && data === null">
-    <p>Select a competitor.</p>
-  </template>
+  </div>
 </div>

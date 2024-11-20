@@ -10,8 +10,9 @@ description: "Compare competitors side-by-side."
 ## Compare
 
 <div class="grid stack fill-2 items-y-stretch">
-  <div>{{>compareSide}}</div>
-  <div>{{>compareSide}}</div>
+  {{>compareSide}}
+
+  {{>compareSide}}
 </div>
 
 section)
