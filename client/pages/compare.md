@@ -47,7 +47,7 @@ description: "Compare competitors side-by-side."
         </th>
       </tr>
     </thead>
-    <tbody x-show="left.stats !== null && right.stats !== null">
+    <tbody class="text-center" x-show="left.stats !== null && right.stats !== null">
       <tr>
         <th colspan="4">Hatchet Bullseye</th>
       </tr>
