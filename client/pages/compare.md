@@ -48,18 +48,21 @@ description: "Compare competitors side-by-side."
       </select>
     </div>
   </div>
-  <table x-show="left.stats !== null && right.stats !== null">
-    <tbody>
-      <tr>
-        <th x-text="left.data?.profile?.name"></th>
-        <th x-text="right.data?.profile?.name"></th>
-      </tr>
-      <tr>
-        <th x-text="left.timeFrame"></th>
-        <th x-text="right.timeFrame"></th>
-      </tr>
-    </tbody>
-  </table>
+  <div class="card">
+    <table x-show="left.stats !== null && right.stats !== null">
+      <tbody>
+        <tr>
+          <th x-text="left.data?.profile?.name" colspan="2"></th>
+          <th x-text="right.data?.profile?.name" colspan="2"></th>
+        </tr>
+        <tr>
+          <th x-text="left.stats.hatchet.bullseye.percent.5"></th>
+          <th colspan="2">Hatchet Bullseye %</th>
+          <th x-text="right.stats.hatchet.bullseye.percent.5"></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 section)
