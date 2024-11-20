@@ -166,6 +166,10 @@ table {
   border: var(--line) solid var(--text);
 }
 
+table.fixed {
+  table-layout: fixed;
+}
+
 thead, th {
   color: var(--dark);
   background: var(--medium);

@@ -49,7 +49,7 @@ description: "Compare competitors side-by-side."
     </div>
   </div>
   <div class="card" x-show="left.stats !== null && right.stats !== null">
-    <table>
+    <table class="fixed">
       <tbody>
         <tr>
           <th x-text="left.data?.profile?.name" colspan="2"></th>
