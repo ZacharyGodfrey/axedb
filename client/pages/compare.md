@@ -11,9 +11,9 @@ description: "Compare competitors side-by-side."
 
 <div class="card" x-data="compare" x-cloak>
   <table class="fixed">
-    <tbody>
+    <thead>
       <tr>
-        <th colspan="2" x-data="left">
+        <td colspan="2" x-data="left">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
             <option value="">Competitor</option>
             {{#profiles}}
@@ -28,8 +28,8 @@ description: "Compare competitors side-by-side."
               </template>
             </optgroup>
           </select>
-        </th>
-        <th colspan="2" x-data="right">
+        </td>
+        <td colspan="2" x-data="right">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
             <option value="">Competitor</option>
             {{#profiles}}
@@ -44,39 +44,41 @@ description: "Compare competitors side-by-side."
               </template>
             </optgroup>
           </select>
-        </th>
+        </td>
       </tr>
+    </thead>
+    <tbody x-show="left.stats !== null && right.stats !== null">
       <tr>
         <th colspan="4">Hatchet Bullseye</th>
       </tr>
       <tr>
-        <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+        <td x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></td>
         <th colspan="2">Score Per Axe</th>
-        <th x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+        <td x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></td>
       </tr>
       <tr>
         <th colspan="4">Hatchet Clutch</th>
       </tr>
       <tr>
-        <th x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></th>
+        <td x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></td>
         <th colspan="2">Score Per Axe</th>
-        <th x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></th>
+        <td x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Bullseye</th>
       </tr>
       <tr>
-        <th x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+        <td x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></td>
         <th colspan="2">Score Per Axe</th>
-        <th x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Clutch</th>
       </tr>
       <tr>
-        <th x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></th>
+        <td x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></td>
         <th colspan="2">Score Per Axe</th>
-        <th x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></th>
+        <td x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></td>
       </tr>
     </tbody>
   </table>
