@@ -20,7 +20,7 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-on:change="stats = getStats(data, $event.target.value)">
+      <select x-on:change="timeFrame = $event.target.value; stats = getStats(data, $event.target.value)">
         <option value="">Career</option>
         <optgroup label="Seasons">
           <template x-for="season in data?.seasons || []">
@@ -38,7 +38,7 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-on:change="stats = getStats(data, $event.target.value)">
+      <select x-on:change="timeFrame = $event.target.value; stats = getStats(data, $event.target.value)">
         <option value="">Career</option>
         <optgroup label="Seasons">
           <template x-for="season in data?.seasons || []">
@@ -54,6 +54,10 @@ description: "Compare competitors side-by-side."
         <th x-text="left.data.profile.name"></th>
         <th x-text="right.data.profile.name"></th>
       </tr>
+      <tr>
+        <th x-text="left.timeFrame || 'Career'"></th>
+        <th x-text="right.timeFrame || 'Career'"></th>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -66,11 +70,13 @@ section)
   const STATE = {
     left: {
       data: null,
-      stats: null
+      stats: null,
+      timeFrame: ''
     },
     right: {
       data: null,
-      stats: null
+      stats: null,
+      timeFrame: ''
     }
   };
 
