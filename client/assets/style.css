@@ -182,7 +182,7 @@ thead tr:not(:has(th:not(:empty))) {
 
 select {
   display: block;
-  width: clamp(10rem, 100%, 20rem);
+  width: clamp(10rem, 100%, var(--content-width) / 2);
   padding: 0.5rem;
   font-family: 'custom', monospace;
   font-size: 1rem;
