@@ -9,10 +9,41 @@ description: "Compare competitors side-by-side."
 
 ## Compare
 
-<div class="grid stack fill-2 items-y-stretch">
-  {{>compareSide}}
-
-  {{>compareSide}}
+<div x-data="{ left: { data: null }, right: { data: null } }" x-cloak>
+  <div class="grid stack fill-2 items-y-stretch">
+    <div class="card" x-data="left">
+      <p>Competitor:</p>
+      <select x-on:change="data = await getProfile($event.target.value);">
+        <option value=""></option>
+        {{#profiles}}
+        <option value="{{profileId}}">{{name}}</option>
+        {{/profiles}}
+      </select>
+      <p>Time Frame:</p>
+      <select x-show="data?.seasons?.length > 0">
+        <option value="">Career</option>
+        <template x-for="season in data?.seasons || []">
+          <option x-bind:value="season.seasonId" x-text="season.name"></option>
+        </template>
+      </select>
+    </div>
+    <div class="card" x-data="right">
+      <p>Competitor:</p>
+      <select x-on:change="data = await getProfile($event.target.value);">
+        <option value=""></option>
+        {{#profiles}}
+        <option value="{{profileId}}">{{name}}</option>
+        {{/profiles}}
+      </select>
+      <p>Time Frame:</p>
+      <select x-show="data?.seasons?.length > 0">
+        <option value="">Career</option>
+        <template x-for="season in data?.seasons || []">
+          <option x-bind:value="season.seasonId" x-text="season.name"></option>
+        </template>
+      </select>
+    </div>
+  </div>
 </div>
 
 section)
