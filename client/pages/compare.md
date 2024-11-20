@@ -32,7 +32,7 @@ description: "Compare competitors side-by-side."
       </tr>
       <tr>
         <th colspan="2" x-data="left">
-          <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
+          <select x-on:change="stats = getStats(data, $event.target.value)">
             <option value="">Career</option>
             <optgroup label="Seasons">
               <template x-for="season in data?.seasons || []">
@@ -42,7 +42,7 @@ description: "Compare competitors side-by-side."
           </select>
         </th>
         <th colspan="2" x-data="right">
-          <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
+          <select x-on:change="stats = getStats(data, $event.target.value)">
             <option value="">Career</option>
             <optgroup label="Seasons">
               <template x-for="season in data?.seasons || []">
@@ -84,13 +84,11 @@ section)
   const compare = {
     left: {
       data: null,
-      stats: null,
-      timeFrame: 'Career'
+      stats: null
     },
     right: {
       data: null,
-      stats: null,
-      timeFrame: 'Career'
+      stats: null
     }
   };
 
@@ -102,15 +100,5 @@ section)
     const timeFrame = !seasonId ? data : data.seasons.find(x => `${x.seasonId}` === seasonId);
 
     return timeFrame?.stats ?? null;
-  };
-
-  const getTimeFrame = (data, seasonId) => {
-    if (!seasonId) {
-      return 'Career';
-    }
-
-    const season = data.seasons.find(x => `${x.seasonId}` === seasonId);
-
-    return season.name;
   };
 </script>
