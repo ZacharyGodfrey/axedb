@@ -182,6 +182,7 @@ thead tr:not(:has(th:not(:empty))) {
 
 select {
   display: block;
+  width: clamp(10rem, 100%, 20rem);
   padding: 0.5rem;
   font-family: 'custom', monospace;
   border: 1px solid var(--primary);
@@ -211,7 +212,10 @@ select {
   align-content: start; /* row spacing Y */
 }
 
-.grid > * { margin: 0 !important; }
+.grid > * {
+  width: 100%;
+  margin: 0 !important;
+}
 
 .grid.no-gap, .grid.no-gap-x { column-gap: 0; }
 .grid.no-gap, .grid.no-gap-y { row-gap: 0; }
