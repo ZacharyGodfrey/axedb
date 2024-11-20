@@ -56,9 +56,24 @@ description: "Compare competitors side-by-side."
           <th x-text="right.data?.profile?.name" colspan="2"></th>
         </tr>
         <tr>
-          <th x-text="left.stats?.hatchet?.bullseye?.percent[5]"></th>
-          <th colspan="2">Hatchet Bullseye %</th>
-          <th x-text="right.stats?.hatchet?.bullseye?.percent[5]"></th>
+          <th x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+          <th colspan="2">Hatchet Bullseye SPA</th>
+          <th x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></th>
+        </tr>
+        <tr>
+          <th x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></th>
+          <th colspan="2">Hatchet Clutch SPA</th>
+          <th x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></th>
+        </tr>
+        <tr>
+          <th x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+          <th colspan="2">Big Axe Bullseye SPA</th>
+          <th x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></th>
+        </tr>
+        <tr>
+          <th x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></th>
+          <th colspan="2">Big Axe Clutch SPA</th>
+          <th x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></th>
         </tr>
       </tbody>
     </table>
