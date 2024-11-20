@@ -48,8 +48,8 @@ description: "Compare competitors side-by-side."
       </select>
     </div>
   </div>
-  <div class="card">
-    <table x-show="left.stats !== null && right.stats !== null">
+  <div class="card" x-show="left.stats !== null && right.stats !== null">
+    <table>
       <tbody>
         <tr>
           <th x-text="left.data?.profile?.name" colspan="2"></th>
