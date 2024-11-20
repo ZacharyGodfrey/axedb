@@ -13,7 +13,7 @@ description: "Compare competitors side-by-side."
   <table class="fixed">
     <thead>
       <tr>
-        <td colspan="2" x-data="left">
+        <th colspan="2" x-data="left">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
             <option value="">Competitor</option>
             {{#profiles}}
@@ -28,8 +28,8 @@ description: "Compare competitors side-by-side."
               </template>
             </optgroup>
           </select>
-        </td>
-        <td colspan="2" x-data="right">
+        </th>
+        <th colspan="2" x-data="right">
           <select x-on:change="data = await getData($event.target.value); stats = getStats(data, '')">
             <option value="">Competitor</option>
             {{#profiles}}
@@ -44,7 +44,7 @@ description: "Compare competitors side-by-side."
               </template>
             </optgroup>
           </select>
-        </td>
+        </th>
       </tr>
     </thead>
     <tbody x-show="left.stats !== null && right.stats !== null">
