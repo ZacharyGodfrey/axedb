@@ -20,7 +20,7 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-on:change="timeFrame = getTimeFrame($event.target.value); stats = getStats(data, $event.target.value)">
+      <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
         <option value="">Career</option>
         <optgroup label="Seasons">
           <template x-for="season in data?.seasons || []">
@@ -38,7 +38,7 @@ description: "Compare competitors side-by-side."
         {{/profiles}}
       </select>
       <p>Time Frame:</p>
-      <select x-on:change="timeFrame = getTimeFrame($event.target.value); stats = getStats(data, $event.target.value)">
+      <select x-on:change="timeFrame = getTimeFrame(data, $event.target.value); stats = getStats(data, $event.target.value)">
         <option value="">Career</option>
         <optgroup label="Seasons">
           <template x-for="season in data?.seasons || []">
@@ -51,8 +51,8 @@ description: "Compare competitors side-by-side."
   <table x-show="left.stats !== null && right.stats !== null">
     <tbody>
       <tr>
-        <th x-text="left.data.profile.name"></th>
-        <th x-text="right.data.profile.name"></th>
+        <th x-text="left.data?.profile?.name"></th>
+        <th x-text="right.data?.profile?.name"></th>
       </tr>
       <tr>
         <th x-text="left.timeFrame"></th>
@@ -84,7 +84,13 @@ section)
     return await fetch(`/${profileId}.json`).then(x => x.json()).catch(() => null);
   };
 
-  const getTimeFrame = (seasonId) => {
+  const getStats = (data, seasonId) => {
+    const timeFrame = !seasonId ? data : data.seasons.find(x => `${x.seasonId}` === seasonId);
+
+    return timeFrame?.stats ?? null;
+  };
+
+  const getTimeFrame = (data, seasonId) => {
     if (!seasonId) {
       return 'Career';
     }
@@ -92,11 +98,5 @@ section)
     const season = data.seasons.find(x => `${x.seasonId}` === seasonId);
 
     return season.name;
-  };
-
-  const getStats = (data, seasonId) => {
-    const timeFrame = !seasonId ? data : data.seasons.find(x => `${x.seasonId}` === seasonId);
-
-    return timeFrame?.stats ?? null;
   };
 </script>
