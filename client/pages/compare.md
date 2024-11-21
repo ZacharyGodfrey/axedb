@@ -70,6 +70,16 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.percent[5]"></td>
+        <th colspan="2">Touch Clutch %</th>
+        <td x-text="right.stats?.hatchet?.clutch?.percent[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.percent[7]"></td>
+        <th colspan="2">Premier Clutch %</th>
+        <td x-text="right.stats?.hatchet?.clutch?.percent[7]"></td>
+      </tr>
+      <tr>
         <th colspan="4">Big Axe Bullseye</th>
       </tr>
       <tr>
@@ -78,12 +88,27 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.bigAxe?.bullseye?.percent[5]"></td>
+        <th colspan="2">Bullseye %</th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.percent[5]"></td>
+      </tr>
+      <tr>
         <th colspan="4">Big Axe Clutch</th>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></td>
         <th colspan="2">Score Per Axe</th>
         <td x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.percent[5]"></td>
+        <th colspan="2">Touch Clutch %</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.percent[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.percent[7]"></td>
+        <th colspan="2">Premier Clutch %</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.percent[7]"></td>
       </tr>
     </tbody>
   </table>
