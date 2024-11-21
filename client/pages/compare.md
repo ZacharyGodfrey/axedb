@@ -57,6 +57,11 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.percent[5]"></td>
+        <th colspan="2">Bullseye %</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.percent[5]"></td>
+      </tr>
+      <tr>
         <th colspan="4">Hatchet Clutch</th>
       </tr>
       <tr>
