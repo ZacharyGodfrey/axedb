@@ -15,18 +15,6 @@ section)
 
 (section
 
-{{#stats}}
-
-## Season Stats
-
-{{>stats}}
-
-{{/stats}}
-
-section)
-
-(section
-
 ## Season Details
 
 (card
@@ -38,6 +26,22 @@ section)
 {{name}}
 
 card)
+
+section)
+
+(section
+
+{{#stats}}
+
+## Season Stats
+
+{{>stats}}
+
+{{/stats}}
+
+section)
+
+(section
 
 ## Weeks
 
