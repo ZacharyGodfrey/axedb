@@ -194,6 +194,10 @@ select {
   border-radius: 0.25rem;
 }
 
+details {}
+
+details > summary {}
+
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
