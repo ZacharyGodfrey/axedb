@@ -65,6 +65,7 @@ export const renderPage = await (async () => {
     siteHeader: prepareHtmlPartial(readFile('client/partials/site-header.html')),
     profileHeader: prepareHtmlPartial(readFile('client/partials/profile-header.html')),
     stats: prepareHtmlPartial(readFile('client/partials/stats.html')),
+    week: prepareHtmlPartial(readFile('client/partials/week.html')),
   };
 
   return (template, data) => pipe(template, [
