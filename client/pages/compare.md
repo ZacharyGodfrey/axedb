@@ -82,6 +82,11 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.bullseye?.count[0]"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.attempts"></td>
+        <th colspan="2">Attempts</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.attempts"></td>
+      </tr>
+      <tr>
         <th colspan="4">Hatchet Clutch</th>
       </tr>
       <tr>
@@ -113,6 +118,11 @@ description: "Compare competitors side-by-side."
         <td x-text="left.stats?.hatchet?.clutch?.count[0]"></td>
         <th colspan="2">0</th>
         <td x-text="right.stats?.hatchet?.clutch?.count[0]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.attempts"></td>
+        <th colspan="2">Attempts</th>
+        <td x-text="right.stats?.hatchet?.clutch?.attempts"></td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Bullseye</th>
@@ -148,6 +158,11 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.bigAxe?.bullseye?.count[0]"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.bigAxe?.hatchet?.attempts"></td>
+        <th colspan="2">Attempts</th>
+        <td x-text="right.stats?.bigAxe?.hatchet?.attempts"></td>
+      </tr>
+      <tr>
         <th colspan="4">Big Axe Clutch</th>
       </tr>
       <tr>
@@ -179,6 +194,11 @@ description: "Compare competitors side-by-side."
         <td x-text="left.stats?.bigAxe?.clutch?.count[0]"></td>
         <th colspan="2">0</th>
         <td x-text="right.stats?.bigAxe?.clutch?.count[0]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.attempts"></td>
+        <th colspan="2">Attempts</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.attempts"></td>
       </tr>
     </tbody>
   </table>
