@@ -62,6 +62,26 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.bullseye?.percent[5]"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.count[5]"></td>
+        <th colspan="2">5</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.count[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.count[3]"></td>
+        <th colspan="2">3</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.count[3]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.count[1]"></td>
+        <th colspan="2">1</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.count[1]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.count[0]"></td>
+        <th colspan="2">0</th>
+        <td x-text="right.stats?.hatchet?.bullseye?.count[0]"></td>
+      </tr>
+      <tr>
         <th colspan="4">Hatchet Clutch</th>
       </tr>
       <tr>
@@ -80,6 +100,21 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.clutch?.percent[7]"></td>
       </tr>
       <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.count[7]"></td>
+        <th colspan="2">7</th>
+        <td x-text="right.stats?.hatchet?.clutch?.count[7]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.count[5]"></td>
+        <th colspan="2">5</th>
+        <td x-text="right.stats?.hatchet?.clutch?.count[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.count[0]"></td>
+        <th colspan="2">0</th>
+        <td x-text="right.stats?.hatchet?.clutch?.count[0]"></td>
+      </tr>
+      <tr>
         <th colspan="4">Big Axe Bullseye</th>
       </tr>
       <tr>
@@ -91,6 +126,26 @@ description: "Compare competitors side-by-side."
         <td x-text="left.stats?.bigAxe?.bullseye?.percent[5]"></td>
         <th colspan="2">Bullseye %</th>
         <td x-text="right.stats?.bigAxe?.bullseye?.percent[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.bullseye?.count[5]"></td>
+        <th colspan="2">5</th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.count[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.bullseye?.count[3]"></td>
+        <th colspan="2">3</th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.count[3]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.bullseye?.count[1]"></td>
+        <th colspan="2">1</th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.count[1]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.bullseye?.count[0]"></td>
+        <th colspan="2">0</th>
+        <td x-text="right.stats?.bigAxe?.bullseye?.count[0]"></td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Clutch</th>
@@ -109,6 +164,21 @@ description: "Compare competitors side-by-side."
         <td x-text="left.stats?.bigAxe?.clutch?.percent[7]"></td>
         <th colspan="2">Premier Clutch %</th>
         <td x-text="right.stats?.bigAxe?.clutch?.percent[7]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.count[7]"></td>
+        <th colspan="2">7</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.count[7]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.count[5]"></td>
+        <th colspan="2">5</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.count[5]"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.count[0]"></td>
+        <th colspan="2">0</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.count[0]"></td>
       </tr>
     </tbody>
   </table>
