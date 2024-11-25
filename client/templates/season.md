@@ -47,18 +47,6 @@ card)
 
 {{/weeks}}
 
-## Matches
-
-(card
-
-{{#matches}}
-
-=> [Match {{matchId}}](m/{{matchId}})
-
-{{/matches}}
-
-card)
-
 section)
 
 {{/season}}
