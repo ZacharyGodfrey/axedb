@@ -43,7 +43,14 @@ card)
 
 {{#weeks}}
 
-{{>week}}
+<details>
+  <summary>{{name}}</summary>
+  {{#stats}}
+  <div>
+    {{>stats}}
+  </div>
+  {{/stats}}
+</details>
 
 {{/weeks}}
 
