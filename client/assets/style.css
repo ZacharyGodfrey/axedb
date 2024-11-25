@@ -82,7 +82,7 @@ header, section, footer, .card {
   padding: var(--padding);
 }
 
-h1, h2, h3, h4, h5, h6, p, ul, ol, img, table, hr, select, .card {
+h1, h2, h3, h4, h5, h6, p, ul, ol, img, table, hr, select, details, summary, .card {
   margin-block: var(--margin);
 }
 

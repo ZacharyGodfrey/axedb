@@ -112,30 +112,55 @@ export const buildProfileData = (profileDb, profile) => {
         WHERE m.seasonId = :seasonId
         ORDER BY t.matchId ASC, t.roundId ASC, t.throwId ASC
       `, { seasonId: sRow.seasonId })),
-      matches: []
+      weeks: []
     };
 
-    const matches = profileDb.rows(`
-      SELECT matchId, opponentId
+    const weeks = profileDb.rows(`
+      SELECT DISTINCT weekId
       FROM matches
       WHERE seasonId = :seasonId
-      ORDER BY matchId ASC
+      ORDER BY weekId ASC
     `, { seasonId: sRow.seasonId });
 
-    for (const mRow of matches) {
-      const match = {
-        ...mRow,
+    for (const { weekId } of weeks) {
+      const week = {
+        name: `Week ${weekId}`,
         stats: buildStats(profileDb.rows(`
           SELECT tool, target, score
           FROM throws
-          WHERE matchId = :matchId
-          ORDER BY matchId ASC, roundId ASC, throwId ASC
-        `, { matchId: mRow.matchId })),
-        throws: []
+          WHERE matchId IN (
+            SELECT DISTINCT matchId
+            FROM matches
+            WHERE seasonId = :seasonId AND weekId = :weekId
+          ) ORDER BY matchId ASC, roundId ASC, throwId ASC
+        `, { seasonId: sRow.seasonId, weekId })),
+        matches: []
       };
 
-      season.matches.push(match);
+      season.weeks.push(week);
     }
+
+    // const matches = profileDb.rows(`
+    //   SELECT matchId, opponentId
+    //   FROM matches
+    //   WHERE seasonId = :seasonId
+    //   ORDER BY matchId ASC
+    // `, { seasonId: sRow.seasonId });
+
+    // for (const mRow of matches) {
+    //   const match = {
+    //     ...mRow,
+    //     stats: buildStats(profileDb.rows(`
+    //       SELECT tool, target, score
+    //       FROM throws
+    //       WHERE matchId = :matchId
+    //       ORDER BY matchId ASC, roundId ASC, throwId ASC
+    //     `, { matchId: mRow.matchId })),
+    //     throws: []
+    //   };
+
+    //   season.matches.push(match);
+    // }
 
     career.seasons.push(season);
   }

@@ -39,6 +39,21 @@ section)
 
 card)
 
+## Weeks
+
+{{#weeks}}
+
+<details>
+  <summary>{{name}}</summary>
+  <div>
+    {{#stats}}
+    {{>stats}}
+    {{/stats}}
+  </div>
+</details>
+
+{{/weeks}}
+
 ## Matches
 
 (card
