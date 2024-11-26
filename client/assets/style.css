@@ -5,7 +5,6 @@
 
 :root {
   --primary:   hsl(85 15% 45%);
-  --alternate: hsl(85 15% 40%);
   --accent:    hsl( 0 45% 45%);
   --highlight: hsl(55 75% 75%);
   --light:     hsl(55  5% 98%);
@@ -69,8 +68,8 @@ header {
   --background: var(--dark);
 }
 
-section:nth-child(odd) {
-  --background: var(--alternate);
+section {
+  background: linear-gradient(180deg, hsla(0, 0%, 0%, 5%), transparent);
 }
 
 footer {
