@@ -75,9 +75,10 @@ section {
 footer {
   --text: var(--light);
   --background: var(--dark);
+  padding: calc(4 * var(--padding)) var(--padding);
 }
 
-header, section, footer, .card {
+header, section, .card {
   padding: var(--padding);
 }
 
