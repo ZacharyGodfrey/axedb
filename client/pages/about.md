@@ -7,13 +7,7 @@ description: ""
 
 (section
 
-## About
-
-section)
-
-(section
-
-### Disciplines
+## Disciplines
 
 (card
 
@@ -30,7 +24,7 @@ section)
 
 (section
 
-### Metrics
+## Metrics
 
 (card
 
@@ -42,7 +36,7 @@ section)
 
 (section
 
-### Ranking
+## Ranking
 
 (card
 

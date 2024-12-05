@@ -356,7 +356,7 @@ export const resetInvalidMatches = (mainDb) => {
 
     try {
       const profileDb = database.profile(profileId);
-      const { count } = profileDb.rows(`
+      const { count } = profileDb.row(`
         SELECT COUNT(*) AS count
         FROM matches
         WHERE status = :status
