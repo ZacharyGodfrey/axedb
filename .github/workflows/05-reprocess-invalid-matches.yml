@@ -1,0 +1,21 @@
+name: 05 Reprocess Invalid Matches
+on:
+  workflow_dispatch:
+jobs:
+  reprocess-invalid-matches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: npm install
+      - name: Reprocess Invalid Matches
+        run: npm run reprocess-invalid-matches
+      - name: Commit
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git pull
+          git add .
+          git commit -m "Reprocess Invalid Matches"
+          git push

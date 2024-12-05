@@ -342,6 +342,47 @@ export const processMatches = async (mainDb, page, limit = 0) => {
   console.log('Done.');
 };
 
+export const resetInvalidMatches = (mainDb) => {
+  console.log('**********');
+  console.log('Step: Reset Invalid Matches');
+  console.log('**********');
+
+  const profileIds = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
+
+  let i = 1, total = 0;
+
+  for (const { profileId } of profileIds) {
+    console.log(`Resetting invalid matches for profile ${profileId} (${i} / ${profileIds.length})...`);
+
+    try {
+      const profileDb = database.profile(profileId);
+      const { count } = profileDb.rows(`
+        SELECT COUNT(*) AS count
+        FROM matches
+        WHERE status = :status
+      `, { status: database.enums.matchStatus.invalid });
+
+      console.log(`Marking ${count} invalid matches as new.`);
+
+      total += count;
+
+      profileDb.run(`
+        UPDATE matches
+        SET status = :new
+        WHERE status = :invalid
+      `, database.enums.matchStatus);
+
+      profileDb.close();
+    } catch (error) {
+      logError(error);
+    }
+
+    i++;
+  }
+
+  console.log(`${total} invalid matches have been reset.`);
+};
+
 export const updateRankings = (mainDb) => {
   console.log('**********');
   console.log('Step: Update Rankings');
