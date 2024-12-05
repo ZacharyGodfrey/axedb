@@ -114,6 +114,12 @@ h1 > a {
   text-decoration: none;
 }
 
+abbr {
+  text-decoration: none;
+  font-variant: normal;
+  color: var(--accent);
+}
+
 th, strong {
   font-weight: bold;
 }
