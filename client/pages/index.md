@@ -10,6 +10,18 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 (section
 
+## Global Stats
+
+(card
+
+AxeDB has analyzed **{{stats.throws}}** throws from **{{profiles.length}}** competitors so far.
+
+card)
+
+section)
+
+(section
+
 ## Competitors
 
 {{#profiles}}
@@ -28,7 +40,7 @@ description: "Accuracy stats for IATF Premier axe throwing"
     </h3>
   </div>
   <div>
-    <p>#<strong>{{rank}}</strong> | <strong>{{scorePerAxe}}</strong> SPA</p>
+    <p>#<strong>{{rank}}</strong> | <strong>{{scorePerAxe}}</strong> <abbr title="Score Per Axe">SPA</abbr></p>
   </div>
 </div>
 
