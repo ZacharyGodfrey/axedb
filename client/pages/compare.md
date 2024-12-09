@@ -87,7 +87,7 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.bullseye?.attempts"></td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="4">&nbsp;</td>
       </tr>
       <tr>
         <th colspan="4">Hatchet Clutch</th>
@@ -128,7 +128,7 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.hatchet?.clutch?.attempts"></td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="4">&nbsp;</td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Bullseye</th>
@@ -169,7 +169,7 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.bigAxe?.hatchet?.attempts"></td>
       </tr>
       <tr>
-        <td colspan="4"></td>
+        <td colspan="4">&nbsp;</td>
       </tr>
       <tr>
         <th colspan="4">Big Axe Clutch</th>
