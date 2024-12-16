@@ -1,6 +1,5 @@
-import puppeteer from 'puppeteer';
-
 import { database } from '../../lib/database.js';
+import { headless } from '../../lib/browser.js';
 import {
   seedProfiles,
   discoverMatches,
@@ -13,7 +12,7 @@ import {
 
 const start = Date.now();
 const mainDb = database.main();
-const browser = await puppeteer.launch();
+const browser = await headless();
 const page = await browser.newPage();
 
 await seedProfiles(mainDb, page);
