@@ -92,36 +92,43 @@ const fetchMatchData = async (page, matchId) => {
   ]);
 
   const rawMatch = await apiResponse.json();
-  const competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({ profileId, name, forfeit, throws: [] }));
+  const competitors = rawMatch.players.map(({ id: profileId, name, forfeit }) => ({
+    profileId,
+    name,
+    forfeit,
+    invalid: false,
+    throws: []
+  }));
 
   if (rawMatch.rounds.length === 0) {
     return { unplayed: true, invalid: false, competitors };
   }
 
-  if (![3, 4].includes(rawMatch.rounds.length)) {
-    return { unplayed: false, invalid: true, competitors };
-  }
+  // if (![3, 4].includes(rawMatch.rounds.length)) {
+  //   return { unplayed: false, invalid: true, competitors };
+  // }
 
-  if (rawMatch.rounds.slice(0, 3).some(x => x.games.some(y => y.Axes.length !== 5))) {
-    return { unplayed: false, invalid: true, competitors };
-  }
+  for (const competitor of competitors.filter(x => !x.forfeit)) {
+    const rounds = rawMatch.rounds.flatMap(x => x.games).filter(x => x.player === competitor.profileId);
+    const invalidRoundCount = ![3, 4].includes(rounds.length);
+    const invalidThrowCount = rounds.slice(0, 3).some(x => x.Axes.length !== 5);
 
-  for (const { order: roundId, player: profileId, Axes } of rawMatch.rounds.flatMap(x => x.games)) {
-    const competitor = competitors.find(x => x.profileId === profileId);
-
-    if (competitor.forfeit) {
-      continue;
+    if (invalidRoundCount || invalidThrowCount) {
+      competitor.invalid = true;
+      break;
     }
 
-    for (const { order: throwId, score, clutchCalled } of Axes) {
-      competitor.throws.push({
-        matchId,
-        roundId,
-        throwId,
-        tool: roundId === 4 ? TOOL_BIG_AXE : TOOL_HATCHET,
-        target: clutchCalled ? TARGET_CLUTCH : TARGET_BULLSEYE,
-        score
-      });
+    for (const { order: roundId, player: profileId, Axes } of rounds) {
+      for (const { order: throwId, score, clutchCalled } of Axes) {
+        competitor.throws.push({
+          matchId,
+          roundId,
+          throwId,
+          tool: roundId === 4 ? TOOL_BIG_AXE : TOOL_HATCHET,
+          target: clutchCalled ? TARGET_CLUTCH : TARGET_BULLSEYE,
+          score
+        });
+      }
     }
   }
 
@@ -269,7 +276,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
     console.log(`Processing match ${matchId} (${processed + 1} / ${count})...`);
 
     try {
-      const { unplayed, invalid, competitors } = await fetchMatchData(page, matchId);
+      const { unplayed, competitors } = await fetchMatchData(page, matchId);
 
       if (unplayed) {
         console.log(`Match ${matchId} is unplayed and won't count toward the processing limit.`);
@@ -277,7 +284,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
         continue;
       }
 
-      for (const { profileId, forfeit, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
+      for (const { profileId, forfeit, invalid, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
         const profileDb = database.profile(profileId);
 
         if (invalid) {
