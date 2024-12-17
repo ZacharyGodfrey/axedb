@@ -51,10 +51,10 @@ description: "Compare competitors side-by-side."
       <tr>
         <th colspan="4">Hatchet Bullseye</th>
       </tr>
-      <tr x-data="{ l: left.stats?.hatchet?.bullseye?.scorePerAxe, r: right.stats?.hatchet?.bullseye?.scorePerAxe }">
-        <td x-text="l" x-bind:class="l > r ? 'win' : ''"></td>
+      <tr>
+        <td x-text="left.stats?.hatchet?.bullseye?.scorePerAxe" x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe > right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
         <th colspan="2">Score Per Axe</th>
-        <td x-text="r" x-bind:class="l < r ? 'win' : ''"></td>
+        <td x-text="right.stats?.hatchet?.bullseye?.scorePerAxe" x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe < right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.bullseye?.percent[5]"></td>
