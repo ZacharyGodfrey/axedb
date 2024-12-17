@@ -164,9 +164,9 @@ description: "Compare competitors side-by-side."
         <td x-text="right.stats?.bigAxe?.bullseye?.count[0]"></td>
       </tr>
       <tr>
-        <td x-text="left.stats?.bigAxe?.hatchet?.attempts"></td>
+        <td x-text="left.stats?.bigAxe?.bullseye?.attempts"></td>
         <th colspan="2">Attempts</th>
-        <td x-text="right.stats?.bigAxe?.hatchet?.attempts"></td>
+        <td x-text="right.stats?.bigAxe?.bullseye?.attempts"></td>
       </tr>
       <tr>
         <td colspan="4">&nbsp;</td>
