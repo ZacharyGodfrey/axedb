@@ -104,10 +104,6 @@ const fetchMatchData = async (page, matchId) => {
     return { unplayed: true, invalid: false, competitors };
   }
 
-  // if (![3, 4].includes(rawMatch.rounds.length)) {
-  //   return { unplayed: false, invalid: true, competitors };
-  // }
-
   for (const competitor of competitors.filter(x => !x.forfeit)) {
     const rounds = rawMatch.rounds.flatMap(x => x.games).filter(x => x.player === competitor.profileId);
     const invalidRoundCount = ![3, 4].includes(rounds.length);
@@ -115,7 +111,7 @@ const fetchMatchData = async (page, matchId) => {
 
     if (invalidRoundCount || invalidThrowCount) {
       competitor.invalid = true;
-      break;
+      continue;
     }
 
     for (const { order: roundId, player: profileId, Axes } of rounds) {
