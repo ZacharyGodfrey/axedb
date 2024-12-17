@@ -13,6 +13,7 @@ const TIMEOUT = 2000;
 
 const ALPHA_PROFILES = [
   1207260, // Me
+  1051409, // "Hollowpoint", Micah
   1055745, // "Sexy Calves", Southeast Regional Champion 2024
   1008079, // "Yggdraskill", Jay
   1008078, // "Fletch", Sheldon
