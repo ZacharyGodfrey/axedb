@@ -104,18 +104,18 @@ description: "Compare competitors side-by-side."
             x-bind:class="left.stats?.hatchet?.clutch?.scorePerAxe < right.stats?.hatchet?.clutch?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
-        <td x-text="left.stats?.hatchet?.clutch?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] > right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
-        <th colspan="2">Touch Clutch %</th>
-        <td x-text="right.stats?.hatchet?.clutch?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] < right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
-      </tr>
-      <tr>
         <td x-text="left.stats?.hatchet?.clutch?.percent[7]"
             x-bind:class="left.stats?.hatchet?.clutch?.percent[7] > right.stats?.hatchet?.clutch?.percent[7] ? 'win' : ''"></td>
         <th colspan="2">Premier Clutch %</th>
         <td x-text="right.stats?.hatchet?.clutch?.percent[7]"
             x-bind:class="left.stats?.hatchet?.clutch?.percent[7] < right.stats?.hatchet?.clutch?.percent[7] ? 'win' : ''"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.hatchet?.clutch?.percent[5]"
+            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] > right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
+        <th colspan="2">Touch Clutch %</th>
+        <td x-text="right.stats?.hatchet?.clutch?.percent[5]"
+            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] < right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.clutch?.count[7]"></td>
@@ -196,18 +196,18 @@ description: "Compare competitors side-by-side."
             x-bind:class="left.stats?.bigAxe?.clutch?.scorePerAxe < right.stats?.bigAxe?.clutch?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
-        <td x-text="left.stats?.bigAxe?.clutch?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] > right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
-        <th colspan="2">Touch Clutch %</th>
-        <td x-text="right.stats?.bigAxe?.clutch?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] < right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
-      </tr>
-      <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.percent[7]"
             x-bind:class="left.stats?.bigAxe?.clutch?.percent[7] > right.stats?.bigAxe?.clutch?.percent[7] ? 'win' : ''"></td>
         <th colspan="2">Premier Clutch %</th>
         <td x-text="right.stats?.bigAxe?.clutch?.percent[7]"
             x-bind:class="left.stats?.bigAxe?.clutch?.percent[7] < right.stats?.bigAxe?.clutch?.percent[7] ? 'win' : ''"></td>
+      </tr>
+      <tr>
+        <td x-text="left.stats?.bigAxe?.clutch?.percent[5]"
+            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] > right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
+        <th colspan="2">Touch Clutch %</th>
+        <td x-text="right.stats?.bigAxe?.clutch?.percent[5]"
+            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] < right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.count[7]"></td>
