@@ -250,6 +250,6 @@ section)
 
 <style>
   td.win {
-    background: var(--highlight);
+    background: hsl(85 30% 60%);
   }
 </style>
