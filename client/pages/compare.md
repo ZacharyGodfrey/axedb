@@ -52,9 +52,11 @@ description: "Compare competitors side-by-side."
         <th colspan="4">Hatchet Bullseye</th>
       </tr>
       <tr>
-        <td x-text="left.stats?.hatchet?.bullseye?.scorePerAxe" x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe > right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
+        <td x-text="left.stats?.hatchet?.bullseye?.scorePerAxe"
+            x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe > right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
         <th colspan="2">Score Per Axe</th>
-        <td x-text="right.stats?.hatchet?.bullseye?.scorePerAxe" x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe < right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
+        <td x-text="right.stats?.hatchet?.bullseye?.scorePerAxe"
+            x-bind:class="left.stats?.hatchet?.bullseye?.scorePerAxe < right.stats?.hatchet?.bullseye?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.bullseye?.percent[5]"></td>
@@ -93,9 +95,11 @@ description: "Compare competitors side-by-side."
         <th colspan="4">Hatchet Clutch</th>
       </tr>
       <tr>
-        <td x-text="left.stats?.hatchet?.clutch?.scorePerAxe"></td>
+        <td x-text="left.stats?.hatchet?.clutch?.scorePerAxe"
+            x-bind:class="left.stats?.hatchet?.clutch?.scorePerAxe > right.stats?.hatchet?.clutch?.scorePerAxe ? 'win' : ''"></td>
         <th colspan="2">Score Per Axe</th>
-        <td x-text="right.stats?.hatchet?.clutch?.scorePerAxe"></td>
+        <td x-text="right.stats?.hatchet?.clutch?.scorePerAxe"
+            x-bind:class="left.stats?.hatchet?.clutch?.scorePerAxe < right.stats?.hatchet?.clutch?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.clutch?.percent[5]"></td>
@@ -134,9 +138,11 @@ description: "Compare competitors side-by-side."
         <th colspan="4">Big Axe Bullseye</th>
       </tr>
       <tr>
-        <td x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"></td>
+        <td x-text="left.stats?.bigAxe?.bullseye?.scorePerAxe"
+            x-bind:class="left.stats?.bigAxe?.bullseye?.scorePerAxe > right.stats?.bigAxe?.bullseye?.scorePerAxe ? 'win' : ''"></td>
         <th colspan="2">Score Per Axe</th>
-        <td x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"></td>
+        <td x-text="right.stats?.bigAxe?.bullseye?.scorePerAxe"
+            x-bind:class="left.stats?.bigAxe?.bullseye?.scorePerAxe < right.stats?.bigAxe?.bullseye?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.bullseye?.percent[5]"></td>
@@ -175,9 +181,11 @@ description: "Compare competitors side-by-side."
         <th colspan="4">Big Axe Clutch</th>
       </tr>
       <tr>
-        <td x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"></td>
+        <td x-text="left.stats?.bigAxe?.clutch?.scorePerAxe"
+            x-bind:class="left.stats?.bigAxe?.clutch?.scorePerAxe > right.stats?.bigAxe?.clutch?.scorePerAxe ? 'win' : ''"></td>
         <th colspan="2">Score Per Axe</th>
-        <td x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"></td>
+        <td x-text="right.stats?.bigAxe?.clutch?.scorePerAxe"
+            x-bind:class="left.stats?.bigAxe?.clutch?.scorePerAxe < right.stats?.bigAxe?.clutch?.scorePerAxe ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.percent[5]"></td>
