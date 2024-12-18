@@ -60,10 +60,10 @@ description: "Compare competitors side-by-side."
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.bullseye?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.bullseye?.percent[5] > right.stats?.hatchet?.bullseye?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.bullseye?.percent[5]) > parseFloat(right.stats?.hatchet?.bullseye?.percent[5]) ? 'win' : ''"></td>
         <th colspan="2">Bullseye %</th>
         <td x-text="right.stats?.hatchet?.bullseye?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.bullseye?.percent[5] < right.stats?.hatchet?.bullseye?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.bullseye?.percent[5]) < parseFloat(right.stats?.hatchet?.bullseye?.percent[5]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.bullseye?.count[5]"></td>
@@ -105,17 +105,17 @@ description: "Compare competitors side-by-side."
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.clutch?.percent[7]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[7] > right.stats?.hatchet?.clutch?.percent[7] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.clutch?.percent[7]) > parseFloat(right.stats?.hatchet?.clutch?.percent[7]) ? 'win' : ''"></td>
         <th colspan="2">Premier Clutch %</th>
         <td x-text="right.stats?.hatchet?.clutch?.percent[7]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[7] < right.stats?.hatchet?.clutch?.percent[7] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.clutch?.percent[7]) < parseFloat(right.stats?.hatchet?.clutch?.percent[7]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.clutch?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] > right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.clutch?.percent[5]) > parseFloat(right.stats?.hatchet?.clutch?.percent[5]) ? 'win' : ''"></td>
         <th colspan="2">Touch Clutch %</th>
         <td x-text="right.stats?.hatchet?.clutch?.percent[5]"
-            x-bind:class="left.stats?.hatchet?.clutch?.percent[5] < right.stats?.hatchet?.clutch?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.hatchet?.clutch?.percent[5]) < parseFloat(right.stats?.hatchet?.clutch?.percent[5]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.hatchet?.clutch?.count[7]"></td>
@@ -152,10 +152,10 @@ description: "Compare competitors side-by-side."
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.bullseye?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.bullseye?.percent[5] > right.stats?.bigAxe?.bullseye?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.bullseye?.percent[5]) > parseFloat(right.stats?.bigAxe?.bullseye?.percent[5]) ? 'win' : ''"></td>
         <th colspan="2">Bullseye %</th>
         <td x-text="right.stats?.bigAxe?.bullseye?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.bullseye?.percent[5] < right.stats?.bigAxe?.bullseye?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.bullseye?.percent[5]) < parseFloat(right.stats?.bigAxe?.bullseye?.percent[5]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.bullseye?.count[5]"></td>
@@ -197,17 +197,17 @@ description: "Compare competitors side-by-side."
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.percent[7]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[7] > right.stats?.bigAxe?.clutch?.percent[7] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.clutch?.percent[7]) > parseFloat(right.stats?.bigAxe?.clutch?.percent[7]) ? 'win' : ''"></td>
         <th colspan="2">Premier Clutch %</th>
         <td x-text="right.stats?.bigAxe?.clutch?.percent[7]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[7] < right.stats?.bigAxe?.clutch?.percent[7] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.clutch?.percent[7]) < parseFloat(right.stats?.bigAxe?.clutch?.percent[7]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] > right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.clutch?.percent[5]) > parseFloat(right.stats?.bigAxe?.clutch?.percent[5]) ? 'win' : ''"></td>
         <th colspan="2">Touch Clutch %</th>
         <td x-text="right.stats?.bigAxe?.clutch?.percent[5]"
-            x-bind:class="left.stats?.bigAxe?.clutch?.percent[5] < right.stats?.bigAxe?.clutch?.percent[5] ? 'win' : ''"></td>
+            x-bind:class="parseFloat(left.stats?.bigAxe?.clutch?.percent[5]) < parseFloat(right.stats?.bigAxe?.clutch?.percent[5]) ? 'win' : ''"></td>
       </tr>
       <tr>
         <td x-text="left.stats?.bigAxe?.clutch?.count[7]"></td>
