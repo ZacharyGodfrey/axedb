@@ -10,6 +10,7 @@
     "process-matches": "node ./scrape/steps/process-matches.js",
     "get-images": "node ./scrape/steps/get-images.js",
     "reprocess-invalid-matches": "node ./scrape/steps/reprocess-invalid-matches.js",
+    "add-alpha-profile": "node ./scrape/steps/add-alpha-profile.js",
     "build": "node ./client/index.js",
     "serve": "npm run build && http-server dist -p 8080 -c-1 -e html",
     "watch": "nodemon --watch client --ext html,css,js,md --exec \"npm run build\"",
