@@ -1,4 +1,4 @@
-import { writeFile, listFiles } from '../lib/file.js';
+import { readFile, writeFile, listFiles } from '../lib/file.js';
 import { logError, buildStats, imageToWebp } from '../lib/miscellaneous.js';
 import { database } from '../lib/database.js';
 
@@ -11,18 +11,7 @@ const RULESET = 'IATF Premier';
 const REGIONS = ['Southeast'];
 const TIMEOUT = 2000;
 
-const ALPHA_PROFILES = [
-  1207260, // Me
-  1051409, // "Hollowpoint", Micah
-  1055745, // "Sexy Calves", Southeast Regional Champion 2024
-  1008079, // "Yggdraskill", Jay
-  1008078, // "Fletch", Sheldon
-  932968, // "Big Dan", Dan
-  1408913, // "Pain in the axe", Liam
-  1432962, // "Panda", Amanda
-  1385993, // "Ender", highest rating in the region
-  494365, // "Canexican", best in the world
-];
+export const ALPHA_PROFILES = JSON.parse(readFile('data/alpha-profiles.json'));
 
 // Helpers
 
