@@ -2,11 +2,11 @@ name: 06 Add Alpha Profile
 on:
   workflow_dispatch:
     inputs:
-    newProfileId:
-      description: 'New Profile ID'
-      required: true
-      default: 0
-      type: number
+      newProfileId:
+        description: 'New Profile ID'
+        required: true
+        default: 0
+        type: number
 jobs:
   add-alpha-profile:
     runs-on: ubuntu-latest
