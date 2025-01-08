@@ -41,6 +41,7 @@ section)
 
 section)
 
+<!--
 (section
 
 ## Weeks
@@ -52,6 +53,7 @@ section)
 {{/weeks}}
 
 section)
+-->
 
 {{/season}}
 
