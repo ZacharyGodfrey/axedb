@@ -27,7 +27,7 @@ writeComparePage(profiles);
 for (const profile of profiles) {
   const profileDb = database.profile(profile.profileId);
 
-  writeProfilePages(profileDb, profile);
+  writeProfilePages(mainDb, profileDb, profile);
 
   profileDb.close();
 }

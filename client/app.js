@@ -80,7 +80,7 @@ export const renderAndWritePage = (uri, template, data) => {
   writeFile(`dist/${uri}`, renderPage(template, data));
 };
 
-export const buildProfileData = (profileDb, profile) => {
+export const buildProfileData = (mainDb, profileDb, profile) => {
   const career = {
     profile,
     stats: buildStats(profileDb.rows(`
@@ -151,6 +151,11 @@ export const buildProfileData = (profileDb, profile) => {
       for (const mRow of matches) {
         const match = {
           ...mRow,
+          opponentName: mainDb.row(`
+            SELECT name
+            FROM profiles
+            WHERE profileId = :id
+          `, { id: mRow.opponentId }),
           // stats: buildStats(profileDb.rows(`
           //   SELECT tool, target, score
           //   FROM throws
@@ -213,11 +218,11 @@ export const writeComparePage = (profiles) => {
 
 const profileTemplate = readFile('client/templates/profile.md');
 
-export const writeProfilePages = (profileDb, profile) => {
+export const writeProfilePages = (mainDb, profileDb, profile) => {
   console.log(`Writing profile page for profile ${profile.profileId}...`);
 
   const uri = `${profile.profileId}.html`;
-  const data = buildProfileData(profileDb, profile);
+  const data = buildProfileData(mainDb, profileDb, profile);
 
   writeFile(`dist/${profile.profileId}.json`, JSON.stringify(data, null, 2));
 
