@@ -1,10 +1,14 @@
 <div class="card">
   <details>
     <summary>{{name}}</summary>
-    {{#stats}}
-    <div>
-      {{>stats}}
-    </div>
-    {{/stats}}
+
+    {{#matches}}
+    <p>
+      <span>{{profile.name}}</span>
+      <span>vs.</span>
+      <span>{{opponentName}}</span>
+    </p>
+    {{/matches}}
+
   </details>
 </div>
