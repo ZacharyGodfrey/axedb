@@ -137,30 +137,34 @@ export const buildProfileData = (profileDb, profile) => {
         matches: []
       };
 
+      const matches = profileDb.rows(`
+        SELECT matchId, opponentId
+        FROM matches
+        WHERE seasonId = :seasonId AND weekId = :weekId AND status = :status
+        ORDER BY matchId ASC
+      `, {
+        seasonId: sRow.seasonId,
+        weekId,
+        status: enums.matchStatus.processed
+      });
+
+      for (const mRow of matches) {
+        const match = {
+          ...mRow,
+          // stats: buildStats(profileDb.rows(`
+          //   SELECT tool, target, score
+          //   FROM throws
+          //   WHERE matchId = :matchId
+          //   ORDER BY matchId ASC, roundId ASC, throwId ASC
+          // `, { matchId: mRow.matchId })),
+          throws: []
+        };
+
+        week.matches.push(match);
+      }
+
       season.weeks.push(week);
     }
-
-    // const matches = profileDb.rows(`
-    //   SELECT matchId, opponentId
-    //   FROM matches
-    //   WHERE seasonId = :seasonId
-    //   ORDER BY matchId ASC
-    // `, { seasonId: sRow.seasonId });
-
-    // for (const mRow of matches) {
-    //   const match = {
-    //     ...mRow,
-    //     stats: buildStats(profileDb.rows(`
-    //       SELECT tool, target, score
-    //       FROM throws
-    //       WHERE matchId = :matchId
-    //       ORDER BY matchId ASC, roundId ASC, throwId ASC
-    //     `, { matchId: mRow.matchId })),
-    //     throws: []
-    //   };
-
-    //   season.matches.push(match);
-    // }
 
     career.seasons.push(season);
   }
