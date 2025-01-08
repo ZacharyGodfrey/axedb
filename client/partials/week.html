@@ -3,11 +3,21 @@
     <summary>{{name}}</summary>
 
     {{#matches}}
-    <p>
-      <span>{{profile.name}}</span>
-      <span>vs.</span>
-      <span>{{opponentName}}</span>
-    </p>
+
+    <div class="grid items-y-center">
+      <div>
+        <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
+      </div>
+
+      <div>
+        <p>
+          <span>{{profile.name}}</span>
+          <span>vs.</span>
+          <span>{{opponentName}}</span>
+        </p>
+      </div>
+    </div>
+
     {{/matches}}
 
   </details>
