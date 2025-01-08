@@ -47,14 +47,7 @@ section)
 
 {{#weeks}}
 
-<details>
-  <summary>{{name}}</summary>
-  {{#stats}}
-  <div>
-    {{>stats}}
-  </div>
-  {{/stats}}
-</details>
+{{>week}}
 
 {{/weeks}}
 
