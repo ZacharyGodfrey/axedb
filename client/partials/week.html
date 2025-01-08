@@ -2,9 +2,9 @@
   <details>
     <summary>{{name}}</summary>
 
-    {{#matches}}
+    <div class="grid auto-fill items-y-center">
+      {{#matches}}
 
-    <div class="grid fill-2 items-y-center">
       <div>
         <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
       </div>
@@ -16,9 +16,9 @@
           <span>{{opponentName}}</span>
         </p>
       </div>
-    </div>
 
-    {{/matches}}
+      {{/matches}}
+    </div>
 
   </details>
 </div>
