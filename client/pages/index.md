@@ -14,7 +14,7 @@ description: "Accuracy stats for IATF Premier axe throwing"
 
 (card
 
-AxeDB has analyzed **{{stats.throws}}** throws from **{{profiles.length}}** competitors so far.
+AxeDB has analyzed **{{stats.formatted.throws}}** throws from **{{stats.formatted.profiles}}** competitors so far.
 
 card)
 

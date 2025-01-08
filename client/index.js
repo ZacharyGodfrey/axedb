@@ -1,5 +1,6 @@
 import { database } from '../lib/database.js';
 import { readFile } from '../lib/file.js';
+import { formatNumber } from '../lib/miscellaneous.js'
 import { prepareDistFolder, writeSimplePages, writeComparePage, writeProfilePages } from './app.js';
 
 const start = Date.now();
@@ -13,6 +14,11 @@ const profiles = mainDb.rows(`
 `);
 
 prepareDistFolder();
+
+stats.formatted = {
+  throws: formatNumber(stats.throws),
+  profiles: formatNumber(profiles.length),
+};
 
 writeSimplePages({ stats, profiles });
 
