@@ -155,7 +155,7 @@ export const buildProfileData = (mainDb, profileDb, profile) => {
             SELECT name
             FROM profiles
             WHERE profileId = :id
-          `, { id: mRow.opponentId }),
+          `, { id: mRow.opponentId })?.name || 'Unknown',
           // stats: buildStats(profileDb.rows(`
           //   SELECT tool, target, score
           //   FROM throws
