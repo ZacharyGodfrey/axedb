@@ -2,6 +2,29 @@
   <details>
     <summary>{{name}}</summary>
 
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Opponent</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#matches}}
+
+        <tr>
+          <td>
+            <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
+          </td>
+
+          <td>{{opponentName}}</td>
+        </tr>
+
+        {{/matches}}
+      </tbody>
+    </table>
+
     <div class="grid fill-auto-fill items-y-center">
       {{#matches}}
 
