@@ -2,19 +2,23 @@
   <details>
     <summary>{{name}}</summary>
 
-    <div class="grid auto-fill items-y-center">
+    <div class="grid fill-auto-fill items-y-center">
       {{#matches}}
 
       <div>
         <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
+
+        <p class="text-center">{{opponentName}}</p>
       </div>
 
       <div>
-        <p>
-          <span>{{profile.name}}</span>
-          <span>vs.</span>
-          <span>{{opponentName}}</span>
-        </p>
+        <p class="text-center">vs.</p>
+      </div>
+
+      <div>
+        <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
+
+        <p class="text-center">{{profile.name}}</p>
       </div>
 
       {{/matches}}
