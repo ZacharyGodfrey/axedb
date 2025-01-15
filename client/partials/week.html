@@ -17,37 +17,16 @@
           <td>
             <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
 
-            <p>{{opponentName}}</p>
+            <p class="text-center">{{opponentName}}</p>
           </td>
 
-          <td>TBD</td>
+          <td>
+            <p class="text-center">TBD</p>
+          </td>
         </tr>
 
         {{/matches}}
       </tbody>
     </table>
-
-    <div class="grid fill-auto-fill items-y-center">
-      {{#matches}}
-
-      <div>
-        <img alt="{{profile.name}}" src="/{{profile.profileId}}.webp" class="size100">
-
-        <p class="text-center">{{profile.name}}</p>
-      </div>
-
-      <div>
-        <p class="text-center">vs.</p>
-      </div>
-
-      <div>
-        <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
-
-        <p class="text-center">{{opponentName}}</p>
-      </div>
-
-      {{/matches}}
-    </div>
-
   </details>
 </div>
