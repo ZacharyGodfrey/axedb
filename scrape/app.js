@@ -33,8 +33,6 @@ const isDesiredResponse = (method, status, url) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page) => {
-  // return ALPHA_PROFILES;
-
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
   await page.goto('https://axescores.com/players/collins-rating');
@@ -43,11 +41,10 @@ const fetchProfileIds = async (page) => {
   await page.waitForNetworkIdle();
 
   const { globalStandings } = await reactPageState(page, '#root');
-  // const regions = globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
   const profiles = globalStandings.standings.career;
 
-  return profiles.reduce((result, { id, active, regionIDs }) => {
-    if (active /*&& regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))*/) {
+  return profiles.reduce((result, { id, active }) => {
+    if (active) {
       result.push(id);
     }
 
