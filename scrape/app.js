@@ -8,7 +8,7 @@ const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
 
 const RULESET = 'IATF Premier';
-const REGIONS = ['Southeast'];
+// const REGIONS = ['Southeast'];
 const TIMEOUT = 2000;
 
 export const ALPHA_PROFILES = JSON.parse(readFile('data/alpha-profiles.json'));
@@ -33,7 +33,7 @@ const isDesiredResponse = (method, status, url) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page) => {
-  return ALPHA_PROFILES;
+  // return ALPHA_PROFILES;
 
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
@@ -43,11 +43,11 @@ const fetchProfileIds = async (page) => {
   await page.waitForNetworkIdle();
 
   const { globalStandings } = await reactPageState(page, '#root');
-  const regions = globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
+  // const regions = globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
   const profiles = globalStandings.standings.career;
 
   return profiles.reduce((result, { id, active, regionIDs }) => {
-    if (active && regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))) {
+    if (active /*&& regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))*/) {
       result.push(id);
     }
 
