@@ -227,7 +227,7 @@ export const discoverMatches = async (mainDb, page) => {
 
 export const processMatches = async (mainDb, page, limit = 0) => {
   console.log('**********');
-  logProgress(`Step: Process Matches (Limit ${limit})`);
+  console.log(`Step: Process Matches (Limit ${limit})`);
   console.log('**********');
 
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
