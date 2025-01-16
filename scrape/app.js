@@ -233,7 +233,6 @@ export const processMatches = async (mainDb, page, limit = 0) => {
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
   const profileIds = new Set();
   const matchIds = new Set();
-  const profileMatches = {};
 
   for (const { profileId } of profiles) {
     profileIds.add(profileId);
@@ -389,6 +388,13 @@ export const updateRankings = (mainDb) => {
 
     try {
       const profileDb = database.profile(profileId);
+
+      const { matchCount } = profileDb.row(`
+        SELECT COUNT(matchId) AS matchCount
+        FROM matches
+        WHERE status = :status
+      `, { status: database.enums.matchStatus.processed });
+
       const throws = profileDb.rows(`
         SELECT tool, target, score
         FROM throws
@@ -399,9 +405,9 @@ export const updateRankings = (mainDb) => {
 
       mainDb.run(`
         UPDATE profiles
-        SET scorePerAxe = :scorePerAxe
+        SET scorePerAxe = :scorePerAxe, matchCount = :matchCount
         WHERE profileId = :profileId
-      `, { profileId, scorePerAxe });
+      `, { profileId, scorePerAxe, matchCount });
 
       profileDb.close();
     } catch (error) {
@@ -411,27 +417,17 @@ export const updateRankings = (mainDb) => {
     i++;
   }
 
-  const orderedProfiles = [
-    ...mainDb.rows(`
-      SELECT profileId
-      FROM profiles
-      WHERE fetch = 1 AND scorePerAxe > 0
-      ORDER BY scorePerAxe DESC, profileId ASC
-    `),
-    ...mainDb.rows(`
-      SELECT profileId
-      FROM profiles
-      WHERE fetch = 1 AND scorePerAxe = 0
-      ORDER BY profileId ASC
-    `)
-  ];
-
-  orderedProfiles.forEach(({ profileId }, i) => {
+  mainDb.rows(`
+    SELECT profileId, matchCount
+    FROM profiles
+    WHERE fetch = 1
+    ORDER BY scorePerAxe DESC, profileId ASC
+  `).forEach(({ profileId, matchCount }, i) => {
     mainDb.run(`
       UPDATE profiles
       SET rank = :rank
       WHERE profileId = :profileId
-    `, { profileId, rank: i + 1 });
+    `, { profileId, rank: matchCount < 28 ? 0 : i + 1 });
   });
 
   console.log('Done.');
