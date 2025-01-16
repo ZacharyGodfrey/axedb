@@ -2,7 +2,7 @@ name: 03 Process Matches
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/10 * * * *" # Every 10 minutes
+    - cron: "0,20,40 * * * *" # Every 10 minutes
 jobs:
   process-matches:
     runs-on: ubuntu-latest
