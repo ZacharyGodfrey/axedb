@@ -1,19 +1,21 @@
-import { readFile, writeFile, listFiles } from '../lib/file.js';
+import { writeFile, listFiles } from '../lib/file.js';
 import { logError, buildStats, imageToWebp } from '../lib/miscellaneous.js';
 import { database } from '../lib/database.js';
 
 const TOOL_HATCHET = 'hatchet';
 const TOOL_BIG_AXE = 'big axe';
+
 const TARGET_BULLSEYE = 'bullseye';
 const TARGET_CLUTCH = 'clutch';
 
 const RULESET = 'IATF Premier';
-const REGIONS = ['Southeast'];
 const TIMEOUT = 2000;
 
-export const ALPHA_PROFILES = JSON.parse(readFile('data/alpha-profiles.json'));
-
 // Helpers
+
+const logProgress = (text) => {
+  // console.log(text);
+};
 
 const reactPageState = (page, selector) => {
   return page.$eval(selector, (element) => {
@@ -33,8 +35,6 @@ const isDesiredResponse = (method, status, url) => {
 // Retrieve Data
 
 const fetchProfileIds = async (page) => {
-  return ALPHA_PROFILES;
-
   const rulesetSelector = '.sc-TuwoP.gpWLXY:nth-child(1) select';
 
   await page.goto('https://axescores.com/players/collins-rating');
@@ -43,11 +43,10 @@ const fetchProfileIds = async (page) => {
   await page.waitForNetworkIdle();
 
   const { globalStandings } = await reactPageState(page, '#root');
-  const regions = globalStandings.regions.reduce((result, { ID, Name }) => ({ ...result, [Name]: ID }), {});
   const profiles = globalStandings.standings.career;
 
-  return profiles.reduce((result, { id, active, regionIDs }) => {
-    if (active && regionIDs && REGIONS.some(x => regionIDs.includes(regions[x]))) {
+  return profiles.reduce((result, { id, active }) => {
+    if (active) {
       result.push(id);
     }
 
@@ -131,12 +130,12 @@ export const seedProfiles = async (mainDb, page) => {
   try {
     const profileIds = await fetchProfileIds(page);
 
-    console.log(`Found ${profileIds.length} profiles.`);
+    logProgress(`Found ${profileIds.length} profiles.`);
 
     let i = 1;
 
     for (const profileId of profileIds) {
-      console.log(`Seeding profile ${profileId} (${i} / ${profileIds.length})...`);
+      logProgress(`Seeding profile ${profileId} (${i} / ${profileIds.length})...`);
 
       mainDb.run(`
         INSERT INTO profiles (profileId, fetch)
@@ -148,7 +147,7 @@ export const seedProfiles = async (mainDb, page) => {
       i++;
     }
   } catch (error) {
-    console.log(error);
+    logProgress(error);
   }
 
   console.log('Done.');
@@ -161,12 +160,12 @@ export const discoverMatches = async (mainDb, page) => {
 
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
 
-  console.log(`Found ${profiles.length} profiles.`);
+  logProgress(`Found ${profiles.length} profiles.`);
 
   let i = 1;
 
   for (const { profileId } of profiles) {
-    console.log(`Discovering matches for profile ${profileId} (${i} / ${profiles.length})...`);
+    logProgress(`Discovering matches for profile ${profileId} (${i} / ${profiles.length})...`);
 
     const profileDb = database.profile(profileId);
 
@@ -213,7 +212,7 @@ export const discoverMatches = async (mainDb, page) => {
         }
       }
 
-      console.log(`Found ${matchCount} matches across ${seasonCount} seasons.`);
+      logProgress(`Found ${matchCount} matches across ${seasonCount} seasons.`);
     } catch (error) {
       logError(error);
     }
@@ -234,7 +233,6 @@ export const processMatches = async (mainDb, page, limit = 0) => {
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
   const profileIds = new Set();
   const matchIds = new Set();
-  const profileMatches = {};
 
   for (const { profileId } of profiles) {
     profileIds.add(profileId);
@@ -255,17 +253,17 @@ export const processMatches = async (mainDb, page, limit = 0) => {
 
   let processed = 0, count = Math.min(matchIds.size, limit);
 
-  console.log(`Found ${matchIds.size} new matches.`);
-  console.log(`Processing ${count} of ${matchIds.size} new matches.`);
+  logProgress(`Found ${matchIds.size} new matches.`);
+  logProgress(`Processing ${count} of ${matchIds.size} new matches.`);
 
   for (const matchId of matchIds) {
-    console.log(`Processing match ${matchId} (${processed + 1} / ${count})...`);
+    logProgress(`Processing match ${matchId} (${processed + 1} / ${count})...`);
 
     try {
       const { unplayed, competitors } = await fetchMatchData(page, matchId);
 
       if (unplayed) {
-        console.log(`Match ${matchId} is unplayed and won't count toward the processing limit.`);
+        logProgress(`Match ${matchId} is unplayed and won't count toward the processing limit.`);
 
         continue;
       }
@@ -274,7 +272,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
         const profileDb = database.profile(profileId);
 
         if (invalid) {
-          console.log(`Match ${matchId} is invalid for profile ${profileId}.`);
+          logProgress(`Match ${matchId} is invalid for profile ${profileId}.`);
 
           profileDb.run(`
             UPDATE matches
@@ -286,7 +284,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
         }
 
         if (forfeit) {
-          console.log(`Match ${matchId} is forfeit for profile ${profileId}.`);
+          logProgress(`Match ${matchId} is forfeit for profile ${profileId}.`);
 
           profileDb.run(`
             UPDATE matches
@@ -345,7 +343,7 @@ export const resetInvalidMatches = (mainDb) => {
   let i = 1, total = 0;
 
   for (const { profileId } of profileIds) {
-    console.log(`Resetting invalid matches for profile ${profileId} (${i} / ${profileIds.length})...`);
+    logProgress(`Resetting invalid matches for profile ${profileId} (${i} / ${profileIds.length})...`);
 
     try {
       const profileDb = database.profile(profileId);
@@ -355,7 +353,7 @@ export const resetInvalidMatches = (mainDb) => {
         WHERE status = :status
       `, { status: database.enums.matchStatus.invalid });
 
-      console.log(`Marking ${count} invalid matches as new.`);
+      logProgress(`Marking ${count} invalid matches as new.`);
 
       total += count;
 
@@ -373,7 +371,7 @@ export const resetInvalidMatches = (mainDb) => {
     i++;
   }
 
-  console.log(`${total} invalid matches have been reset.`);
+  logProgress(`${total} invalid matches have been reset.`);
 };
 
 export const updateRankings = (mainDb) => {
@@ -386,10 +384,17 @@ export const updateRankings = (mainDb) => {
   let i = 1;
 
   for (const { profileId } of profileIds) {
-    console.log(`Calculating ranking criteria for profile ${profileId} (${i} / ${profileIds.length})...`);
+    logProgress(`Calculating ranking criteria for profile ${profileId} (${i} / ${profileIds.length})...`);
 
     try {
       const profileDb = database.profile(profileId);
+
+      const { matchCount } = profileDb.row(`
+        SELECT COUNT(matchId) AS matchCount
+        FROM matches
+        WHERE status = :status
+      `, { status: database.enums.matchStatus.processed });
+
       const throws = profileDb.rows(`
         SELECT tool, target, score
         FROM throws
@@ -400,9 +405,9 @@ export const updateRankings = (mainDb) => {
 
       mainDb.run(`
         UPDATE profiles
-        SET scorePerAxe = :scorePerAxe
+        SET scorePerAxe = :scorePerAxe, matchCount = :matchCount
         WHERE profileId = :profileId
-      `, { profileId, scorePerAxe });
+      `, { profileId, scorePerAxe, matchCount });
 
       profileDb.close();
     } catch (error) {
@@ -412,17 +417,25 @@ export const updateRankings = (mainDb) => {
     i++;
   }
 
-  mainDb.rows(`
-    SELECT profileId
-    FROM profiles
-    WHERE fetch = 1
-    ORDER BY scorePerAxe DESC, name ASC
-  `).forEach(({ profileId }, i) => {
+  [
+    ...mainDb.rows(`
+      SELECT profileId, matchCount
+      FROM profiles
+      WHERE fetch = 1 AND matchCount >= 28
+      ORDER BY scorePerAxe DESC, profileId ASC
+    `),
+    ...mainDb.rows(`
+      SELECT profileId, matchCount
+      FROM profiles
+      WHERE fetch = 1 AND matchCount < 28
+      ORDER BY scorePerAxe DESC, profileId ASC
+    `)
+  ].forEach(({ profileId, matchCount }, i) => {
     mainDb.run(`
       UPDATE profiles
       SET rank = :rank
       WHERE profileId = :profileId
-    `, { profileId, rank: i + 1 });
+    `, { profileId, rank: matchCount < 28 ? 0 : i + 1 });
   });
 
   console.log('Done.');
@@ -435,12 +448,12 @@ export const getImages = async (mainDb) => {
 
   const profileIds = mainDb.rows(`SELECT profileId FROM profiles`);
 
-  console.log(`Fetching ${profileIds.length} images.`);
+  logProgress(`Fetching ${profileIds.length} images.`);
 
   let i = 1;
 
   for (const { profileId } of profileIds) {
-    console.log(`Fetching image for profile ${profileId} (${i} / ${profileIds.length})...`);
+    logProgress(`Fetching image for profile ${profileId} (${i} / ${profileIds.length})...`);
 
     try {
       const image = await fetchProfileImage(profileId);
@@ -499,7 +512,7 @@ export const teardown = async (startTime, mainDb, browser) => {
   if (startTime) {
     const duration = Math.round((Date.now() - startTime) / 1000);
 
-    console.log(`Total Runtime: ${duration} seconds`);
+    logProgress(`Total Runtime: ${duration} seconds`);
   }
 
   console.log('Done.');

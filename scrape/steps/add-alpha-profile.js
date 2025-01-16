@@ -1,8 +1,7 @@
-import { writeFile } from '../../lib/file.js';
-import {
-  ALPHA_PROFILES,
-  teardown
-} from '../app.js';
+import { readFile, writeFile } from '../../lib/file.js';
+import { teardown } from '../app.js';
+
+const ALPHA_PROFILES = JSON.parse(readFile('data/alpha-profiles.json'));
 
 const start = Date.now();
 const parsed = parseInt(process.env.NEW_PROFILE_ID);

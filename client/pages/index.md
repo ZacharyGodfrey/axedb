@@ -24,28 +24,35 @@ section)
 
 ## Competitors
 
-{{#profiles}}
-
 (card
 
-<div class="grid stack auto-fill-auto items-y-center">
-  <div>
-    <a href="/{{profileId}}">
-      <img alt="{{name}}" src="/{{profileId}}.webp" class="size100">
-    </a>
-  </div>
-  <div>
-    <h3>
-      <a href="/{{profileId}}">{{name}}</a>
-    </h3>
-  </div>
-  <div>
-    <p>#<strong>{{rank}}</strong> | <strong>{{scorePerAxe}}</strong> <abbr title="Score Per Axe">SPA</abbr></p>
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>
+        <abbr title="Score Per Axe">SPA</abbr>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#profiles}}
+    <tr>
+      <td>
+        <span>#<strong>{{rank}}</strong></span>
+      </td>
+      <td>
+        <a href="/{{profileId}}">{{name}}</a>
+      </td>
+      <td>
+        <strong>{{scorePerAxe}}</strong>
+      </td>
+    </tr>
+    {{/profiles}}
+  </tbody>
+</table>
 
 card)
-
-{{/profiles}}
 
 section)
