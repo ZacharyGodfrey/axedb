@@ -47,3 +47,17 @@ The competitors are ranked by career overall Score Per Axe, so if you're trying 
 card)
 
 section)
+
+(section
+
+## Known Issues
+
+(card
+
+- Due to a bug in AxeScores, some matches contain an invalid number of rounds. In these cases, we do not analyze the throws from these matches so that our statistics are not inflated by invalid rounds.
+- Throws from matches where either competitor had to forfeit are not analyzed. We'd like to analyze the throws for the competitor who did not forfeit, but AxeScores does not expose this data.
+- Throws from tournaments and league playoffs are not analyzed. AxeScores does not expose the individual throws from these events.
+
+card)
+
+section)
