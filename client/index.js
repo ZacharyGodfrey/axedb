@@ -6,12 +6,20 @@ import { prepareDistFolder, writeSimplePages, writeComparePage, writeProfilePage
 const start = Date.now();
 const mainDb = database.main();
 const stats = JSON.parse(readFile('data/stats.json'));
-const profiles = mainDb.rows(`
-  SELECT *
-  FROM profiles
-  WHERE fetch = 1
-  ORDER BY rank ASC
-`);
+const profiles = [
+  ...mainDb.rows(`
+    SELECT *
+    FROM profiles
+    WHERE fetch = 1 AND rank > 0
+    ORDER BY rank ASC
+  `),
+  ...mainDb.rows(`
+    SELECT *
+    FROM profiles
+    WHERE fetch = 1 AND rank <= 0
+    ORDER BY rank ASC
+  `)
+];
 
 prepareDistFolder();
 

@@ -417,12 +417,20 @@ export const updateRankings = (mainDb) => {
     i++;
   }
 
-  mainDb.rows(`
-    SELECT profileId, matchCount
-    FROM profiles
-    WHERE fetch = 1
-    ORDER BY scorePerAxe DESC, profileId ASC
-  `).forEach(({ profileId, matchCount }, i) => {
+  [
+    ...mainDb.rows(`
+      SELECT profileId, matchCount
+      FROM profiles
+      WHERE fetch = 1 AND matchCount >= 28
+      ORDER BY scorePerAxe DESC, profileId ASC
+    `),
+    ...mainDb.rows(`
+      SELECT profileId, matchCount
+      FROM profiles
+      WHERE fetch = 1 AND matchCount < 28
+      ORDER BY scorePerAxe DESC, profileId ASC
+    `)
+  ].forEach(({ profileId, matchCount }, i) => {
     mainDb.run(`
       UPDATE profiles
       SET rank = :rank
