@@ -1,4 +1,4 @@
-import { readFile, writeFile, listFiles } from '../lib/file.js';
+import { writeFile, listFiles } from '../lib/file.js';
 import { logError, buildStats, imageToWebp } from '../lib/miscellaneous.js';
 import { database } from '../lib/database.js';
 
