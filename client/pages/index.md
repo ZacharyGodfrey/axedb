@@ -31,21 +31,19 @@ section)
     <tr>
       <th>Rank</th>
       <th>Name</th>
-      <th>
-        <abbr title="Score Per Axe">SPA</abbr>
-      </th>
+      <th>Score Per Axe</th>
     </tr>
   </thead>
   <tbody>
     {{#profiles}}
     <tr>
-      <td>
-        <span>#<strong>{{rank}}</strong></span>
+      <td class="text-center">
+        <strong>{{rank}}</strong>
       </td>
       <td>
         <a href="/{{profileId}}">{{name}}</a>
       </td>
-      <td>
+      <td class="text-center">
         <strong>{{scorePerAxe}}</strong>
       </td>
     </tr>
