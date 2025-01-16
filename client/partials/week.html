@@ -2,13 +2,31 @@
   <details>
     <summary>{{name}}</summary>
 
-    {{#matches}}
-    <p>
-      <span>{{profile.name}}</span>
-      <span>vs.</span>
-      <span>{{opponentName}}</span>
-    </p>
-    {{/matches}}
+    <table>
+      <thead>
+        <tr>
+          <th>Opponent</th>
+          <th>Details</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        {{#matches}}
+
+        <tr>
+          <td>
+            <img alt="{{opponentName}}" src="/{{opponentId}}.webp" class="size100">
+
+            <p class="text-center">{{opponentName}}</p>
+          </td>
+
+          <td>
+            <p class="text-center">TBD</p>
+          </td>
+        </tr>
+
+        {{/matches}}
+      </tbody>
+    </table>
   </details>
 </div>
