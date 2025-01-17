@@ -16,8 +16,8 @@ const profiles = [
   ...mainDb.rows(`
     SELECT *
     FROM profiles
-    WHERE fetch = 1 AND rank <= 0
-    ORDER BY rank ASC
+    WHERE fetch = 1 AND rank = 0
+    ORDER BY scorePerAxe DESC
   `)
 ];
 
