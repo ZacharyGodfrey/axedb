@@ -19,7 +19,7 @@ await seedProfiles(mainDb, page);
 
 await discoverMatches(mainDb, page);
 
-await processMatches(mainDb, page, 500);
+await processMatches(mainDb, page, 1000);
 
 await updateRankings(mainDb);
 
