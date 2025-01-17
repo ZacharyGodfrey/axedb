@@ -7,7 +7,7 @@ const mainDb = database.main();
 const browser = await headless();
 const page = await browser.newPage();
 
-await processMatches(mainDb, page, 500);
+await processMatches(mainDb, page, 1000);
 
 updateRankings(mainDb);
 

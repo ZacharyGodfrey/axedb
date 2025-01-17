@@ -14,7 +14,7 @@ const TIMEOUT = 2000;
 // Helpers
 
 const logProgress = (text) => {
-  // console.log(text);
+  console.log(text);
 };
 
 const reactPageState = (page, selector) => {
