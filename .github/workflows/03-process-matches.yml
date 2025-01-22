@@ -1,8 +1,8 @@
 name: 03 Process Matches
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *" # Every hour
+  # schedule:
+    # - cron: "0 * * * *" # Every hour
 jobs:
   process-matches:
     runs-on: ubuntu-latest
