@@ -17,10 +17,12 @@ const logProgress = (text) => {
   console.log(text);
 };
 
-const reactPageState = (page, selector) => {
-  return page.$eval(selector, (element) => {
-    return element._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
-    // document.getElementById('root')._reactRootContainer._internalRoot.current.memoizedState.element.props.store.getState();
+const reactPageState = (page) => {
+  return page.evaluate(() => {
+    return document.getElementById('root')
+      ._reactRootContainer._internalRoot
+      .current.memoizedState.element.props
+      .store.getState();
   });
 };
 
@@ -42,7 +44,7 @@ const fetchProfileIds = async (page) => {
   await page.select(rulesetSelector, RULESET);
   await page.waitForNetworkIdle();
 
-  const { globalStandings } = await reactPageState(page, '#root');
+  const { globalStandings } = await reactPageState(page);
   const profiles = globalStandings.standings.career;
 
   return profiles.reduce((result, { id, active }) => {
@@ -66,14 +68,14 @@ const fetchPlayerData = async (page, profileId) => {
   await page.goto(`https://axescores.com/player/${profileId}`, { waitUntil: 'networkidle2' });
   await page.waitForNetworkIdle();
 
-  const state = await reactPageState(page, '#root');
+  const state = await reactPageState(page);
 
   return state.player.playerData;
 };
 
-const fetchMatchData = async (page, matchId) => {
-  const url = `https://axescores.com/player/1/${matchId}`;
-  const apiUrl = `https://api.axescores.com/match/${matchId}`;
+const fetchMatchData = async (page, matchId, urlProfileId) => {
+  const url = `https://axescores.com/player/${urlProfileId}/${matchId}`;
+  const apiUrl = `https://api.axescores.com/match/${matchId}/${urlProfileId}`;
 
   const [apiResponse] = await Promise.all([
     page.waitForResponse(isDesiredResponse('GET', 200, apiUrl), { timeout: TIMEOUT }),
@@ -88,6 +90,10 @@ const fetchMatchData = async (page, matchId) => {
     invalid: false,
     throws: []
   }));
+
+  if (competitors.some(x => x.forfeit)) {
+    return { unplayed: false, invalid: false, competitors };
+  }
 
   if (rawMatch.rounds.length === 0) {
     return { unplayed: true, invalid: false, competitors };
@@ -233,6 +239,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
   const profiles = mainDb.rows(`SELECT profileId FROM profiles WHERE fetch = 1`);
   const profileIds = new Set();
   const matchIds = new Set();
+  const matchProfiles = {}; // matchId => profileId
 
   for (const { profileId } of profiles) {
     profileIds.add(profileId);
@@ -246,6 +253,7 @@ export const processMatches = async (mainDb, page, limit = 0) => {
 
     for (const { matchId } of newMatches) {
       matchIds.add(matchId);
+      matchProfiles[matchId] = profileId;
     }
 
     profileDb.close();
@@ -257,10 +265,17 @@ export const processMatches = async (mainDb, page, limit = 0) => {
   logProgress(`Processing ${count} of ${matchIds.size} new matches.`);
 
   for (const matchId of matchIds) {
-    logProgress(`Processing match ${matchId} (${processed + 1} / ${count})...`);
+    const urlProfileId = matchProfiles[matchId];
+
+    logProgress(`Processing match ${matchId} with profile ${urlProfileId} (${processed + 1} / ${count})...`);
 
     try {
-      const { unplayed, competitors } = await fetchMatchData(page, matchId);
+      const { unplayed, competitors } = await fetchMatchData(page, matchId, urlProfileId).catch((error) => {
+        logProgress(`Failed to fetch match data, treating match as unplayed for now.`);
+        console.error(error);
+
+        return { unplayed: true, competitors: [] };
+      });
 
       if (unplayed) {
         logProgress(`Match ${matchId} is unplayed and won't count toward the processing limit.`);
@@ -271,24 +286,24 @@ export const processMatches = async (mainDb, page, limit = 0) => {
       for (const { profileId, forfeit, invalid, throws } of competitors.filter(x => profileIds.has(x.profileId))) {
         const profileDb = database.profile(profileId);
 
-        if (invalid) {
-          logProgress(`Match ${matchId} is invalid for profile ${profileId}.`);
-
-          profileDb.run(`
-            UPDATE matches
-            SET status = ${database.enums.matchStatus.invalid}
-            WHERE matchId = :matchId
-          `, { matchId });
-
-          continue;
-        }
-
         if (forfeit) {
           logProgress(`Match ${matchId} is forfeit for profile ${profileId}.`);
 
           profileDb.run(`
             UPDATE matches
             SET status = ${database.enums.matchStatus.processed}
+            WHERE matchId = :matchId
+          `, { matchId });
+
+          continue;
+        }
+
+        if (invalid || throws.length === 0) {
+          logProgress(`Match ${matchId} is invalid for profile ${profileId}.`);
+
+          profileDb.run(`
+            UPDATE matches
+            SET status = ${database.enums.matchStatus.invalid}
             WHERE matchId = :matchId
           `, { matchId });
 

@@ -1,5 +1,5 @@
 import { database } from '../../lib/database.js';
-import { headless } from '../../lib/browser.js';
+import { headless, userAgent } from '../../lib/browser.js';
 import {
   seedProfiles,
   discoverMatches,
@@ -14,6 +14,8 @@ const start = Date.now();
 const mainDb = database.main();
 const browser = await headless();
 const page = await browser.newPage();
+
+await page.setUserAgent(userAgent);
 
 await seedProfiles(mainDb, page);
 
