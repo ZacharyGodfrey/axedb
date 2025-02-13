@@ -1,0 +1,4219 @@
+{
+  "profile": {
+    "profileId": 210904,
+    "name": "Londers",
+    "fetch": 1,
+    "rank": 178,
+    "scorePerAxe": 4.01,
+    "matchCount": 160
+  },
+  "stats": {
+    "overall": {
+      "attempts": 2467,
+      "totalScore": 9893,
+      "scorePerAxe": 4.01
+    },
+    "hatchet": {
+      "overall": {
+        "attempts": 2400,
+        "totalScore": 9709,
+        "scorePerAxe": 4.05
+      },
+      "bullseye": {
+        "attempts": 1924,
+        "totalScore": 8668,
+        "scorePerAxe": 4.51,
+        "count": {
+          "0": 20,
+          "1": 1,
+          "3": 424,
+          "5": 1479
+        },
+        "percent": {
+          "0": "1.04",
+          "1": "0.05",
+          "3": "22.04",
+          "5": "76.87"
+        }
+      },
+      "clutch": {
+        "attempts": 476,
+        "totalScore": 1041,
+        "scorePerAxe": 2.19,
+        "count": {
+          "0": 307,
+          "5": 71,
+          "7": 98
+        },
+        "percent": {
+          "0": "64.50",
+          "5": "14.92",
+          "7": "20.59"
+        }
+      }
+    },
+    "bigAxe": {
+      "overall": {
+        "attempts": 67,
+        "totalScore": 184,
+        "scorePerAxe": 2.75
+      },
+      "bullseye": {
+        "attempts": 54,
+        "totalScore": 184,
+        "scorePerAxe": 3.41,
+        "count": {
+          "0": 2,
+          "1": 2,
+          "3": 34,
+          "5": 16
+        },
+        "percent": {
+          "0": "3.70",
+          "1": "3.70",
+          "3": "62.96",
+          "5": "29.63"
+        }
+      },
+      "clutch": {
+        "attempts": 13,
+        "totalScore": 0,
+        "scorePerAxe": 0,
+        "count": {
+          "0": 13,
+          "5": 0,
+          "7": 0
+        },
+        "percent": {
+          "0": "100.00",
+          "5": "0.00",
+          "7": "0.00"
+        }
+      }
+    }
+  },
+  "seasons": [
+    {
+      "seasonId": 267987,
+      "name": "BATL Pickering Thursday Black 2023 Season 1",
+      "year": 2023,
+      "stats": {
+        "overall": {
+          "attempts": 430,
+          "totalScore": 1693,
+          "scorePerAxe": 3.94
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 420,
+            "totalScore": 1670,
+            "scorePerAxe": 3.98
+          },
+          "bullseye": {
+            "attempts": 336,
+            "totalScore": 1551,
+            "scorePerAxe": 4.62,
+            "count": {
+              "0": 3,
+              "1": 0,
+              "3": 57,
+              "5": 276
+            },
+            "percent": {
+              "0": "0.89",
+              "1": "0.00",
+              "3": "16.96",
+              "5": "82.14"
+            }
+          },
+          "clutch": {
+            "attempts": 84,
+            "totalScore": 119,
+            "scorePerAxe": 1.42,
+            "count": {
+              "0": 67,
+              "5": 0,
+              "7": 17
+            },
+            "percent": {
+              "0": "79.76",
+              "5": "0.00",
+              "7": "20.24"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 10,
+            "totalScore": 23,
+            "scorePerAxe": 2.3
+          },
+          "bullseye": {
+            "attempts": 6,
+            "totalScore": 23,
+            "scorePerAxe": 3.83,
+            "count": {
+              "0": 1,
+              "1": 0,
+              "3": 1,
+              "5": 4
+            },
+            "percent": {
+              "0": "16.67",
+              "1": "0.00",
+              "3": "16.67",
+              "5": "66.67"
+            }
+          },
+          "clutch": {
+            "attempts": 4,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 4,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "100.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 1",
+          "stats": {
+            "overall": {
+              "attempts": 90,
+              "totalScore": 364,
+              "scorePerAxe": 4.04
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 364,
+                "scorePerAxe": 4.04
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 336,
+                "scorePerAxe": 4.67,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 12,
+                  "5": 60
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "16.67",
+                  "5": "83.33"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 28,
+                "scorePerAxe": 1.56,
+                "count": {
+                  "0": 14,
+                  "5": 0,
+                  "7": 4
+                },
+                "percent": {
+                  "0": "77.78",
+                  "5": "0.00",
+                  "7": "22.22"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10059873,
+              "opponentId": 219997,
+              "opponentName": "Dirty ol’ Bitch",
+              "throws": []
+            },
+            {
+              "matchId": 10059882,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 10059891,
+              "opponentId": 177749,
+              "opponentName": "Tom Soolery",
+              "throws": []
+            },
+            {
+              "matchId": 10059900,
+              "opponentId": 688825,
+              "opponentName": "Lady Tsunade 🍨",
+              "throws": []
+            },
+            {
+              "matchId": 10059962,
+              "opponentId": 577631,
+              "opponentName": "Half-Axe!",
+              "throws": []
+            },
+            {
+              "matchId": 10060081,
+              "opponentId": 177749,
+              "opponentName": "Tom Soolery",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 2",
+          "stats": {
+            "overall": {
+              "attempts": 76,
+              "totalScore": 292,
+              "scorePerAxe": 3.84
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 287,
+                "scorePerAxe": 3.83
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 280,
+                "scorePerAxe": 4.67,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 10,
+                  "5": 50
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "16.67",
+                  "5": "83.33"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 7,
+                "scorePerAxe": 0.47,
+                "count": {
+                  "0": 14,
+                  "5": 0,
+                  "7": 1
+                },
+                "percent": {
+                  "0": "93.33",
+                  "5": "0.00",
+                  "7": "6.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "100.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10162334,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 10162340,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            },
+            {
+              "matchId": 10162352,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            },
+            {
+              "matchId": 10162361,
+              "opponentId": 263571,
+              "opponentName": "Kuya 💦",
+              "throws": []
+            },
+            {
+              "matchId": 10162432,
+              "opponentId": 179122,
+              "opponentName": "Leafnut",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 91,
+              "totalScore": 353,
+              "scorePerAxe": 3.88
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 350,
+                "scorePerAxe": 3.89
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 336,
+                "scorePerAxe": 4.67,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 7,
+                  "5": 63
+                },
+                "percent": {
+                  "0": "2.78",
+                  "1": "0.00",
+                  "3": "9.72",
+                  "5": "87.50"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 14,
+                "scorePerAxe": 0.78,
+                "count": {
+                  "0": 16,
+                  "5": 0,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "88.89",
+                  "5": "0.00",
+                  "7": "11.11"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10162382,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            },
+            {
+              "matchId": 10162392,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 10162423,
+              "opponentId": 261305,
+              "opponentName": "Mumsie",
+              "throws": []
+            },
+            {
+              "matchId": 10162468,
+              "opponentId": 263573,
+              "opponentName": "Jed-I",
+              "throws": []
+            },
+            {
+              "matchId": 10162494,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 10162503,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 4",
+          "stats": {
+            "overall": {
+              "attempts": 66,
+              "totalScore": 261,
+              "scorePerAxe": 3.95
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 251,
+                "scorePerAxe": 4.18
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 230,
+                "scorePerAxe": 4.79,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 5,
+                  "5": 43
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "10.42",
+                  "5": "89.58"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 21,
+                "scorePerAxe": 1.75,
+                "count": {
+                  "0": 9,
+                  "5": 0,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "75.00",
+                  "5": "0.00",
+                  "7": "25.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 6,
+                "totalScore": 10,
+                "scorePerAxe": 1.67
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 10,
+                "scorePerAxe": 5,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 2
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "100.00"
+                }
+              },
+              "clutch": {
+                "attempts": 4,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 4,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "100.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10258947,
+              "opponentId": 245783,
+              "opponentName": "MOOOOOCH",
+              "throws": []
+            },
+            {
+              "matchId": 10258970,
+              "opponentId": 212830,
+              "opponentName": "Knotty Stephy 🐰",
+              "throws": []
+            },
+            {
+              "matchId": 10259002,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 10259019,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 5",
+          "stats": {
+            "overall": {
+              "attempts": 107,
+              "totalScore": 423,
+              "scorePerAxe": 3.95
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 105,
+                "totalScore": 418,
+                "scorePerAxe": 3.98
+              },
+              "bullseye": {
+                "attempts": 84,
+                "totalScore": 369,
+                "scorePerAxe": 4.39,
+                "count": {
+                  "0": 1,
+                  "1": 0,
+                  "3": 23,
+                  "5": 60
+                },
+                "percent": {
+                  "0": "1.19",
+                  "1": "0.00",
+                  "3": "27.38",
+                  "5": "71.43"
+                }
+              },
+              "clutch": {
+                "attempts": 21,
+                "totalScore": 49,
+                "scorePerAxe": 2.33,
+                "count": {
+                  "0": 14,
+                  "5": 0,
+                  "7": 7
+                },
+                "percent": {
+                  "0": "66.67",
+                  "5": "0.00",
+                  "7": "33.33"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 2,
+                "totalScore": 5,
+                "scorePerAxe": 2.5
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 5,
+                "scorePerAxe": 2.5,
+                "count": {
+                  "0": 1,
+                  "1": 0,
+                  "3": 0,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "50.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "50.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10258951,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 10258988,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 10259028,
+              "opponentId": 263571,
+              "opponentName": "Kuya 💦",
+              "throws": []
+            },
+            {
+              "matchId": 10259035,
+              "opponentId": 245783,
+              "opponentName": "MOOOOOCH",
+              "throws": []
+            },
+            {
+              "matchId": 10259045,
+              "opponentId": 688825,
+              "opponentName": "Lady Tsunade 🍨",
+              "throws": []
+            },
+            {
+              "matchId": 10259060,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            },
+            {
+              "matchId": 10259076,
+              "opponentId": 179122,
+              "opponentName": "Leafnut",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seasonId": 283761,
+      "name": "BATL Pickering Thursday Black 2023 Season 2",
+      "year": 2023,
+      "stats": {
+        "overall": {
+          "attempts": 441,
+          "totalScore": 1807,
+          "scorePerAxe": 4.1
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 420,
+            "totalScore": 1750,
+            "scorePerAxe": 4.17
+          },
+          "bullseye": {
+            "attempts": 336,
+            "totalScore": 1596,
+            "scorePerAxe": 4.75,
+            "count": {
+              "0": 0,
+              "1": 0,
+              "3": 42,
+              "5": 294
+            },
+            "percent": {
+              "0": "0.00",
+              "1": "0.00",
+              "3": "12.50",
+              "5": "87.50"
+            }
+          },
+          "clutch": {
+            "attempts": 84,
+            "totalScore": 154,
+            "scorePerAxe": 1.83,
+            "count": {
+              "0": 62,
+              "5": 0,
+              "7": 22
+            },
+            "percent": {
+              "0": "73.81",
+              "5": "0.00",
+              "7": "26.19"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 21,
+            "totalScore": 57,
+            "scorePerAxe": 2.71
+          },
+          "bullseye": {
+            "attempts": 15,
+            "totalScore": 57,
+            "scorePerAxe": 3.8,
+            "count": {
+              "0": 0,
+              "1": 0,
+              "3": 9,
+              "5": 6
+            },
+            "percent": {
+              "0": "0.00",
+              "1": "0.00",
+              "3": "60.00",
+              "5": "40.00"
+            }
+          },
+          "clutch": {
+            "attempts": 6,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 6,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "100.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 1",
+          "stats": {
+            "overall": {
+              "attempts": 93,
+              "totalScore": 383,
+              "scorePerAxe": 4.12
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 370,
+                "scorePerAxe": 4.11
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 342,
+                "scorePerAxe": 4.75,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 9,
+                  "5": 63
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "12.50",
+                  "5": "87.50"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 28,
+                "scorePerAxe": 1.56,
+                "count": {
+                  "0": 14,
+                  "5": 0,
+                  "7": 4
+                },
+                "percent": {
+                  "0": "77.78",
+                  "5": "0.00",
+                  "7": "22.22"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 3,
+                "totalScore": 13,
+                "scorePerAxe": 4.33
+              },
+              "bullseye": {
+                "attempts": 3,
+                "totalScore": 13,
+                "scorePerAxe": 4.33,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 2
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "33.33",
+                  "5": "66.67"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10422956,
+              "opponentId": 261305,
+              "opponentName": "Mumsie",
+              "throws": []
+            },
+            {
+              "matchId": 10422966,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 10422976,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            },
+            {
+              "matchId": 10422986,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            },
+            {
+              "matchId": 10423089,
+              "opponentId": 245783,
+              "opponentName": "MOOOOOCH",
+              "throws": []
+            },
+            {
+              "matchId": 10423149,
+              "opponentId": 688825,
+              "opponentName": "Lady Tsunade 🍨",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 2",
+          "stats": {
+            "overall": {
+              "attempts": 92,
+              "totalScore": 401,
+              "scorePerAxe": 4.36
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 393,
+                "scorePerAxe": 4.37
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 344,
+                "scorePerAxe": 4.78,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 8,
+                  "5": 64
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "11.11",
+                  "5": "88.89"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 49,
+                "scorePerAxe": 2.72,
+                "count": {
+                  "0": 11,
+                  "5": 0,
+                  "7": 7
+                },
+                "percent": {
+                  "0": "61.11",
+                  "5": "0.00",
+                  "7": "38.89"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 2,
+                "totalScore": 8,
+                "scorePerAxe": 4
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 8,
+                "scorePerAxe": 4,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "50.00",
+                  "5": "50.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10506919,
+              "opponentId": 311350,
+              "opponentName": "Sue the Great",
+              "throws": []
+            },
+            {
+              "matchId": 10506923,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 10506933,
+              "opponentId": 545,
+              "opponentName": "Jaye J",
+              "throws": []
+            },
+            {
+              "matchId": 10506942,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 10507011,
+              "opponentId": 545,
+              "opponentName": "Jaye J",
+              "throws": []
+            },
+            {
+              "matchId": 10507017,
+              "opponentId": 688825,
+              "opponentName": "Lady Tsunade 🍨",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 78,
+              "totalScore": 337,
+              "scorePerAxe": 4.32
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 328,
+                "scorePerAxe": 4.37
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 286,
+                "scorePerAxe": 4.77,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 7,
+                  "5": 53
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "11.67",
+                  "5": "88.33"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 42,
+                "scorePerAxe": 2.8,
+                "count": {
+                  "0": 9,
+                  "5": 0,
+                  "7": 6
+                },
+                "percent": {
+                  "0": "60.00",
+                  "5": "0.00",
+                  "7": "40.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 3,
+                "totalScore": 9,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 3,
+                "totalScore": 9,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 3,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10506951,
+              "opponentId": 577631,
+              "opponentName": "Half-Axe!",
+              "throws": []
+            },
+            {
+              "matchId": 10506965,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 10506983,
+              "opponentId": 179122,
+              "opponentName": "Leafnut",
+              "throws": []
+            },
+            {
+              "matchId": 10507033,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            },
+            {
+              "matchId": 10507050,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 4",
+          "stats": {
+            "overall": {
+              "attempts": 73,
+              "totalScore": 268,
+              "scorePerAxe": 3.67
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 241,
+                "scorePerAxe": 4.02
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 234,
+                "scorePerAxe": 4.88,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 3,
+                  "5": 45
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "6.25",
+                  "5": "93.75"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 7,
+                "scorePerAxe": 0.58,
+                "count": {
+                  "0": 11,
+                  "5": 0,
+                  "7": 1
+                },
+                "percent": {
+                  "0": "91.67",
+                  "5": "0.00",
+                  "7": "8.33"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 13,
+                "totalScore": 27,
+                "scorePerAxe": 2.08
+              },
+              "bullseye": {
+                "attempts": 7,
+                "totalScore": 27,
+                "scorePerAxe": 3.86,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 4,
+                  "5": 3
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "57.14",
+                  "5": "42.86"
+                }
+              },
+              "clutch": {
+                "attempts": 6,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 6,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "100.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10506911,
+              "opponentId": 179122,
+              "opponentName": "Leafnut",
+              "throws": []
+            },
+            {
+              "matchId": 10506991,
+              "opponentId": 311350,
+              "opponentName": "Sue the Great",
+              "throws": []
+            },
+            {
+              "matchId": 10507004,
+              "opponentId": 223814,
+              "opponentName": "DanG",
+              "throws": []
+            },
+            {
+              "matchId": 10507056,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 5",
+          "stats": {
+            "overall": {
+              "attempts": 75,
+              "totalScore": 302,
+              "scorePerAxe": 4.03
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 302,
+                "scorePerAxe": 4.03
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 274,
+                "scorePerAxe": 4.57,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 13,
+                  "5": 47
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "21.67",
+                  "5": "78.33"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 28,
+                "scorePerAxe": 1.87,
+                "count": {
+                  "0": 11,
+                  "5": 0,
+                  "7": 4
+                },
+                "percent": {
+                  "0": "73.33",
+                  "5": "0.00",
+                  "7": "26.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10506929,
+              "opponentId": 223814,
+              "opponentName": "DanG",
+              "throws": []
+            },
+            {
+              "matchId": 10506998,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 10507027,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 10507062,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 10507078,
+              "opponentId": 261305,
+              "opponentName": "Mumsie",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 6",
+          "stats": {
+            "overall": {
+              "attempts": 30,
+              "totalScore": 116,
+              "scorePerAxe": 3.87
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 30,
+                "totalScore": 116,
+                "scorePerAxe": 3.87
+              },
+              "bullseye": {
+                "attempts": 24,
+                "totalScore": 116,
+                "scorePerAxe": 4.83,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 2,
+                  "5": 22
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "8.33",
+                  "5": "91.67"
+                }
+              },
+              "clutch": {
+                "attempts": 6,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 6,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "100.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 10507037,
+              "opponentId": 577631,
+              "opponentName": "Half-Axe!",
+              "throws": []
+            },
+            {
+              "matchId": 10507072,
+              "opponentId": 245783,
+              "opponentName": "MOOOOOCH",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seasonId": 326301,
+      "name": "BATL Pickering Sunday Orange 2023 Marathon November",
+      "year": 2023,
+      "stats": {
+        "overall": {
+          "attempts": 432,
+          "totalScore": 1664,
+          "scorePerAxe": 3.85
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 420,
+            "totalScore": 1624,
+            "scorePerAxe": 3.87
+          },
+          "bullseye": {
+            "attempts": 340,
+            "totalScore": 1470,
+            "scorePerAxe": 4.32,
+            "count": {
+              "0": 4,
+              "1": 1,
+              "3": 103,
+              "5": 232
+            },
+            "percent": {
+              "0": "1.18",
+              "1": "0.29",
+              "3": "30.29",
+              "5": "68.24"
+            }
+          },
+          "clutch": {
+            "attempts": 80,
+            "totalScore": 154,
+            "scorePerAxe": 1.93,
+            "count": {
+              "0": 58,
+              "5": 0,
+              "7": 22
+            },
+            "percent": {
+              "0": "72.50",
+              "5": "0.00",
+              "7": "27.50"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 12,
+            "totalScore": 40,
+            "scorePerAxe": 3.33
+          },
+          "bullseye": {
+            "attempts": 12,
+            "totalScore": 40,
+            "scorePerAxe": 3.33,
+            "count": {
+              "0": 0,
+              "1": 0,
+              "3": 10,
+              "5": 2
+            },
+            "percent": {
+              "0": "0.00",
+              "1": "0.00",
+              "3": "83.33",
+              "5": "16.67"
+            }
+          },
+          "clutch": {
+            "attempts": 0,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 0,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "0.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 1",
+          "stats": {
+            "overall": {
+              "attempts": 76,
+              "totalScore": 304,
+              "scorePerAxe": 4
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 301,
+                "scorePerAxe": 4.01
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 266,
+                "scorePerAxe": 4.43,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 17,
+                  "5": 43
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "28.33",
+                  "5": "71.67"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 35,
+                "scorePerAxe": 2.33,
+                "count": {
+                  "0": 10,
+                  "5": 0,
+                  "7": 5
+                },
+                "percent": {
+                  "0": "66.67",
+                  "5": "0.00",
+                  "7": "33.33"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11759653,
+              "opponentId": 560364,
+              "opponentName": "Elmo ",
+              "throws": []
+            },
+            {
+              "matchId": 11759666,
+              "opponentId": 599183,
+              "opponentName": "Kirby",
+              "throws": []
+            },
+            {
+              "matchId": 11759682,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 11759693,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 11759709,
+              "opponentId": 212828,
+              "opponentName": "Bad Wolf",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 2",
+          "stats": {
+            "overall": {
+              "attempts": 67,
+              "totalScore": 230,
+              "scorePerAxe": 3.43
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 207,
+                "scorePerAxe": 3.45
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 207,
+                "scorePerAxe": 4.31,
+                "count": {
+                  "0": 1,
+                  "1": 0,
+                  "3": 14,
+                  "5": 33
+                },
+                "percent": {
+                  "0": "2.08",
+                  "1": "0.00",
+                  "3": "29.17",
+                  "5": "68.75"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 12,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "100.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 7,
+                "totalScore": 23,
+                "scorePerAxe": 3.29
+              },
+              "bullseye": {
+                "attempts": 7,
+                "totalScore": 23,
+                "scorePerAxe": 3.29,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 6,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "85.71",
+                  "5": "14.29"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11759732,
+              "opponentId": 250393,
+              "opponentName": "Elliott the Goat 🐐👈🏻",
+              "throws": []
+            },
+            {
+              "matchId": 11759738,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            },
+            {
+              "matchId": 11759759,
+              "opponentId": 694793,
+              "opponentName": "CARLOS",
+              "throws": []
+            },
+            {
+              "matchId": 11759765,
+              "opponentId": 214506,
+              "opponentName": "Fricken Newell",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 75,
+              "totalScore": 284,
+              "scorePerAxe": 3.79
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 284,
+                "scorePerAxe": 3.79
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 256,
+                "scorePerAxe": 4.27,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 17,
+                  "5": 41
+                },
+                "percent": {
+                  "0": "3.33",
+                  "1": "0.00",
+                  "3": "28.33",
+                  "5": "68.33"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 28,
+                "scorePerAxe": 1.87,
+                "count": {
+                  "0": 11,
+                  "5": 0,
+                  "7": 4
+                },
+                "percent": {
+                  "0": "73.33",
+                  "5": "0.00",
+                  "7": "26.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11759784,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11759794,
+              "opponentId": 185646,
+              "opponentName": "Dr. Mask ",
+              "throws": []
+            },
+            {
+              "matchId": 11759811,
+              "opponentId": 311334,
+              "opponentName": "Laura T🐯🦌",
+              "throws": []
+            },
+            {
+              "matchId": 11759835,
+              "opponentId": 1559917,
+              "opponentName": "I am Groot 🪴",
+              "throws": []
+            },
+            {
+              "matchId": 11759850,
+              "opponentId": 198065,
+              "opponentName": "Slapwak",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 4",
+          "stats": {
+            "overall": {
+              "attempts": 77,
+              "totalScore": 303,
+              "scorePerAxe": 3.94
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 297,
+                "scorePerAxe": 3.96
+              },
+              "bullseye": {
+                "attempts": 62,
+                "totalScore": 276,
+                "scorePerAxe": 4.45,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 17,
+                  "5": 45
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "27.42",
+                  "5": "72.58"
+                }
+              },
+              "clutch": {
+                "attempts": 13,
+                "totalScore": 21,
+                "scorePerAxe": 1.62,
+                "count": {
+                  "0": 10,
+                  "5": 0,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "76.92",
+                  "5": "0.00",
+                  "7": "23.08"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 2,
+                "totalScore": 6,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 6,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 2,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11759852,
+              "opponentId": 875568,
+              "opponentName": "WildClutch ",
+              "throws": []
+            },
+            {
+              "matchId": 11759868,
+              "opponentId": 1558239,
+              "opponentName": "Fancy Pants  👖",
+              "throws": []
+            },
+            {
+              "matchId": 11759881,
+              "opponentId": 219997,
+              "opponentName": "Dirty ol’ Bitch",
+              "throws": []
+            },
+            {
+              "matchId": 11759899,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11759912,
+              "opponentId": 578079,
+              "opponentName": "Treasure trail 💰☢️⚜️",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 5",
+          "stats": {
+            "overall": {
+              "attempts": 76,
+              "totalScore": 303,
+              "scorePerAxe": 3.99
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 298,
+                "scorePerAxe": 3.97
+              },
+              "bullseye": {
+                "attempts": 61,
+                "totalScore": 263,
+                "scorePerAxe": 4.31,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 21,
+                  "5": 40
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "34.43",
+                  "5": "65.57"
+                }
+              },
+              "clutch": {
+                "attempts": 14,
+                "totalScore": 35,
+                "scorePerAxe": 2.5,
+                "count": {
+                  "0": 9,
+                  "5": 0,
+                  "7": 5
+                },
+                "percent": {
+                  "0": "64.29",
+                  "5": "0.00",
+                  "7": "35.71"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "100.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11759932,
+              "opponentId": 577631,
+              "opponentName": "Half-Axe!",
+              "throws": []
+            },
+            {
+              "matchId": 11759941,
+              "opponentId": 1744127,
+              "opponentName": "Wonder Boy",
+              "throws": []
+            },
+            {
+              "matchId": 11759963,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 11759972,
+              "opponentId": 380917,
+              "opponentName": "Grumpyback 🐻🐻🐻",
+              "throws": []
+            },
+            {
+              "matchId": 11759982,
+              "opponentId": 328158,
+              "opponentName": "Panda 🐼🐼🐼",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 6",
+          "stats": {
+            "overall": {
+              "attempts": 61,
+              "totalScore": 240,
+              "scorePerAxe": 3.93
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 237,
+                "scorePerAxe": 3.95
+              },
+              "bullseye": {
+                "attempts": 49,
+                "totalScore": 202,
+                "scorePerAxe": 4.12,
+                "count": {
+                  "0": 1,
+                  "1": 1,
+                  "3": 17,
+                  "5": 30
+                },
+                "percent": {
+                  "0": "2.04",
+                  "1": "2.04",
+                  "3": "34.69",
+                  "5": "61.22"
+                }
+              },
+              "clutch": {
+                "attempts": 11,
+                "totalScore": 35,
+                "scorePerAxe": 3.18,
+                "count": {
+                  "0": 6,
+                  "5": 0,
+                  "7": 5
+                },
+                "percent": {
+                  "0": "54.55",
+                  "5": "0.00",
+                  "7": "45.45"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11760001,
+              "opponentId": 354720,
+              "opponentName": "On the Purrito Now",
+              "throws": []
+            },
+            {
+              "matchId": 11760013,
+              "opponentId": 1559047,
+              "opponentName": "MR. DELIGHTFUL",
+              "throws": []
+            },
+            {
+              "matchId": 11760032,
+              "opponentId": 302474,
+              "opponentName": "🚩I'm the Problem🚩",
+              "throws": []
+            },
+            {
+              "matchId": 11760046,
+              "opponentId": 212830,
+              "opponentName": "Knotty Stephy 🐰",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seasonId": 331029,
+      "name": "BATL Pickering Thursday Black 2023 Premier Season 5",
+      "year": 2023,
+      "stats": {
+        "overall": {
+          "attempts": 433,
+          "totalScore": 1594,
+          "scorePerAxe": 3.68
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 420,
+            "totalScore": 1560,
+            "scorePerAxe": 3.71
+          },
+          "bullseye": {
+            "attempts": 336,
+            "totalScore": 1476,
+            "scorePerAxe": 4.39,
+            "count": {
+              "0": 4,
+              "1": 0,
+              "3": 92,
+              "5": 240
+            },
+            "percent": {
+              "0": "1.19",
+              "1": "0.00",
+              "3": "27.38",
+              "5": "71.43"
+            }
+          },
+          "clutch": {
+            "attempts": 84,
+            "totalScore": 84,
+            "scorePerAxe": 1,
+            "count": {
+              "0": 72,
+              "5": 0,
+              "7": 12
+            },
+            "percent": {
+              "0": "85.71",
+              "5": "0.00",
+              "7": "14.29"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 13,
+            "totalScore": 34,
+            "scorePerAxe": 2.62
+          },
+          "bullseye": {
+            "attempts": 13,
+            "totalScore": 34,
+            "scorePerAxe": 2.62,
+            "count": {
+              "0": 1,
+              "1": 2,
+              "3": 9,
+              "5": 1
+            },
+            "percent": {
+              "0": "7.69",
+              "1": "15.38",
+              "3": "69.23",
+              "5": "7.69"
+            }
+          },
+          "clutch": {
+            "attempts": 0,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 0,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "0.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 1",
+          "stats": {
+            "overall": {
+              "attempts": 94,
+              "totalScore": 343,
+              "scorePerAxe": 3.65
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 336,
+                "scorePerAxe": 3.73
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 322,
+                "scorePerAxe": 4.47,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 19,
+                  "5": 53
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "26.39",
+                  "5": "73.61"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 14,
+                "scorePerAxe": 0.78,
+                "count": {
+                  "0": 16,
+                  "5": 0,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "88.89",
+                  "5": "0.00",
+                  "7": "11.11"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 4,
+                "totalScore": 7,
+                "scorePerAxe": 1.75
+              },
+              "bullseye": {
+                "attempts": 4,
+                "totalScore": 7,
+                "scorePerAxe": 1.75,
+                "count": {
+                  "0": 1,
+                  "1": 1,
+                  "3": 2,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "25.00",
+                  "1": "25.00",
+                  "3": "50.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11705842,
+              "opponentId": 212828,
+              "opponentName": "Bad Wolf",
+              "throws": []
+            },
+            {
+              "matchId": 11705852,
+              "opponentId": 185285,
+              "opponentName": "Kingworm 👑🐛",
+              "throws": []
+            },
+            {
+              "matchId": 11705862,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11705872,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 11705892,
+              "opponentId": 212830,
+              "opponentName": "Knotty Stephy 🐰",
+              "throws": []
+            },
+            {
+              "matchId": 11705971,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 126,
+              "totalScore": 457,
+              "scorePerAxe": 3.63
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 120,
+                "totalScore": 441,
+                "scorePerAxe": 3.68
+              },
+              "bullseye": {
+                "attempts": 96,
+                "totalScore": 427,
+                "scorePerAxe": 4.45,
+                "count": {
+                  "0": 1,
+                  "1": 0,
+                  "3": 24,
+                  "5": 71
+                },
+                "percent": {
+                  "0": "1.04",
+                  "1": "0.00",
+                  "3": "25.00",
+                  "5": "73.96"
+                }
+              },
+              "clutch": {
+                "attempts": 24,
+                "totalScore": 14,
+                "scorePerAxe": 0.58,
+                "count": {
+                  "0": 22,
+                  "5": 0,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "91.67",
+                  "5": "0.00",
+                  "7": "8.33"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 6,
+                "totalScore": 16,
+                "scorePerAxe": 2.67
+              },
+              "bullseye": {
+                "attempts": 6,
+                "totalScore": 16,
+                "scorePerAxe": 2.67,
+                "count": {
+                  "0": 0,
+                  "1": 1,
+                  "3": 5,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "16.67",
+                  "3": "83.33",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11705902,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11705912,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 11705922,
+              "opponentId": 1559862,
+              "opponentName": "I am Dan",
+              "throws": []
+            },
+            {
+              "matchId": 11705931,
+              "opponentId": 78439,
+              "opponentName": "Khaos 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11705939,
+              "opponentId": 875568,
+              "opponentName": "WildClutch ",
+              "throws": []
+            },
+            {
+              "matchId": 11705947,
+              "opponentId": 219997,
+              "opponentName": "Dirty ol’ Bitch",
+              "throws": []
+            },
+            {
+              "matchId": 11705963,
+              "opponentId": 311350,
+              "opponentName": "Sue the Great",
+              "throws": []
+            },
+            {
+              "matchId": 11705979,
+              "opponentId": 577631,
+              "opponentName": "Half-Axe!",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 4",
+          "stats": {
+            "overall": {
+              "attempts": 76,
+              "totalScore": 268,
+              "scorePerAxe": 3.53
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 75,
+                "totalScore": 263,
+                "scorePerAxe": 3.51
+              },
+              "bullseye": {
+                "attempts": 60,
+                "totalScore": 256,
+                "scorePerAxe": 4.27,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 22,
+                  "5": 38
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "36.67",
+                  "5": "63.33"
+                }
+              },
+              "clutch": {
+                "attempts": 15,
+                "totalScore": 7,
+                "scorePerAxe": 0.47,
+                "count": {
+                  "0": 14,
+                  "5": 0,
+                  "7": 1
+                },
+                "percent": {
+                  "0": "93.33",
+                  "5": "0.00",
+                  "7": "6.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 5,
+                "scorePerAxe": 5,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "100.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11705995,
+              "opponentId": 212828,
+              "opponentName": "Bad Wolf",
+              "throws": []
+            },
+            {
+              "matchId": 11706005,
+              "opponentId": 185285,
+              "opponentName": "Kingworm 👑🐛",
+              "throws": []
+            },
+            {
+              "matchId": 11706015,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11706025,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 11706055,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 6",
+          "stats": {
+            "overall": {
+              "attempts": 137,
+              "totalScore": 526,
+              "scorePerAxe": 3.84
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 135,
+                "totalScore": 520,
+                "scorePerAxe": 3.85
+              },
+              "bullseye": {
+                "attempts": 108,
+                "totalScore": 471,
+                "scorePerAxe": 4.36,
+                "count": {
+                  "0": 3,
+                  "1": 0,
+                  "3": 27,
+                  "5": 78
+                },
+                "percent": {
+                  "0": "2.78",
+                  "1": "0.00",
+                  "3": "25.00",
+                  "5": "72.22"
+                }
+              },
+              "clutch": {
+                "attempts": 27,
+                "totalScore": 49,
+                "scorePerAxe": 1.81,
+                "count": {
+                  "0": 20,
+                  "5": 0,
+                  "7": 7
+                },
+                "percent": {
+                  "0": "74.07",
+                  "5": "0.00",
+                  "7": "25.93"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 2,
+                "totalScore": 6,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 6,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 2,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 11705882,
+              "opponentId": 185481,
+              "opponentName": "Leslie Snipes",
+              "throws": []
+            },
+            {
+              "matchId": 11705955,
+              "opponentId": 263573,
+              "opponentName": "Jed-I",
+              "throws": []
+            },
+            {
+              "matchId": 11705987,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 11706035,
+              "opponentId": 185481,
+              "opponentName": "Leslie Snipes",
+              "throws": []
+            },
+            {
+              "matchId": 11706045,
+              "opponentId": 212830,
+              "opponentName": "Knotty Stephy 🐰",
+              "throws": []
+            },
+            {
+              "matchId": 11706065,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 11706075,
+              "opponentId": 1559862,
+              "opponentName": "I am Dan",
+              "throws": []
+            },
+            {
+              "matchId": 11706084,
+              "opponentId": 78439,
+              "opponentName": "Khaos 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 11706092,
+              "opponentId": 875568,
+              "opponentName": "WildClutch ",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seasonId": 357363,
+      "name": "BATL Pickering Thursday Black 2024 Premier Season 2",
+      "year": 2024,
+      "stats": {
+        "overall": {
+          "attempts": 368,
+          "totalScore": 1566,
+          "scorePerAxe": 4.26
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 360,
+            "totalScore": 1547,
+            "scorePerAxe": 4.3
+          },
+          "bullseye": {
+            "attempts": 288,
+            "totalScore": 1280,
+            "scorePerAxe": 4.44,
+            "count": {
+              "0": 4,
+              "1": 0,
+              "3": 70,
+              "5": 214
+            },
+            "percent": {
+              "0": "1.39",
+              "1": "0.00",
+              "3": "24.31",
+              "5": "74.31"
+            }
+          },
+          "clutch": {
+            "attempts": 72,
+            "totalScore": 267,
+            "scorePerAxe": 3.71,
+            "count": {
+              "0": 23,
+              "5": 38,
+              "7": 11
+            },
+            "percent": {
+              "0": "31.94",
+              "5": "52.78",
+              "7": "15.28"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 8,
+            "totalScore": 19,
+            "scorePerAxe": 2.38
+          },
+          "bullseye": {
+            "attempts": 5,
+            "totalScore": 19,
+            "scorePerAxe": 3.8,
+            "count": {
+              "0": 0,
+              "1": 0,
+              "3": 3,
+              "5": 2
+            },
+            "percent": {
+              "0": "0.00",
+              "1": "0.00",
+              "3": "60.00",
+              "5": "40.00"
+            }
+          },
+          "clutch": {
+            "attempts": 3,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 3,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "100.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 1",
+          "stats": {
+            "overall": {
+              "attempts": 60,
+              "totalScore": 245,
+              "scorePerAxe": 4.08
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 245,
+                "scorePerAxe": 4.08
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 206,
+                "scorePerAxe": 4.29,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 12,
+                  "5": 34
+                },
+                "percent": {
+                  "0": "4.17",
+                  "1": "0.00",
+                  "3": "25.00",
+                  "5": "70.83"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 39,
+                "scorePerAxe": 3.25,
+                "count": {
+                  "0": 5,
+                  "5": 5,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "41.67",
+                  "5": "41.67",
+                  "7": "16.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12336050,
+              "opponentId": 875568,
+              "opponentName": "WildClutch ",
+              "throws": []
+            },
+            {
+              "matchId": 12336067,
+              "opponentId": 311334,
+              "opponentName": "Laura T🐯🦌",
+              "throws": []
+            },
+            {
+              "matchId": 12336076,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 12336108,
+              "opponentId": 1559862,
+              "opponentName": "I am Dan",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 2",
+          "stats": {
+            "overall": {
+              "attempts": 60,
+              "totalScore": 269,
+              "scorePerAxe": 4.48
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 269,
+                "scorePerAxe": 4.48
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 218,
+                "scorePerAxe": 4.54,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 11,
+                  "5": 37
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "22.92",
+                  "5": "77.08"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 51,
+                "scorePerAxe": 4.25,
+                "count": {
+                  "0": 3,
+                  "5": 6,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "25.00",
+                  "5": "50.00",
+                  "7": "25.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12389327,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            },
+            {
+              "matchId": 12389337,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 12389358,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            },
+            {
+              "matchId": 12389464,
+              "opponentId": 1826029,
+              "opponentName": "Foxy Haggis",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 60,
+              "totalScore": 276,
+              "scorePerAxe": 4.6
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 276,
+                "scorePerAxe": 4.6
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 220,
+                "scorePerAxe": 4.58,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 10,
+                  "5": 38
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "20.83",
+                  "5": "79.17"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 56,
+                "scorePerAxe": 4.67,
+                "count": {
+                  "0": 2,
+                  "5": 7,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "16.67",
+                  "5": "58.33",
+                  "7": "25.00"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12389379,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 12389389,
+              "opponentId": 385095,
+              "opponentName": "Iron Moose",
+              "throws": []
+            },
+            {
+              "matchId": 12389398,
+              "opponentId": 219997,
+              "opponentName": "Dirty ol’ Bitch",
+              "throws": []
+            },
+            {
+              "matchId": 12389406,
+              "opponentId": 179122,
+              "opponentName": "Leafnut",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 5",
+          "stats": {
+            "overall": {
+              "attempts": 188,
+              "totalScore": 776,
+              "scorePerAxe": 4.13
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 180,
+                "totalScore": 757,
+                "scorePerAxe": 4.21
+              },
+              "bullseye": {
+                "attempts": 144,
+                "totalScore": 636,
+                "scorePerAxe": 4.42,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 37,
+                  "5": 105
+                },
+                "percent": {
+                  "0": "1.39",
+                  "1": "0.00",
+                  "3": "25.69",
+                  "5": "72.92"
+                }
+              },
+              "clutch": {
+                "attempts": 36,
+                "totalScore": 121,
+                "scorePerAxe": 3.36,
+                "count": {
+                  "0": 13,
+                  "5": 20,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "36.11",
+                  "5": "55.56",
+                  "7": "8.33"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 8,
+                "totalScore": 19,
+                "scorePerAxe": 2.38
+              },
+              "bullseye": {
+                "attempts": 5,
+                "totalScore": 19,
+                "scorePerAxe": 3.8,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 3,
+                  "5": 2
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "60.00",
+                  "5": "40.00"
+                }
+              },
+              "clutch": {
+                "attempts": 3,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 3,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "100.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12389348,
+              "opponentId": 261305,
+              "opponentName": "Mumsie",
+              "throws": []
+            },
+            {
+              "matchId": 12389369,
+              "opponentId": 212828,
+              "opponentName": "Bad Wolf",
+              "throws": []
+            },
+            {
+              "matchId": 12389415,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 12389423,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            },
+            {
+              "matchId": 12389440,
+              "opponentId": 186661,
+              "opponentName": "Tiff ⚡️",
+              "throws": []
+            },
+            {
+              "matchId": 12389455,
+              "opponentId": 263573,
+              "opponentName": "Jed-I",
+              "throws": []
+            },
+            {
+              "matchId": 12389459,
+              "opponentId": 389071,
+              "opponentName": "The Cat's Axe",
+              "throws": []
+            },
+            {
+              "matchId": 12389479,
+              "opponentId": 311334,
+              "opponentName": "Laura T🐯🦌",
+              "throws": []
+            },
+            {
+              "matchId": 12389490,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            },
+            {
+              "matchId": 12389501,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 12389512,
+              "opponentId": 261305,
+              "opponentName": "Mumsie",
+              "throws": []
+            },
+            {
+              "matchId": 12389523,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seasonId": 368137,
+      "name": "BATL Pickering Thursday Black 2024 Premier Season 3",
+      "year": 2024,
+      "stats": {
+        "overall": {
+          "attempts": 363,
+          "totalScore": 1569,
+          "scorePerAxe": 4.32
+        },
+        "hatchet": {
+          "overall": {
+            "attempts": 360,
+            "totalScore": 1558,
+            "scorePerAxe": 4.33
+          },
+          "bullseye": {
+            "attempts": 288,
+            "totalScore": 1295,
+            "scorePerAxe": 4.5,
+            "count": {
+              "0": 5,
+              "1": 0,
+              "3": 60,
+              "5": 223
+            },
+            "percent": {
+              "0": "1.74",
+              "1": "0.00",
+              "3": "20.83",
+              "5": "77.43"
+            }
+          },
+          "clutch": {
+            "attempts": 72,
+            "totalScore": 263,
+            "scorePerAxe": 3.65,
+            "count": {
+              "0": 25,
+              "5": 33,
+              "7": 14
+            },
+            "percent": {
+              "0": "34.72",
+              "5": "45.83",
+              "7": "19.44"
+            }
+          }
+        },
+        "bigAxe": {
+          "overall": {
+            "attempts": 3,
+            "totalScore": 11,
+            "scorePerAxe": 3.67
+          },
+          "bullseye": {
+            "attempts": 3,
+            "totalScore": 11,
+            "scorePerAxe": 3.67,
+            "count": {
+              "0": 0,
+              "1": 0,
+              "3": 2,
+              "5": 1
+            },
+            "percent": {
+              "0": "0.00",
+              "1": "0.00",
+              "3": "66.67",
+              "5": "33.33"
+            }
+          },
+          "clutch": {
+            "attempts": 0,
+            "totalScore": 0,
+            "scorePerAxe": 0,
+            "count": {
+              "0": 0,
+              "5": 0,
+              "7": 0
+            },
+            "percent": {
+              "0": "0.00",
+              "5": "0.00",
+              "7": "0.00"
+            }
+          }
+        }
+      },
+      "weeks": [
+        {
+          "name": "Week 2",
+          "stats": {
+            "overall": {
+              "attempts": 60,
+              "totalScore": 247,
+              "scorePerAxe": 4.12
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 60,
+                "totalScore": 247,
+                "scorePerAxe": 4.12
+              },
+              "bullseye": {
+                "attempts": 48,
+                "totalScore": 213,
+                "scorePerAxe": 4.44,
+                "count": {
+                  "0": 1,
+                  "1": 0,
+                  "3": 11,
+                  "5": 36
+                },
+                "percent": {
+                  "0": "2.08",
+                  "1": "0.00",
+                  "3": "22.92",
+                  "5": "75.00"
+                }
+              },
+              "clutch": {
+                "attempts": 12,
+                "totalScore": 34,
+                "scorePerAxe": 2.83,
+                "count": {
+                  "0": 6,
+                  "5": 4,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "50.00",
+                  "5": "33.33",
+                  "7": "16.67"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12705888,
+              "opponentId": 1041661,
+              "opponentName": "Huckabella",
+              "throws": []
+            },
+            {
+              "matchId": 12705906,
+              "opponentId": 185372,
+              "opponentName": "Dammit Kelly",
+              "throws": []
+            },
+            {
+              "matchId": 12705912,
+              "opponentId": 212830,
+              "opponentName": "Knotty Stephy 🐰",
+              "throws": []
+            },
+            {
+              "matchId": 12705929,
+              "opponentId": 178473,
+              "opponentName": "Martin Van Os",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 3",
+          "stats": {
+            "overall": {
+              "attempts": 91,
+              "totalScore": 406,
+              "scorePerAxe": 4.46
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 403,
+                "scorePerAxe": 4.48
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 314,
+                "scorePerAxe": 4.36,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 18,
+                  "5": 52
+                },
+                "percent": {
+                  "0": "2.78",
+                  "1": "0.00",
+                  "3": "25.00",
+                  "5": "72.22"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 89,
+                "scorePerAxe": 4.94,
+                "count": {
+                  "0": 3,
+                  "5": 8,
+                  "7": 7
+                },
+                "percent": {
+                  "0": "16.67",
+                  "5": "44.44",
+                  "7": "38.89"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3
+              },
+              "bullseye": {
+                "attempts": 1,
+                "totalScore": 3,
+                "scorePerAxe": 3,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "100.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12705945,
+              "opponentId": 184608,
+              "opponentName": "The other guy",
+              "throws": []
+            },
+            {
+              "matchId": 12705963,
+              "opponentId": 720167,
+              "opponentName": "Maverick",
+              "throws": []
+            },
+            {
+              "matchId": 12705971,
+              "opponentId": 261043,
+              "opponentName": "Baby Shark 🦈",
+              "throws": []
+            },
+            {
+              "matchId": 12705987,
+              "opponentId": 529600,
+              "opponentName": "Spud",
+              "throws": []
+            },
+            {
+              "matchId": 12705998,
+              "opponentId": 1538811,
+              "opponentName": "Above The Storm",
+              "throws": []
+            },
+            {
+              "matchId": 12706150,
+              "opponentId": 308404,
+              "opponentName": "🔥Spitfire🔥",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 4",
+          "stats": {
+            "overall": {
+              "attempts": 90,
+              "totalScore": 374,
+              "scorePerAxe": 4.16
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 90,
+                "totalScore": 374,
+                "scorePerAxe": 4.16
+              },
+              "bullseye": {
+                "attempts": 72,
+                "totalScore": 310,
+                "scorePerAxe": 4.31,
+                "count": {
+                  "0": 2,
+                  "1": 0,
+                  "3": 20,
+                  "5": 50
+                },
+                "percent": {
+                  "0": "2.78",
+                  "1": "0.00",
+                  "3": "27.78",
+                  "5": "69.44"
+                }
+              },
+              "clutch": {
+                "attempts": 18,
+                "totalScore": 64,
+                "scorePerAxe": 3.56,
+                "count": {
+                  "0": 6,
+                  "5": 10,
+                  "7": 2
+                },
+                "percent": {
+                  "0": "33.33",
+                  "5": "55.56",
+                  "7": "11.11"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0
+              },
+              "bullseye": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 0,
+                  "5": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "0.00",
+                  "5": "0.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12705949,
+              "opponentId": 1559862,
+              "opponentName": "I am Dan",
+              "throws": []
+            },
+            {
+              "matchId": 12706016,
+              "opponentId": 311350,
+              "opponentName": "Sue the Great",
+              "throws": []
+            },
+            {
+              "matchId": 12706029,
+              "opponentId": 212828,
+              "opponentName": "Bad Wolf",
+              "throws": []
+            },
+            {
+              "matchId": 12706043,
+              "opponentId": 385095,
+              "opponentName": "Iron Moose",
+              "throws": []
+            },
+            {
+              "matchId": 12706057,
+              "opponentId": 389071,
+              "opponentName": "The Cat's Axe",
+              "throws": []
+            },
+            {
+              "matchId": 12706072,
+              "opponentId": 1826029,
+              "opponentName": "Foxy Haggis",
+              "throws": []
+            }
+          ]
+        },
+        {
+          "name": "Week 6",
+          "stats": {
+            "overall": {
+              "attempts": 122,
+              "totalScore": 542,
+              "scorePerAxe": 4.44
+            },
+            "hatchet": {
+              "overall": {
+                "attempts": 120,
+                "totalScore": 534,
+                "scorePerAxe": 4.45
+              },
+              "bullseye": {
+                "attempts": 96,
+                "totalScore": 458,
+                "scorePerAxe": 4.77,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 11,
+                  "5": 85
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "11.46",
+                  "5": "88.54"
+                }
+              },
+              "clutch": {
+                "attempts": 24,
+                "totalScore": 76,
+                "scorePerAxe": 3.17,
+                "count": {
+                  "0": 10,
+                  "5": 11,
+                  "7": 3
+                },
+                "percent": {
+                  "0": "41.67",
+                  "5": "45.83",
+                  "7": "12.50"
+                }
+              }
+            },
+            "bigAxe": {
+              "overall": {
+                "attempts": 2,
+                "totalScore": 8,
+                "scorePerAxe": 4
+              },
+              "bullseye": {
+                "attempts": 2,
+                "totalScore": 8,
+                "scorePerAxe": 4,
+                "count": {
+                  "0": 0,
+                  "1": 0,
+                  "3": 1,
+                  "5": 1
+                },
+                "percent": {
+                  "0": "0.00",
+                  "1": "0.00",
+                  "3": "50.00",
+                  "5": "50.00"
+                }
+              },
+              "clutch": {
+                "attempts": 0,
+                "totalScore": 0,
+                "scorePerAxe": 0,
+                "count": {
+                  "0": 0,
+                  "5": 0,
+                  "7": 0
+                },
+                "percent": {
+                  "0": "0.00",
+                  "5": "0.00",
+                  "7": "0.00"
+                }
+              }
+            }
+          },
+          "matches": [
+            {
+              "matchId": 12706086,
+              "opponentId": 186501,
+              "opponentName": "BRIMSTONE 🔥",
+              "throws": []
+            },
+            {
+              "matchId": 12706103,
+              "opponentId": 263573,
+              "opponentName": "Jed-I",
+              "throws": []
+            },
+            {
+              "matchId": 12706117,
+              "opponentId": 385099,
+              "opponentName": "Uni-Potter 👓",
+              "throws": []
+            },
+            {
+              "matchId": 12706138,
+              "opponentId": 875568,
+              "opponentName": "WildClutch ",
+              "throws": []
+            },
+            {
+              "matchId": 12706170,
+              "opponentId": 308407,
+              "opponentName": "Matt B74",
+              "throws": []
+            },
+            {
+              "matchId": 12706180,
+              "opponentId": 220002,
+              "opponentName": "Miss Snazzei",
+              "throws": []
+            },
+            {
+              "matchId": 12706202,
+              "opponentId": 263533,
+              "opponentName": "The Graham 👀👀",
+              "throws": []
+            },
+            {
+              "matchId": 12706210,
+              "opponentId": 814961,
+              "opponentName": "Gary FCKN LazerEyes",
+              "throws": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

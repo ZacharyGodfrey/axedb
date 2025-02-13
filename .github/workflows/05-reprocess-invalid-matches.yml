@@ -11,6 +11,8 @@ jobs:
         run: npm install
       - name: Reprocess Invalid Matches
         run: npm run reprocess-invalid-matches
+      - name: Build Pages
+        run: npm run build
       - name: Commit
         run: |
           git config user.name "GitHub Actions Bot"
